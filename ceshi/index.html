@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>首页</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport"
+		content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/iconfont.css">
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script src="js/swiper.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/vue-resource.js"></script>
+	<script src="js/vconsole.min.js"></script>
+	<script src="https://webapi.amap.com/maps?v=1.4.15&key=d57fe33ae62a7b66f826edc351c983a2"></script>
+	<script src="js/shengshi.js"></script>
+	<script src="js/shengshi.js"></script>
+	<script src="js/jsencrypt.js"></script>
+	<script src="js/minganci.js"></script>
+	<script src="js/hsjidh.js"></script>
+	<script src="js/axiosjsqing.js"></script>
+	<script src="js/jgifdj.js"></script>
+	<script src="js/dengluyanzheng.js"></script>
+	<style type="text/css">
+		[v-cloak]{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<!-- 顶部 -->
+	<div id="app" v-cloak>
+		<div class="top">
+			<div class="dizhi" @click="xuanzediqu">
+				<div class="dizhi_text" style="text-align: center;" v-if="shi != '0'">{{shi}}</div>
+				<div class="dizhi_text" style="text-align: center;" v-else>全国</div>
+				<div class="dizhi_img"><span class="iconfont icon-buoumaotubiao23" style="font-size: 1.3rem;"></span></div>
+			</div>
+			<div class="sousuo" @click="sousuo">
+				<input type="text" name="" class="top_inp" placeholder="搜索职位" disabled>
+			</div>
+		</div>
+
+		<div class="nav_img">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" v-for="(lunbos,index) in lunbo">
+						<a :href="'https://'+lunbos.url" v-if="lunbos.url !== '#'">
+							<img :src="'../../'+lunbos.image">
+						</a>
+						<a :href="lunbos.url" v-else>
+							<img :src="'../../'+lunbos.image">
+						</a>
+					</div>
+				</div>
+				<!-- 如果需要分页器 -->
+				<div class="swiper-pagination" v-for="(lunbos,index) in lunbo"></div>
+			</div>
+		</div>
+		<div class="nav">
+			<div class="nav_1" @click="zhaogongzuo">
+				<div class="nav_1_img"><img src="img/gongzuo.png"></div>
+				<div class="nav_1_text">找工作</div>
+			</div>
+			<div class="nav_1" @click="zhaorencai">
+				<div class="nav_1_img"><img src="img/rencai.png"></div>
+				<div class="nav_1_text">招人才</div>
+			</div>
+			<div class="nav_1">
+				<div class="nav_1_img"><img src="img/jianli.png"></div>
+				<div class="nav_1_text">完善简历</div>
+			</div>
+			<div class="nav_1">
+				<div class="nav_1_img"><img src="img/zhiwei.png"></div>
+				<div class="nav_1_text">发布职位</div>
+			</div>
+		</div>
+		<div class="bodys">
+			<div class="bodys_nav">
+				<p class="bodys_nav_p bodys_nav_p_xz">推荐</p>
+			</div>
+			<div class="bodys_nr">
+				<div class="zhiwei1" v-for="(item,index) in users">
+					<div class="zhiwei tuiujian_zhiwei"  @click="huoquId(item.id,item.typeid)">
+						<div class="zhiwei_name">
+							<div class="zhiwei_name1">{{item.name}}</div>
+							<div class="zhiwei_money">{{item.salary}}</div>
+						</div>
+						<div class="zhiwei_xinxi">
+							<span v-if ="item.place != null">{{item.place}}</span>
+							<span v-if ="item.place != null">|</span>
+							<span v-if ="item.experience != null">{{item.experience}}</span>
+							<span v-if ="item.experience != null">|</span>
+							<span v-if ="item.education != null">{{item.education}}</span>
+							<span v-if ="item.education != null">|</span>
+							<span v-if ="item.type != null">{{item.type}}</span>
+						</div>
+						<div class="gongsi">
+							<div class="gongsi_img"><img :src="item.face"></div>
+							<div class="gongsi_xinxi">
+								<div class="gongsi_name">{{item.company_name}}<span>{{item.financing}}</span></div>
+								<div class="gongsi_zhaopin">
+									<span>{{item.uname}}</span>
+									<span>|</span>
+									<span>{{item.position}}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 底部 -->
+		<div class="bot">
+			<div class="bot1" @click="index">
+				<div class="bot1_img">
+					<img src="img/shouye2.png">
+				</div>
+				<div class="bot1_text yanse index">首页</div>
+			</div>
+			<div class="bot1" @click="zhaogongzuo">
+				<div class="bot1_img">
+					<img src="img/zhaogongzuo1.png">
+				</div>
+				<div class="bot1_text zhaogongzuo">找工作</div>
+			</div>
+			<div class="bot1" @click="zhaorencai">
+				<div class="bot1_img">
+					<img src="img/zhaorencai1.png">
+				</div>
+				<div class="bot1_text zhaorencai">招人才</div>
+			</div>
+			<div class="bot1" @click="wode">
+				<div class="bot1_img">
+					<img src="img/wode1.png">
+				</div>
+				<div class="bot1_text wode">我的</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="js/index.js"></script>
+<script type="text/javascript">
+	$('.bodys').height($('body').height() - 312)
+	$('.bodys_nr').height($('.bodys').height() - 40)
+</script>
+</html>

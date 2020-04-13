@@ -1,0 +1,287 @@
+*{
+	margin:0;
+	padding:0;
+	text-decoration: none;
+	list-style: none;
+}
+body,html{
+	width: 100%;
+	font-size: 12px;
+}
+#wodetoudi{
+	width: 100%;
+}
+
+.til{
+	width: 100%;
+	height:40px;
+	border-bottom: 1px solid #eee;
+	overflow:hidden;
+	background-color: #fff;
+	position: fixed;
+	left:0;
+	top:0;
+	z-index: 9999;
+}
+.til_point{
+	height: 100%;
+	display: flex;
+	align-items: center;	
+}
+.til_point img{
+	width: 60%;
+	height: 60%;
+}
+.til_text{
+	height: 100%;
+	font-size: 1.5rem;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	letter-spacing: 3px;
+}
+
+
+.nav{
+	width: 100%;
+	height: 40px;
+	overflow: hidden;
+	background-color: #fff;
+	position: fixed;
+	left:0;
+	top:40px;
+}
+.nav_text{
+	width: 25%;
+	height: 100%;
+	font-size: 1.2rem;
+	text-align: center;
+	float: left;
+}
+.nav_text1{
+	height: 80%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
+.spn1{
+	position: relative;
+}
+.spn2{
+	color:#fff;
+	background-color: #E60012;
+	display: block;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	font-size: 1rem;
+	line-height: 12px;
+	text-align: center;
+	position: absolute;
+	right: -10px;
+	top:-5px;
+}
+.nav_text_xz{
+	color:#FF7800; 
+}
+.line{
+	width: 15px;
+	height: 4px;
+	border-radius: 2px;
+	background-color: #FF7800;
+	margin:auto;
+}
+.bodys{
+	width: 100%;
+	background-color:rgb(244,244,244);
+	overflow-y: scroll;
+	padding-top: 80px;
+}
+.chakan{
+	width: 100%;
+	background-color: #fff;
+	border-bottom: 1px solid #eee;
+	border-top: 1px solid #eee;
+	color:#888;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.1rem;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.chakan_qingkuang{
+	width: 25%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.chakan_xz{
+	color:#FF7800;
+}
+
+
+
+
+.toudigongsi{
+	width: 100%;
+	height: 20%;
+	background-color: #f00;
+}
+
+.zhiwei1{
+	width: 100%;
+	background-color: #fff;
+	padding: 7px 10px;
+	border-bottom: 1px solid #eee;
+}
+.zw_name{
+	width: 100%;
+	overflow:hidden;
+	padding-top: 3px;
+}
+.zhiwei_name{
+	float: left;
+	font-size: 1.4rem;
+}
+.zhiwei_money{
+	float: right;
+	font-size: 1.4rem;
+	color:#FF7800;
+}
+.zw_yaoqiu{
+	width: 100%;
+	overflow:hidden;
+	padding-top: 3px;
+}
+.zhiwei_yaoqiu{
+	float: left;
+	font-size: 1.1rem;
+	color:#888;    
+	width: 80%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.zhiwei_yaoqiu span{
+	padding-right: 8px;
+}
+.zhiwei_time{
+	float: right;
+	font-size: 1rem;
+}
+.gongsi{
+	width: 100%;
+	overflow:hidden;
+	padding-top: 3px;
+}
+.gongsi_img{
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	overflow: hidden;
+	float: left;
+}
+.gongsi_img img{
+	width: 100%;
+	height: 100%;
+}
+.gongsi_text{
+	height: 100%;
+	float: left;
+	padding-left: 8px;
+}
+.gongsi_name{
+	width: 100%;
+	font-size: 1.4rem;
+}
+.gongsi_name span{
+	padding:1px 3px;
+	color:#fff;
+	background-color: #FF7800;
+	font-size: 1rem;
+	border-radius: 3px;
+}
+.gongsi_zp{
+	width: 100%;
+	overflow:hidden;
+}
+.zhaopin_ren{
+	height: 100%;
+	float: left;
+	font-size: 1.2rem;
+	color:#888;
+}
+.zhaopin_ren span{
+	padding-right:5px;
+}
+.zhaopin3_right{
+	float: right;
+	color:#008AFF;
+	padding:1px 5px;
+	border-radius: 3px;
+}
+.zhaopin4_right{
+	float: right;
+	background-color: #FF4A26;
+	color:#fff;
+	padding:1px 5px;
+	border-radius: 3px;
+}
+.zhaopin2_right{
+	float: right;
+	background-color: #A5A4A4;
+	color:#fff;
+	padding:1px 5px;
+	border-radius: 3px;
+}
+.zongjie{
+	width: 100%;
+	background-color: #fff;
+	padding:5px 10px;
+	border-bottom: 1px solid #eee;
+}
+.zongjie span{
+	display: block;
+	padding:1px 3px;
+}
+
+.huifu_tan1{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left:0;
+	top:0;
+	background-color: rgba(0,0,0,0.3);
+	display: none;
+}
+.huifu_tan2{
+	width: 100%;
+	height: 60px;
+	position: absolute;
+	left:0;
+	bottom: 0;
+	background-color: #fff;
+	display: none;
+	overflow: hidden;
+}
+.jieshou{
+	width: 33%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	float: left;
+}
+.jieshou span{
+	padding:5px 30px;
+	background-color: #FFEDD6;
+	color:#FF8F00;
+	border-radius: 5px;
+	border:1px solid #FF8F00;
+	font-size: 1.2rem
+}

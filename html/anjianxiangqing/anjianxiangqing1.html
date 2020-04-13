@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" /> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+</head>
+<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+<script src="../../js/jquery.js"></script>
+<script src="../../js/vue.js"></script>
+<script src="../../js/bootstrap.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="../../js/axios.js"></script>
+<style type="text/css">
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+        }
+        .navbar {
+            position: relative;
+            min-height: 50px;
+            margin-bottom: 0px;
+            border: 1px solid transparent;
+        }
+        .form-control {
+            width: 80%;
+        }
+        .form-control{
+            border: 0px solid #000;
+            border-right: 1px solid #d4d4d4;
+        }
+        .input-group-addon{
+            border: 0px solid #000;
+        }
+         input{
+            outline: none;
+         }
+           .header {
+            width: 100%;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header div:before,
+        .header div:after {
+            position: absolute;
+            background: #ccc;
+            content: "";
+            height: 1px;
+            top: 50%;
+            width: 100px;
+        }
+
+        .header div:before {
+            left: 10px;
+        }
+
+        .header div:after {
+            right: 10px;
+        }
+        [v-cloak] {
+            display: none !important;
+        }
+        .navbar {
+            border: 0px solid transparent;
+        }
+
+</style>
+<body style="background:#f2f2f2;height:100%;">
+  <div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
+    </div>
+
+<div id="app" v-cloak>
+   <nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+    <div class="container-fluid">
+        <div class="">
+            <a class="navbar-brand col-xs-3 col-sm-3 col-md-3 col-lg-3" style="color: #fff;text-align: left;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
+            <a class="navbar-brand col-xs-6 col-sm-6 col-md-6 col-lg-6" style="color: #fff;text-align: center;">案件详情</a>
+            <a class="navbar-brand col-xs-3 col-sm-3 col-md-3 col-lg-3" style="color: #fff;float: left;" ><div style="float: right;" v-if="isstow == 1" @click="sendGetByObj1">已收藏</div><div style="float: right;" v-if="isstow == 0"@click="sendGetByObj1">收藏
+            </div></a>
+        </div>
+    </div>
+</nav>
+<!-- 内容开始 -->
+
+    <div id="app" v-cloak>
+       <div v-html="xiangqing.body">{{xiangqing.body}}</div>
+    </div>
+</div>
+<!-- 内容结束 -->
+</body>
+    <script>
+
+window.onload=function(){
+    var widthLIN = localStorage.getItem("key"); 
+    document.getElementById('widthLI').style.height = widthLIN + 'px';
+    document.getElementById('daohanglan').style.top = widthLIN + 'px';
+    var dhlH = document.getElementById('daohanglan').offsetHeight;
+    document.getElementById('app').style.marginTop = Number(widthLIN) + Number(dhlH) + Number('50') +'px';
+    var search = "";
+    var name,value;
+    var str=location.href; //取得整个地址栏
+    var num=str.indexOf("?")
+    str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
+    var arr=str.split("&"); //各个参数放到数组里
+    for(var i=0;i < arr.length;i++){
+        num=arr[i].indexOf("=");
+        if(num>0){
+            name=arr[i].substring(0,num);
+            value=arr[i].substr(num+1);
+            this[name]=value;
+            search = value;
+        }
+    }
+    new Vue({
+        el:'#app',
+        data:{
+            users:"",
+            str: search,
+            getStr: null,
+            is:[],
+            url:"",
+            xiangqing:"",
+            isstow:""
+        },
+        mounted:function(){
+            this.sendGetByObj();
+        },
+        methods:{
+            sendGetByObj:function(){
+                this.getStr = this.str.toUpperCase();
+                var than = this;
+                this.$http.get('../../../index.php/Index/pjs/xq',{
+                    params:{
+                        act: 'app',
+                        aid: search,
+                    }
+                })
+                .then(function (response) {
+                    console.log(response.data.content);
+                    than.users = response.data.content.data;
+                    than.xiangqing = response.data.content.data;
+                    than.isstow = response.data.content.isstow
+                    console.log(response.data.content.data)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            sendGetByObj1:function(){
+                var than = this;
+                var users = than.users;
+                var isstows = than.isstow
+                console.log(users)
+                this.$http.get('../../../index.php/index/stow/insert',{
+                    params:{
+                        act: 'app',
+                        aid: users.aid,
+                        type:"caipan",
+                        pid:users.fid,
+                        title:users.title,
+                    }
+                })
+                .then(function (response) {
+                    console.log(response);
+                    isstows = response.data.isstow
+                    than.isstow = isstows;
+                    var tanchu = response.data.msg;
+                    var panduan = localStorage.getItem("key1");
+                    if (panduan =='1') {
+                        window.control.LogShow(tanchu)
+                    }else{
+                        window.webkit.messageHandlers.showMessage.postMessage(tanchu)
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            }
+        }
+    });
+}
+
+function Mback(){
+    window.history.go(-1);
+}
+    </script>
+</html>

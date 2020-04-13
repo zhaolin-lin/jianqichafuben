@@ -1,0 +1,115 @@
+*{
+	margin:0;
+	padding:0;
+	text-decoration: none;
+	list-style: none;
+}
+body,html{
+	width: 100%;
+	font-size: 12px;
+}
+#xiangmujingli{
+	width: 100%;
+}
+
+.til{
+	width: 100%;
+	height: 40px;
+	border-bottom: 1px solid #eee;
+	overflow:hidden;
+	background-color: #fff;
+	position: fixed;
+	left:0;
+	top:0;
+	z-index: 9999;
+}
+.til_point{
+	height: 100%;
+	display: flex;
+	align-items: center;	
+}
+.til_point img{
+	width: 60%;
+	height: 60%;
+}
+.til_text{
+	height: 100%;
+	font-size: 1.5rem;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	letter-spacing: 3px;
+}
+.bodys{
+	width: 100%;
+	padding-top: 40px;
+	overflow-y:scroll;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+.xiangmuname{
+	width: 100%;
+	border-bottom: 1px solid #eee;
+	overflow:hidden;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+.start{
+	width: 10px;
+	height: 10px;
+	float: left;
+}
+.start img{
+	width: 100%;
+	height: 100%;
+}
+.xm_name{
+	float: left;
+	margin-left:5px;
+	font-size: 1.3rem;
+}
+.xm_text{
+	float: right;
+	font-size: 1.2rem;
+}
+.xm_text img{
+	width: 7px;
+    margin-left: 6px;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */ 
+	color: #888;
+	text-align: right;
+}
+::-moz-placeholder { /* Firefox 19+ */  
+	color: #888;
+	text-align: right;
+}
+::-ms-input-placeholder { /* IE 10+ */ 
+ 	color: #888;
+	text-align: right;
+}
+::-moz-placeholder { /* Firefox 18- */ 
+ 	color: #888;
+	text-align: right;
+}
+.inp{
+	background-color: #fff;
+	border:0px;
+	outline: none;
+	text-align: right;
+}
+.baocun{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.5rem;
+	padding-top: 30px;
+	padding-bottom: 20px;
+}
+.baocun span{
+	padding:5px 35px;
+	background-color: #FF8F00;
+	color:#fff;
+	border-radius: 5px;
+}

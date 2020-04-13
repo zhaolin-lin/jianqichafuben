@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>不良信息</title>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <script src="../../js/jquery.js"></script>
+    <script src="../../js/vue.js"></script>
+    <script src="../../js/bootstrap.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <script src="../../js/axios.js"></script>
+</head>
+<style type="text/css">
+    html,
+    body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .xuanzhong {
+        width: 100%;
+        height: 35px;
+        background: #FD9700;
+        color: #fff;
+        border: 1px solid #FD9700;
+        border-radius: 5px;
+    }
+
+    .xuanzhongwei {
+        width: 100%;
+        height: 35px;
+        background: #fff;
+        color: #000;
+        border: 1px solid #fff;
+        border-radius: 5px;
+    }
+
+    .class1 {
+        height: 50px;
+        background: #f2f2f2;
+    }
+
+    .class2 {
+        height: 50px;
+        background: #fff;
+    }
+</style>
+
+<body style="background:#f2f2f2;height:100%;">
+    <div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
+    </div>
+    <nav class="navbar navbar-default" role="navigation"
+        style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+        <div class="container-fluid">
+            <div class="">
+                <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
+                    style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left"
+                        style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
+                <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10"
+                    style="color: #fff;text-align: center;">不良行为</a>
+                <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
+                    style="color: #fff;float: right;text-align: right;"><span class="glyphicon glyphicon-remove"
+                        style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
+            </div>
+        </div>
+    </nav>
+    <div id='app'>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding:20px 0 20px 0;">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="text-align: center;">
+                <button :class="xuanzhong == '1'? 'xuanzhong':'xuanzhongwei' " @click="buliangxingwei">不良行为</button>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="text-align: center;">
+                <button :class="xuanzhong == '2'? 'xuanzhong':'xuanzhongwei' " @click="caidingshu">裁定书</button>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="text-align: center;">
+                <button :class="xuanzhong == '3'? 'xuanzhong':'xuanzhongwei' " @click="panjueshu">判决书</button>
+            </div>
+        </div>
+        <div v-if="xuanzhong == '1'">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <span style="display: block;float: right; color: red;">*点击项目名称可查看项目信息</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                style="width:100%; height:80%; overflow:scroll;padding: 0px;">
+                <table border="0" rules="all" style="width:1000px;text-align:center" id="mytable">
+                    <tr style="background:#fff;height:50px">
+                        <th style="text-align: center;border: 1px solid #fff">诚信记录编号</th>
+                        <th style="text-align: center;border: 1px solid #fff">诚信记录主体</th>
+                        <th style="text-align: center;border: 1px solid #fff">决定内容</th>
+                        <th style="text-align: center;border: 1px solid #fff">实施部门（文号）</th>
+                        <th style="text-align: center;border: 1px solid #fff">发布有限期</th>
+                    </tr>
+                    <tr :class="index%2 == '0'? 'class1':'class2'" v-for="(user,index) in users">
+                        <th style="text-align: center;border: 1px solid #fff">{{ user.cxjlbh }}</th>
+                        <th style="text-align: center;border: 1px solid #fff">{{ user.cxjlzt }}</th>
+                        <th style="text-align: center;border: 1px solid #fff">{{ user.jdnr }}</th>
+                        <th style="text-align: center;border: 1px solid #fff">{{ user.ssbm }}</th>
+                        <th style="text-align: center;border: 1px solid #fff">{{ times[index] }}</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div v-else-if="xuanzhong == '2'">
+
+        </div>
+        <div v-else>
+
+        </div>
+    </div>
+</body>
+<script>
+    window.onload = function () {
+        var time = [];
+        var timess = [];
+        var buliangs = localStorage.getItem("buliang");
+        var widthLIN = localStorage.getItem("key");
+        document.getElementById('widthLI').style.height = widthLIN + 'px';
+        document.getElementById('daohanglan').style.top = widthLIN + 'px';
+        var dhlH = document.getElementById('daohanglan').offsetHeight;
+        document.getElementById('app').style.marginTop = Number(widthLIN) + Number(dhlH) + 'px';
+        var aid = [];
+        var name, value;
+        var str = location.href; //取得整个地址栏
+        var num = str.indexOf("?")
+        str = str.substr(num + 1); //取得所有参数   stringvar.substr(start [, length ]
+        var arr = str.split("&"); //各个参数放到数组里
+        for (var i = 0; i < arr.length; i++) {
+            num = arr[i].indexOf("=");
+            if (num > 0) {
+                name = arr[i].substring(0, num);
+                value = arr[i].substr(num + 1);
+                this[name] = value;
+                aid.push(value)
+            }
+        }
+
+        new Vue({
+            el: '#app',
+            data: {
+                xuanzhong: buliangs,
+                users: [],
+                zcygfs: [],
+                times: "",
+            },
+            mounted: function () {
+                this.buliangxingwei()
+            },
+            methods: {
+                sendGetByObj: function () {
+                    var than = this;
+                    this.$http.get('../../../index.php/Index/rys/xq', {
+                        params: {
+                            sw: "blxw",
+                            act: "app",
+                            aid: aid[0]
+                        }
+                    })
+                        .then(function (response) {
+                            console.log(response.data.data.data);
+                            than.users = response.data.data.data;
+                            var shijianceshi = response.data.data.data;
+                            console.log(shijianceshi)
+                            Date.prototype.toLocaleString = function () {
+                                return this.getFullYear() + "." + (this.getMonth() + 1) + "." + this.getDate();
+                            };
+                            for (var i = 0; i < shijianceshi.length; i++) {
+                                var time = shijianceshi[i].fbyxq
+                                var unixTimestamp = new Date(time * 1000);
+                                commonTime = unixTimestamp.toLocaleString();
+                                timess.push(commonTime)
+                            }
+                            than.times = timess;
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                },
+                buliangxingwei: function () {
+                    var than = this;
+                    than.xuanzhong = '1';
+                    localStorage.setItem("buliang", '1');
+                    this.sendGetByObj();
+                },
+                caidingshu: function () {
+                    var than = this;
+                    than.xuanzhong = '2';
+                    localStorage.setItem("buliang", '2');
+                },
+                panjueshu: function () {
+                    var than = this;
+                    than.xuanzhong = '3';
+                    localStorage.setItem("buliang", '3');
+                },
+                chakanshiyou: function () {
+
+                }
+            }
+        });
+    }
+    function Mclose() {
+        var widthLIN1 = localStorage.getItem("key1");
+        if (widthLIN1 == "2") {
+            window.webkit.messageHandlers.Mclose.postMessage("123");
+        } else {
+            window.control.mClose();
+        }
+    }
+    function Mback() {
+        window.history.go(-1);
+    }
+</script>
+
+</html>

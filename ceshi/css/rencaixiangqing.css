@@ -1,0 +1,328 @@
+*{
+	margin:0;
+	padding:0;
+	text-decoration: none;
+	list-style: none;
+}
+html,body{
+	width: 100%;
+	height: 100%;
+	font-size: 12px;
+	font-family: '苹方';
+}
+#rencaixiangqing{
+	width: 100%;
+	height: 100%;
+}
+
+
+.til{
+	width: 100%;
+	height: 40px;
+	border-bottom: 1px solid #eee;
+	overflow:hidden;
+	position: fixed;
+	left: 0;
+	top:0;
+	z-index: 9998;
+	background-color: #fff;
+}
+.til_point{
+	height: 100%;
+	display: flex;
+	align-items: center;	
+	justify-content: center;
+}
+.til_point img{
+	width: 60%;
+	height: 60%;
+}
+.til_text{
+	height: 100%;
+	font-size: 1.5rem;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	letter-spacing: 3px;
+}
+
+.bodys{
+	width: 100%;
+	overflow-y: scroll;
+	padding-top: 40px;
+	padding-bottom: 50px; 
+}
+.rencai_xinxi{
+	width: 100%;
+	height: 23%;
+	padding-left: 5px;
+}
+.rencai_qiangqing{
+	width: 100%;
+	height: 60%;
+	padding-top:3%;
+	overflow:hidden;
+}
+.rencai_name{
+	width: 100%;
+	height: 50%;
+	font-size: 1.5rem;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+}
+.rencai_aa{
+	width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.rencai_aa span{
+	padding-right: 7px;
+	font-size: 1.2rem;
+}
+.rencai_img{
+	border-radius: 50%;
+	float: left;
+}
+.rencai_img img{
+	width: 100%;
+	height: 100%;
+}
+.rencai_right{
+	padding-left:6px;
+	float: left;
+	padding-left: 10px;
+}
+.rencai_tel{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	font-size: 1.2rem;
+	margin-top: 10px;
+}
+.rencai_emia{
+	width: 100%;
+	height: 20px;
+	line-height: 20px;
+	font-size: 1.2rem;
+}
+.qiuzhiyizhi{
+	width: 100%;
+	padding-left:6px;
+	padding-right:6px;
+	padding-top:15px;
+}
+.qz_til{
+	width: 100%;
+	font-size: 1.3rem;
+	padding-bottom: 7px;
+	font-weight: bold;
+}
+.qz_qingkuang{
+	width: 100%;
+	padding-left: 25px;
+}
+.qz_qingkuang span{
+	display: block;
+	padding-top:4px;
+	font-size: 1.3rem;
+}
+.gongzuojingli{
+	width: 100%;
+	padding-left: 25px;
+	padding-bottom: 10px;
+}
+.gongzuojingli span{
+	display: block;
+	padding-top:4px;
+	font-size: 1.3rem;
+}
+.bot_point{
+	width: 20px;
+	height: 12px;
+	margin-bottom:5px;
+	margin:auto;
+}
+.bot_point img{
+	width: 100%;
+	height: 100%;
+}
+.dv1{
+	width: 100%;
+	overflow-y: hidden;
+}
+
+
+
+
+
+
+
+
+.bot{
+	width: 100%;
+	height: 50px;
+	padding: 8px 10px;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	z-index:999;
+	background-color: #fff;
+}
+.qingchu{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.qingchu span{
+	background-color: #ffedd6;
+	color:#ff8f00;
+	font-size: 1.2rem;
+	border-radius: 5px;
+	border:1px solid #ff8f00;
+	padding:3px;
+}
+.biaozhu1{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.qingchu:first-child{
+	margin-left:0;
+}
+.queren{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.queren span{
+	font-size: 1.2rem;
+	border-radius: 5px;
+	color:#fff;
+	background-color: #ff8f00;
+	border:1px solid #ff8f00;
+	padding:3px;
+}
+
+.tan1{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left:0;
+	top:0;
+	background-color: rgba(0,0,0,0.3);
+	display: none;
+	z-index: 999999;
+}
+.tan2{
+	width: 100%;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	background-color: #fff;
+	display: none;
+	z-index: 9999999;
+}
+.qingbiaozhu{
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+.biaoz{
+	width: 100%;
+	padding-top:6px;
+	padding-bottom: 6px;
+	text-align: center;
+	font-size: 1.2rem;
+}
+.ms_yaoqing{
+	width: 100%;
+	padding:7px 10px;
+	border-bottom: 1px solid #ccc;
+	overflow:hidden;
+}
+.start{
+	width: 8px;
+	height: 8px;
+	float: left;
+}
+.start img{
+	width: 100%;
+	height: 100%;
+}
+.ms_ren{
+	float: left;
+	margin-left:6px;
+	font-size: 1.2rem;
+}
+.ms_name{
+	float: right;
+	font-size: 1.2rem;
+	width: 55%;
+	overflow: hidden;
+　　text-overflow:ellipsis;
+　　white-space: nowrap;
+}
+.ms_name1{
+	float: right;
+	font-size: 1.2rem;
+	width: 55%;
+	overflow: hidden;
+　　text-overflow:ellipsis;
+　　white-space: nowrap;
+}
+.msInp1{
+	border:0;
+	text-align: right;
+	outline: none;
+	width: 88%;
+	background-color: #fff;
+}
+.jiantou{
+ width: 12%;
+}
+.msdidian{
+	width: 100%;
+	overflow: hidden;
+　　text-overflow:ellipsis;
+　　white-space: nowrap;
+}
+.fasong{
+	height: 80px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.btn_fasong{
+	color:#fff;
+	background-color: #FF8F00;
+	padding:6px 16px;
+	border-radius: 5px;
+	font-size: 1.4rem;
+}
+
+.msInp{
+	border:0;
+	text-align: right;
+	outline: none;
+	width: 100%;
+	background-color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

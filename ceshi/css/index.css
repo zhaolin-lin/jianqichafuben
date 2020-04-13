@@ -1,0 +1,297 @@
+*{
+	margin:0;
+	padding:0;
+	text-decoration: none;
+	list-style: none;
+}
+html,body{
+	width: 100%;
+	height: 100%;
+	font-size: 12px;
+	overflow:hidden;
+}
+#app{
+	width: 100%;
+	height: 100%;
+	overflow:hidden;
+}
+v-cloak{
+	display: none;
+}
+.top{
+	width: 100%;
+	height: 40px;
+	overflow:hidden;
+	z-index: 999;
+	background-color: #fff;
+}
+.dizhi{
+	width: 20%;
+    height: 100%;
+    float: left;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+.dizhi_text{
+	width: 82%;
+    font-size: 1.1rem;
+    padding-left: 4px;
+    float: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.dizhi_img{
+	width: 18%;
+    float: right;
+}
+.dizhi_img img{
+	width: 100%;
+	height: 100%;
+}
+.sousuo{
+	width:80%;
+	height: 100%;
+	float: left;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow:hidden;
+}
+.top_inp{
+	width:95%;
+	height: 24px;
+	border-radius: 12px;
+	border:0;
+	background:rgb(244,244,244);
+	text-align: center;
+	outline: none;
+	line-height: 24px;
+	font-size: 1.3rem;
+	float: left;
+	padding-left: 6px;
+}
+input::-webkit-input-placeholder{
+ 	background: url('../img/sousuo.png') no-repeat;
+ 	background-size: 7% 76%;
+ 	background-position: 30% 50%; 
+}
+.nav_img{
+	width: 100%;
+	height: 140px;
+	padding-left:10px;
+	padding-right: 10px;
+	z-index: 999;
+	background-color: #fff;
+}
+.swiper-container {
+    width: 100%;
+    height: 100%;
+} 
+.swiper-slide{
+	width: 100%;
+	height: 100%;
+} 
+.swiper-slide img{
+	width: 100%;
+	height: 100%;
+	border-radius: 10px;
+}
+.nav{
+	width: 100%;
+	height:80px;
+	padding-top:10px;
+	overflow: hidden;
+	z-index: 999;
+	background-color: #fff;
+}
+.nav_1{
+	width: 25%;
+	height: 100%;
+	float: left;
+}
+.nav_1_img{
+	width: 35px;
+	height: 35px;
+	margin:auto;
+	margin-top:10%;
+}
+.nav_1_img img{
+	width: 100%;
+	height: 100%;
+}
+.nav_1_text{
+	width: 100%;
+	font-size: 1.2rem;
+	text-align: center;
+	line-height: 35px;
+}
+.bodys{
+	width: 100%;
+}
+.bodys_nav{
+	width: 100%;
+	height: 40px;
+	overflow: hidden;
+	padding-top: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.bodys_nav_p{
+	height: 100%;
+	font-size: 1.5rem;
+	float: left;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.bodys_nav_p_xz{
+	color:#ff7800;
+	border-bottom: 2px solid #ff7800;
+}
+
+.bodys_nr{
+	width: 100%;
+	background:rgb(244,244,244);
+	overflow-y: scroll;
+}
+
+
+
+
+.zhiwei1{
+	width:100%;
+	margin-top: 3px;
+	background-color: #fff;
+	padding:5px 0px 5px 0px;
+}
+.zhiwei{
+	width: 100%;
+	padding-left:10px;
+	padding-right: 10px;
+
+}
+.zuixin_zhiwei{
+	display: none;
+}
+.zhiwei_name{
+	width: 100%;
+	line-height: 30px;
+	overflow: hidden;
+}
+.zhiwei_name1{
+	float: left;
+	font-size: 1.3rem;
+}
+.zhiwei_money{
+	float: right;
+	color:#ff7800;
+	font-size: 1.3rem;
+}
+.zhiwei_xinxi{
+	width: 100%;
+	line-height: 20px;
+	overflow: hidden;
+　　text-overflow:ellipsis;
+　　white-space: nowrap;
+}
+.zhiwei_xinxi span{
+	padding-right:8px;
+	color:#aaa;
+	font-size: 1.1rem;
+}
+.gongsi{
+	width: 100%;
+	overflow: hidden;
+}
+.gongsi_img{
+	float: left;
+	overflow: hidden;
+}
+.gongsi_img img{
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+}
+.gongsi_xinxi{
+	width: 80%;
+	float: left;
+	padding-left: 10px;
+}
+p{
+	margin:0;
+}
+.gongsi_name{
+	height: 50%;
+	width: 100%;
+	font-size: 1.3rem;
+	display: flex;
+	align-items: center;
+}
+.gongsi_name span{
+	font-size: 1rem;
+	background-color: #ff7800;
+	padding:0px 4px;
+	color:#fff;
+	border-radius: 4px;
+	margin-left:10px;
+}
+.gongsi_zhaopin{
+	height: 50%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+.gongsi_zhaopin span{
+	float: left;
+	padding-right:5%;
+	color:#aaa;
+	font-size: 1.1rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.bot{
+	width: 100%;
+	height: 52px;
+	overflow: hidden;
+	position: fixed;
+	left:0;
+	bottom: 0;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	background-color: #fff;
+}
+.bot1{
+	width: 25%;
+	height: 100%;
+	float: left;
+}
+.bot1_img{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.bot1_img img{
+	width: 25px;
+	height: 27px;
+}
+.bot1_text{
+	width: 100%;
+	font-size: 1.2rem;
+	text-align: center;
+}
+.yanse{
+	color:#ff7800;
+}

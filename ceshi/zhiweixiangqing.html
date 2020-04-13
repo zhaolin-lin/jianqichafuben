@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>职位详情</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport"
+		content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/zhiweixiangqing.css">
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/vue-resource.js"></script>
+    <script src="js/jsencrypt.js"></script>
+    <script src="js/hsjidh.js"></script>
+    <script src="js/axiosjsqing.js"></script>
+    <script src="js/jgifdj.js"></script>
+    <style type="text/css">
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="zhiweixiangqing" v-cloak>
+    <div class="zw_til">
+    	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 til_point" @click="fanhuiF"><img src="img/left_point.png"></div>
+    	<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 til_text">职位详情</div>
+    </div>
+    <div class="zw_body">
+    	<div class="zw_xiangqing">
+    		<div class="zwxq">
+    			<div class="zwxq_name">{{user.name}}</div>
+    			<div class="zwxq_money">{{user.money}}</div>
+    		</div>
+            <div class="zwxq_xinxi" style="width: 100%;font-size: 1.2rem;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">
+                <span>{{user.area}}</span>
+                <span>|</span>
+                <span v-if="typeL == 1">{{user.experience}}</span>
+                <span v-else>{{user.register}}</span>
+                <span>|</span>
+                <span>{{user.education}}</span>
+                <span>|</span>
+                <span>{{user.zhiye_leixing}}</span>
+            </div>
+    		<div class="zwxq_fuli" v-if="typeL == 1">
+                <div class="fuli_text">
+                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9" style="width: 100%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{user.tag}}</div>
+                </div>      
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fuli_more">更多福利</div>      
+            </div>
+            <div class="zwxq_fuli" v-else>
+                <div class="fuli_text" style="width: 100%;">
+                    <div style="width: 100%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+                        <span style="display: block;width: 23%;text-align: left;float: left;">
+                        职称:{{user.title}}</span>
+                        <span style="display: block;width: 41%;text-align: center;float: left;">证书用途:{{user.use}}</span>
+                        <span style="display: block;width: 32%;text-align: right;float: left;">业绩要求:{{user.yj}}</span>
+                    </div>
+                </div>     
+            </div>
+            <div class="zwxq_dizhi" style="border-bottom: 1px solid #eee;border-top: 1px solid #eee;" v-if="typeL == 1">
+                <div style="width: 100%;">
+                    <div class="zwxq_img"><img src="img/ditu.png"></div>
+                    <div class="zwxq_dizhi_text">{{user.address}}</div>
+                </div>
+            </div>
+            <div class="zwxq_dizhi1" v-else>
+                <div style="width: 96%;height: 100%;margin:auto;">
+                    <hr>
+                </div>
+            </div>
+            <div class="zwxq_text" v-if="typeL == 1">
+                <div class="zwxq_til">职位详情</div>
+                <div class="zwxq_neirong" style="width: 100%;">
+                    <div style="width: 100%;">{{user.duty}}</div>
+                </div>
+            </div>
+            <div class="zwxq_text" v-else>
+                <div class="zwxq_til">详细说明</div>
+                <div class="zwxq_neirong">{{user.duty}}</div>
+            </div>
+            <div class="zwxq_gongsi" @click="qiyexiangqing">
+                <div class="zwxq_gongsi_img"><img :src="qiye.logo"></div>
+                <div class="zwxq_gongsi_text">
+                    <div style="height: 50%;display: flex;align-items: center;">
+                        <span style="font-size: 1.5rem;">{{qiye.company_name}}</span>
+                        <span style="font-size: 1rem;background-color: #ff7800;color:#fff;padding:0 3px;border-radius: 2px;margin-left:3px;">{{qiye.nature}}</span>
+                    </div>
+                    <div style="height: 30%;font-size: 1.2rem;display: flex;align-items: center;">
+                        <span>{{qiye.scale}}</span>
+                        <span style="margin-left:15px;">{{qiye.leixing}}</span>
+                    </div>
+                </div>
+                <div class="zwxq_gongsi_point"><img src="img/point1.png"></div>
+            </div>
+    	</div>
+        <div style="width: 100%;background-color: #fff;overflow: hidden;margin:auto;"><hr style="width: 35%;float:left;display: flex;align-items: center;"><span style="width: 28%;display: block;float: left;display: flex;align-items: center;justify-content: center;">相似职位</span><hr style="width: 35%;float: left;">
+        </div>
+        <div class="zhiwei1" v-for="(tuijians,index) in tuijian" @click="zhiweiF(tuijians.id,tuijians.type)">
+            <div class="zhiwei tuiujian_zhiwei">
+                <div class="zhiwei_name">
+                    <div class="zhiwei_name1">{{tuijians.zhicheng}}</div>
+                    <div class="zhiwei_money">{{tuijians.xinzi}}</div>
+                </div>
+                <div class="zhiwei_xinxi">
+                    <span>{{tuijians.dizhi}}</span>
+                    <span>|</span>
+                    <span>{{tuijians.jingyan}}</span>
+                    <span>|</span>
+                    <span>{{tuijians.xueli}}</span>
+                    <span>|</span>
+                    <span>{{tuijians.quanzhi}}</span>
+                </div>
+                <div class="gongsi">
+                    <div class="gongsi_img"><img :src="tuijians.zhuguan_touxiang"></div>
+                    <div class="gongsi_xinxi">
+                        <p class="gongsi_name">{{tuijians.qiye_name}}<span>{{tuijians.zhuangtai}}</span></p>
+                        <p class="gongsi_zhaopin">
+                            <span>{{tuijians.telname}}</span>
+                            <span>|</span>
+                            <span>招聘主管</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="zw_bot">
+    	<div class="toudi">投递简历</div>
+    	<div class="goutong">立即沟通</div>
+    </div>
+</div>
+</body>
+<script src="js/zhiweixiangqing.js"></script>
+</html>

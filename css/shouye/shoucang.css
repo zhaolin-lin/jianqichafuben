@@ -1,0 +1,53 @@
+   html,
+        body {
+            margin: 0;
+            height: 100%;
+            overflow:hidden;
+        }
+        .shijian {
+            float: right;
+            margin-top: 2px;
+        }
+        .navbar {
+            margin-bottom: 0px;
+        }
+        .navbar {
+            border: 0px solid transparent;
+        }
+        .btn-toolbar {
+            margin-left: 0px !important; 
+        }
+        .btn-group {
+            margin:7px;
+        }
+        .btn-default {
+            color: #000;
+            background-color: #fff;
+            border-color: #000;
+        }
+        .btn-default:hover {
+            color: #FD9700;
+            background-color: #fff;
+            border-color: #FD9700;
+        }
+        .btn-group {
+            margin: 0px !important;
+        }
+        .btn-toolbar > .btn, .btn-toolbar > .btn-group, .btn-toolbar > .input-group {
+            margin-left: 0px !important;
+        }
+                [v-cloak] {
+    display: none !important;
+}
+.col-xs-3{
+    padding-right: 0px;
+    padding-left: 0px;
+    text-align: center;
+}
+.btn-group > .btn, .btn-group-vertical > .btn {
+    position: relative;
+    float: none !important; 
+}
+.btn{
+    padding:6px 0px;
+}

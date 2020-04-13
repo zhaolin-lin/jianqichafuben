@@ -1,0 +1,46 @@
+
+body,
+html{
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+v-cloak{
+    display: none;
+}
+.caidanl{
+    padding: 0px; 
+    height: 93%;
+    background: #f5f5f5;
+    overflow-y: scroll;
+}
+.caidanl ul{
+    overflow: hidden;
+}
+.caidanl ul li{
+    text-align: center;
+    line-height: 40px;
+}
+.caidanr{
+    padding: 0px; 
+    height: 93%;
+    background: #fff;
+    text-align: center;
+    line-height: 40px;
+}
+.caidanr .leibiao{
+    text-align: center;
+    line-height: 40px;
+    /*border: 1px solid #f2f2f2;*/
+}
+.class1{
+    text-align: center;
+    line-height: 40px;
+    background: #fff;
+}
+.class2{
+    text-align: center;
+    line-height: 40px;
+    background: #f5f5f5;
+}

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>管理职位</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport"
+		content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../../css/qiyeban/guanlizhiwei.css">
+	<link rel="stylesheet" type="text/css" href="../../css/iconfont.css">
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script src="../../js/bootstrap.js"></script>
+	<script src="../../js/vue.js"></script>
+	<script src="../../js/vue.min.js"></script>
+	<script src="../../js/axios.js"></script>
+	<script src="../../js/vue-resource.js"></script>
+	<script src="../../js/jsencrypt.js"></script>
+    <script src="../../js/hsjidh.js"></script>
+    <script src="../../js/axiosjsqing.js"></script>
+    <script src="../../js/jgifdj.js"></script>
+    <style type="text/css">
+    	[v-cloak]{
+    		display: none;
+    	}
+    </style>
+</head>
+<body>
+<div id="guanlizhiwei" v-cloak>
+	<div class="til">
+		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 til_point" @click="fanhuiF"><img src="../../img/left_point.png"></div>
+		<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 til_text">管理职位</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 fabu" @click="fabuzhiwei">发布职位</div>
+	</div>
+	<div class="bodys">
+		<div class="nav">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 nav_right" @click="zhuangtaiF('fabuzhong')">
+				<div :class="fabu == 'fabuzhong' ? 'nav_left_text col' : 'nav_left_text'">发布中</div>
+				<div :class="fabu == 'fabuzhong' ? 'line' : ''"></div>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 nav_right" @click="zhuangtaiF('guanbizhong')">
+				<div :class="fabu == 'guanbizhong' ? 'nav_left_text col' : 'nav_left_text'">已关闭</div>
+				<div :class="fabu == 'guanbizhong' ? 'line' : ''"></div>
+			</div>
+		</div>
+		<div class="quanbuzhiwei" v-if="fabu == 'fabuzhong'">
+			<div class="qbzhiwei1" v-for="(users,index) in user" @click="fabuzhongF(users.status,users.id,users.type)">
+				<div class="qbzw_top" style="padding-left: 15px;border:0">
+					<div class="zhiwei_name">
+						<div style="font-size: 1.4rem;padding-top:4px;padding-bottom:4px;">{{users.name}}</div>
+						<div style="font-size: 1.2rem;color:#888;padding-bottom:4px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;" class="zhiwei_xx">
+							<span>{{users.salary}}</span>
+							<span>|</span>
+							<span>{{users.address}}</span>
+							<span>|</span>
+							<span>{{users.experience}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="quanbuzhiwei" v-if="fabu == 'guanbizhong'">
+			<div class="qbzhiwei1" v-for="(users,index) in user">
+				<div class="qbzw_top">
+					<div class="zhiwei_xuanze" @click="xuanzhongF(users.id,index)" v-if="arr[index].check == false"></div>
+					<div class="zhiwei_xuanze1" @click="xuanzhongF(users.id,index)" v-else></div>
+					<div class="zhiwei_name" @click="fabuzhongF(users.status,users.id,users.type)">
+						<div style="font-size: 1.4rem;padding-top:4px;padding-bottom:4px;">{{users.name}}</div>
+						<div style="font-size: 1.2rem;color:#888;padding-bottom:4px;">{{users.address}}</div>
+					</div>
+				</div>
+				<div class="qbzw_bot">
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 qbzw_bot_left"  @click="bianjiF(index)">
+						<span class="huifu"></span>恢复
+					</div>
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 qbzw_bot_right" @click="shanchuF(users.status,users.id,users.type)">
+						<span class="del"></span>删除
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bot" v-if="fabu == 'guanbizhong'" style="z-index: 99999;position: fixed;">
+		<div class="bot_left" @click="quanxuanF">
+			<span class="quanxuan" v-if="quanxuan == false"></span>
+			<span class="quanxuan1" v-if="quanxuan == true"></span>全选
+		</div>
+		<div class="bot_right" @click="quanshanF">
+			<span></span>删除
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+	new Vue({
+			el: '#guanlizhiwei',
+			data: {
+			  quanxuan:false,
+			  xuanzhong:false,
+			  arr:'',
+			  arrId:'',
+			  fabu:'fabuzhong',
+			  zhiweixuanze:false,
+			  type:'0',  //0已发布  1关闭中
+			  user:'',
+			  status:'',    //状态  1为关闭2为恢复3为单个删除4为多个删除
+			  id:'' ,   //职位id
+			  zhiweiType:'',  //职位type
+			  zhuangtai:'1' ,   //判断跳转到职位详情页面的时候是关闭职位还是恢复职位
+			  chuanArr:[]  //多个删除时要传递的数组
+			},
+			mounted: function () {
+				this.huoqushuju();
+			},
+			methods: {
+				huoqushuju:function(){
+					fjdf();
+	                var than = this;
+	                this.$http.post('../../../../index.php/api/qiye/guanli', {
+	                        page:'1',
+	                        pagesize:'10',
+	                        type:than.type
+	                },{
+	                	headers:{
+	                		'Cookies':ashjd
+	                	}
+	                })
+	                    .then(function (res) {
+	                        console.log(res.data.data);
+	                        var arr = [];
+	                        than.user = res.data.data;
+	                      
+	                        for(var i = 0;i < res.data.data.length; i++){
+	                        	var arr1 = {};
+	                        	arr1['check'] = false;
+	                        	arr1['id'] = res.data.data[i].id;
+	                        	arr1['type'] = res.data.data[i].type;
+	                        	arr.push(arr1)
+	                        }
+	                        than.arr = arr;
+	                    }, function () {
+	                        console.log('请求失败处理');
+	                    });
+				},
+				// 关闭职位中的关闭/恢复/单个删除/多个删除传递的数据
+				guanbishuju:function(){
+					var than = this;
+					if(than.status == '4'){
+						var caozuoArr = {
+							status:than.status,
+	                        id:than.chuanArr
+						}
+					}else{
+						var caozuoArr = {
+							status:than.status,
+	                        type:than.zhiweiType,
+	                        id:than.id,
+						}
+					}
+					fjdf();
+	                this.$http.post('../../../../index.php/api/qiye/status',caozuoArr,{
+	                	headers:{
+	                		'Cookies':ashjd
+	                	}
+	                })
+	                    .then(function (res) {
+	                        console.log(res.data.data);
+	                        than.user = res.data.data;
+	                    }, function () {
+	                        console.log('请求失败处理');
+	                    });
+				},
+				// 全选的方法
+				quanxuanF:function(){
+					var than = this;
+					than.quanxuan = !than.quanxuan;
+					if(than.quanxuan == true){
+						for(var i=0;i<than.arr.length;i++){
+							than.arr[i].check = true;
+						}
+					}else{
+						for(var i=0;i<than.arr.length;i++){
+							than.arr[i].check = false;
+						}
+					}
+				},
+				zhuangtaiF:function(a){
+					var than = this;
+					than.fabu = a;
+					if(a == 'fabuzhong'){
+						than.type = '0';
+						than.zhuangtai = '1'
+						this.huoqushuju();
+					}else if(a == 'guanbizhong'){
+						than.type = '1';
+						than.zhuangtai = '2'
+						this.huoqushuju();
+					}
+				},
+				fabuzhiwei:function(){
+					window.location.href = "fabuzhiwei.html?fenlei=1"
+				},
+				fabuzhongF:function(status,id,type){
+					var than = this;
+					than.id = id;
+					than.zhiweiType = type;
+					window.location.href  = "qiye_zhiweixiangqing.html?id=" + id + '&type=' + type + '&zhuangtai=' + than.zhuangtai;
+				},
+				// 选中
+				xuanzhongF:function(id,index){
+					var than = this;
+					console.log(id);
+					than.id = id;
+					var a = than.arr;
+					a[index].check = !a[index].check;
+					than.xuanzhong = a[index].check;
+					than.arr = a;
+					var count = 0;
+					for(var i=0;i<a.length;i++){
+
+						if(a[i].check == true){
+							count++;
+						}
+					}
+					if(count == than.user.length){
+						than.quanxuan = true;
+					}else{
+						than.quanxuan = false;
+					}
+
+				},
+				// 返回的方法
+				fanhuiF:function(){
+                    window.history.go(-1);
+                },
+                // 恢复按钮的事件
+                bianjiF:function(index){
+                	var than = this;
+                	var idss = than.user[index].id;
+                	var typess = than.user[index].type;
+                	window.location.href  = "fabuzhiwei.html?id=" + idss + '&type=' + typess + '&fenlei=2' + '&huifu=1';
+                },
+                // 单个删除的方法
+                shanchuF:function(status,id,type){
+                	var than = this;
+            		than.status = '3';
+            		than.zhiweiType = type;
+            		than.id = id;
+					this.guanbishuju();
+					this.huoqushuju();
+                },
+                // 多个删除的方法
+				quanshanF:function(){
+					var than = this;
+                	var sc = than.arr;
+                	var quanzhiId1 = [];//全职兼职数组
+                	var zigeId1 = []; //资格兼职数组
+                	for(var i=0;i<sc.length;i++){
+                		if(sc[i].check == true){
+                			if(sc[i].type == '1'){
+                				quanzhiId1.push(sc[i].id);
+                			}else if(sc[i].type == '2'){
+                				zigeId1.push(sc[i].id);
+                			}
+                		} 
+                	}
+                	than.status = '4';
+                	than.chuanArr = [quanzhiId1,zigeId1];
+					this.guanbishuju();
+					this.huoqushuju();
+				}
+
+			}
+		})
+</script>
+</html>

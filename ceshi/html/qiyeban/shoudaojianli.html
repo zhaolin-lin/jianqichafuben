@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>收到的简历</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport"
+		content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../../css/qiyeban/shoudaojianli.css">
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script src="../../js/bootstrap.js"></script>
+	<script src="../../js/vue.js"></script>
+	<script src="../../js/vue.min.js"></script>
+	<script src="../../js/axios.js"></script>
+	<script src="../../js/vue-resource.js"></script>
+	<script src="../../js/jsencrypt.js"></script>
+    <script src="../../js/hsjidh.js"></script>
+    <script src="../../js/axiosjsqing.js"></script>
+    <script src="../../js/jgifdj.js"></script>
+	<script src="../../js/vConsole.min.js"></script>
+</head>
+<style type="text/css">
+	[v-clock]{
+		display: none;
+	}
+</style>
+<body>
+<div id="shoudaojianli" v-cloak>
+	<div class="til">
+		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 til_point" @click="fanhuiF"><img src="../../img/left_point.png"></div>
+		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 til_text" v-if="status == '1'">收到的简历</div>
+		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 til_text" v-if="status == '2'">下载的简历</div>
+	</div>
+	<div class="bodys">
+		<div class="nav">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 nav_left"  @click="zhiweiF('zhiwei')">
+				<span style="font-size: 1.3rem;">应聘职位</span> 
+				<span class="span_point"><img src="../../img/bot_point.png"></span>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 nav_left"  @click="biaoqianF('zhuangtai')">
+				<span style="font-size: 1.3rem;">标签状态</span> 
+				<span class="span_point"><img src="../../img/bot_point.png"></span>
+			</div>
+		</div>
+		<div class="zhiwei">
+			<div class="zhiwei1" v-for="(users,index) in user" @click="rencaixiangqing(index)">
+				<div class="zhiwei1_img"><img :src="'../../../../' + users.face"></div>
+				<div class="zhiwei1_cen">
+					<div style="font-size: 1.5rem;display: flex;align-items: center;padding-top:3px;">
+						<span style="position: relative;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+							{{users.zhiweiname}} 
+							<span style="width: 8px;height: 8px;position: absolute;right: -8px;top:-2px;background-color: #E60012;display: block;border-radius: 50%;" v-if="users.read != '0'"></span>
+						</span>
+					</div>
+					<div class="zhiwei1_diqu">
+						<span>{{users.name}}</span>
+						<span>|</span>
+						<span>{{users.sex}}</span>
+						<span>|</span>
+						<span>{{users.age}}</span>
+					</div>
+					<div class="zhiwei1_xx">
+						<span>{{users.place}}</span>
+						<span>|</span>
+						<span>{{users.experience}}</span>
+						<span>|</span>
+						<span>{{users.education}}</span>
+						<span>|</span>
+						<span>{{users.zhiwei}}</span>
+					</div>
+				</div>
+				<div class="zhiwei1_right">
+					<div class="zhiwei1_money">{{users.salary}}</div>
+					<div class="zhiwei1_time">{{users.time}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="tan1" @click="tan1">
+			<div class="tan2" v-if="zhiweiT == 'zhiwei'">
+				<div class="tan_text" v-for="(zhiweis,index) in zhiwei" @click="zhiweiFs(zhiweis.id)">{{zhiweis.name}}</div>
+			</div>
+			<div class="tan2" v-if="zhiweiT == 'zhuangtai'">
+				<div class="tan_text" v-for="(biaoqians,index) in biaoqian" @click="biaoqianFs(biaoqians.id)">{{biaoqians.name}}</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+	var vConsole = new VConsole();
+	var url = decodeURI(location.search); //获取url中"?"符后的字串
+    console.log(url)
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for(var i = 0; i < strs.length; i ++) {
+            theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+        }
+    }
+    var ids = theRequest.id;
+    var statu = theRequest.statu;
+
+	new Vue({
+			el: '#shoudaojianli',
+			data: {
+				user:'',
+			  	zhiwei:'',
+			  	biaoqian:'',
+			  	zhiweiT:'zhiwei',
+			  	id:ids,  //企业id
+			  	zhiweiid:'',
+			  	biaoqianid:'',
+			  	status:statu,
+			  	type:'',  //type为人才的性质  1普通人才 2建筑人才 3资格兼职
+			  	mid:''
+			},
+			mounted: function () {
+				this.huoqushuju();
+			},
+			methods: {
+				huoqushuju:function(){
+					fjdf();
+	                var than = this;
+	                this.$http.post('../../../../index.php/api/qiye/shoudao',{
+	                	company_id:than.id,
+	                	status:than.status,
+	                	page:'1',
+	                	pagesize:'1'
+
+	                },{
+	                	headers:{
+	                		'Cookies':ashjd
+	                	},
+	                })
+	                    .then(function (res) {
+	                        console.log(res.data.data);
+	                        than.user = res.data.data.data;
+	                        than.zhiwei = res.data.data.zhiwei;
+	                        than.biaoqian = res.data.data.biaoqian;
+
+	                    }, function () {
+	                        console.log('请求失败处理');
+	                    });
+				},
+				xuanzeshuju:function(){
+					fjdf();
+	                var than = this;
+					if(than.zhiweiid == ''){
+						than.zhiweiid = '0';
+					}
+					if(than.biaoqianid == ''){
+						than.biaoqianid = '0';
+					}
+	                this.$http.post('../../../../index.php/api/qiye/change',{
+	                	id:than.zhiweiid,
+	                	type:than.biaoqianid,
+	                	status:than.status,
+	                	company_id:than.id,
+	                	page:'1',
+	                	pagesize:'1'
+	                },{
+	                	headers:{
+	                		'Cookies':ashjd
+	                	},
+	                })
+	                    .then(function (res) {
+	                        console.log(res.data.data);
+	                        than.user = res.data.data;
+
+	                    }, function () {
+	                        console.log('请求失败处理');
+	                    });
+				},
+				zhiweiF:function(a){
+					var than = this;
+					than.zhiweiT = a;
+					$('.tan1').css({'display':'block'});
+					$('.bodys').css({'overflow-y':'hidden'});
+					$('.tan2').css({'display':'block'});
+				},
+				biaoqianF:function(b){
+					var than = this;
+					than.zhiweiT = b;
+					$('.tan1').css({'display':'block'});
+					$('.tan2').css({'display':'block'});
+				},
+				tan1:function(){
+					$('.tan1').css({'display':'none'});
+					$('.tan2').css({'display':'none'});
+				},
+				rencaixiangqing:function(index){
+					var than = this;
+					console.log(index);
+					than.type = than.user[index].type;
+					than.mid = than.user[index].mid;
+					window.location.href = "../../rencaixiangqing.html?type=" + than.type + '&id=' + than.id + '&mid=' + than.user[index].id;
+				},
+				zhiweiFs:function(id){
+					var than = this;
+					than.zhiweiid = id;
+					this.xuanzeshuju();
+				},
+				biaoqianFs:function(id){
+					var than = this;
+					than.biaoqianid = id;
+					this.xuanzeshuju();
+				},
+				fanhuiF:function(){
+					window.history.go(-1);
+				}
+
+			}
+		})
+</script>
+</html>

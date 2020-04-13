@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" /> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+</head>
+<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+<script src="../../js/jquery.js"></script>
+<script src="../../js/vue.js"></script>
+<script src="../../js/bootstrap.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="../../js/axios.js"></script>
+<script src="../../js/vconsole.min.js"></script>
+<style type="text/css">
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+        }
+        .navbar {
+            position: relative;
+            min-height: 50px;
+            margin-bottom: 0px;
+            border: 0px solid transparent;
+        }
+        .form-control {
+            width: 80%;
+        }
+        .form-control{
+            border: 0px solid #000;
+            border-right: 1px solid #d4d4d4;
+        }
+        .input-group-addon{
+            border: 0px solid #000;
+        }
+         input{
+            outline: none;
+         }
+           .header {
+            width: 100%;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header div:before,
+        .header div:after {
+            position: absolute;
+            background: #ccc;
+            content: "";
+            height: 1px;
+            top: 50%;
+            width: 100px;
+        }
+
+        .header div:before {
+            left: 10px;
+        }
+
+        .header div:after {
+            right: 10px;
+        }
+        .col-xs-3{
+            padding-left: 0px;
+        }
+        .col-xs-12{
+            padding-left: 0px;
+        }
+        .col-xs-8{
+            padding-left: 0px;
+        }
+        [v-cloak] {
+    display: none !important;
+}
+.alert {
+    display: none;
+    position: fixed;
+    top: 84%;
+    left: 21%;
+    z-index: 99999;
+    padding: 8px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    text-align: center;
+    width: 200px;
+    max-width: 200px;
+}
+ 
+.alert-success {
+    color: #fff;
+    background-color: #000000;
+    border-color: #040404;
+}
+ 
+.alert-info {
+    color: #fff;
+    background-color: #000000;
+    border-color: #000000;
+}
+ 
+.alert-warning {
+    color: #fff;
+    background-color: #000000;
+    border-color: #000000;
+}
+ 
+.alert-danger {
+    color: #fff;
+    background-color: #000000;
+    border-color: #000000;
+}
+</style>
+<body style="background:#f2f2f2;height:100%;">
+<div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
+    </div>
+    <nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+    <div class="container-fluid">
+        <div class="">
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
+            <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10" style="color: #fff;text-align: center;">企业详情222</a>
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;float: right;text-align: right;" ><span class="glyphicon glyphicon-remove" style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
+        </div>
+    </div>
+</nav>
+<div id="app" v-cloak>
+
+<div>
+    <!-- 正文开始 -->
+    <div>
+        <span><img src="../../image/gongsitubiao.png" style="width: 67px;margin: 13px;"></span>
+        <span style="font-size: 14px;width: 49%;display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{ users.qymc }}</span>
+        <span v-if="users.isstow == '0'" style="font-size: 14px;border:1px solid #FD9700;border-radius: 3px;padding: 2px;line-height: 30px;margin-left: 10px;color: #FD9700;" @click="shoucangs()">收藏</span>
+        <span v-else style="font-size: 14px;border:1px solid #FD9700;border-radius: 3px;padding: 2px;line-height: 30px;margin-left: 10px;color: #FD9700;"  @click="shoucangs">已收藏</span>
+    </div>
+    <div style="width: 100%;background: #fff;">
+        <div style="padding: 5px;margin-left: 10px">简介：<span>{{users.xq.info}} </span></div>
+        <div style="padding: 5px;margin-left: 10px">法定代表人：<span>{{ users.qyfr }}</span></div>
+        <div style="padding: 5px;margin-left: 10px">注册资金：<span>{{users.xq.zzzb}}万元</span></div>
+        <div style="padding: 5px;margin-left: 10px">注册时间：<span>{{users.xq.xzsj}}</span></div>
+        <div style="padding: 5px;margin-left: 10px">股东：<span>{{ users.xq.fddb }}</span></div>
+        <div style="padding: 5px;margin-left: 10px">董监高：<span v-if="users.ry!= ''">{{users.ry[0].name}}{{users.ry[0].zhiwu}} &nbsp;&nbsp;&nbsp;{{users.ry[1].name}}{{users.ry[1].zhiwu}}</span></div>
+    </div>
+    <div style="width: 100%;">
+        <div style="margin:10px 10px 0 10px;font-size: 18px;color: #FD9700;">基本信息</div>
+        <div class="btn-group"style="margin-top: 10px">
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="gongshangxinxi(this)" id="qiyexiangqingID">工商信息</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="gudongxinxi(this)" >股东信息</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="zhuyaorenyuan(this)">主要人员</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="biangengjilu(this)">变更记录</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="qiyenianbao(this)">企业年报</button>
+        </div>
+    </div>
+        <div style="width: 100%;">
+        <div style="margin:10px 10px 0 10px;font-size: 18px;color: #FD9700;margin-top: 10px">风险信息</div>
+        <div class="btn-group"style="margin-top: 10px">
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="jinrixinzeng(this)">今日新增</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="xinxizongliang(this)">信息总量</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="buliangxinxi(this)">不良信息</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px;width: 82px" onclick="minshian(this)">民事案</button>
+             <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px;width: 82px" onclick="peichangan(this)">赔偿案</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px;width: 82px" onclick="xingzhenan(this)">行政案</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px;width: 82px" onclick="zhixingan(this)">执行案</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px;width: 82px" onclick="zhixingxinxi(this)">执行信息</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="chouchajiancha(this)">抽查检查<br>结果信息</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="shuangsuijichoucha(this)">双随机抽<br>查检查结果信息</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="sifaxiezhu(this)">司法协助<br>信息</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px;width: 82px;width: 82px" onclick="heimingdan(this)">黑名单</button>
+        </div>
+    </div>
+        <div style="width: 100%;">
+        <div style="margin:10px 10px 0 10px;font-size: 18px;color: #FD9700">知识产权</div>
+        <div class="btn-group"style="margin-top: 10px">
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="zizhizhengshu(this)">企业资质证书</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="shangbiao(this)">商标</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="zhuanli(this)">专利</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="zhuzuoquan(this)">著作权</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="zhishichanquan(this)">知识产权出质登记信息</button>
+        </div>
+    </div>
+        <div style="width: 100%;">
+        <div style="margin:10px 10px 0 10px;font-size: 18px;color: #FD9700">经营信息</div>
+        <div class="btn-group"style="margin-top: 10px">
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px;width: 82px" onclick="zhaopin(this)">招聘</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="zhucewangzhan(this)">注册网站</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="chanpinxinxi(this)">产品信息</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="gongsijianjie(this)">公司简介</button>
+             <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px;width: 82px" onclick="zhaotoubiao(this)">招投标</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="qiyeyuangong(this)">企业员工</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px" onclick="gongchenxingmu(this)">工程业绩</button>
+            <button type="button" class="btn btn-default" style="margin-left: 9px;margin-top: 10px;padding-left: 4px" onclick="weixin(this)">微信公众号</button>
+        </div>
+    </div>
+</div>
+    <!-- 正文结束 -->
+</div>
+    <div class="alert"></div>
+
+</body>
+<script src="../../js/jquery.cookie.js"></script>
+<script>
+var vConsole = new VConsole();
+    var sn = "";
+    var qiyeaid = "";
+    var search = "";
+    var qyid = "";
+    var qymcID = "";
+window.onload=function(){
+    var widthLIN = localStorage.getItem("key"); 
+    document.getElementById('widthLI').style.height = widthLIN + 'px';
+    document.getElementById('daohanglan').style.top = widthLIN + 'px';
+    var dhlH = document.getElementById('daohanglan').offsetHeight;
+    document.getElementById('app').style.marginTop = Number(widthLIN) + Number(dhlH) + 'px';
+    var shoucang = "";
+    var time = [];
+    var timess = [];
+    var name,value;
+    var str=location.href;
+    var num=str.indexOf("?");
+    str=str.substr(num+1);
+    var arr=str.split("&");
+    for(var i=0;i < arr.length;i++){
+        num=arr[i].indexOf("=");
+        if(num>0){
+            name=arr[i].substring(0,num);
+            value=arr[i].substr(num+1);
+            this[name]=value;
+            search = value;
+        }
+    }
+    new Vue({
+        el:'#app',
+        data:{
+            users:[],
+            timess:[],
+            names:[],
+        },
+        mounted:function(){
+            this.sendGetByObj();
+        },
+        methods:{
+            sendGetByObj:function(){
+                var than = this;
+                this.$http.get('../../../index.php/index/qy/view',{
+                    params:{
+                        aid: search,
+                        act: "app"
+                    }
+                })
+                .then(function (response) {
+                    console.log(response);
+                    console.log(response.data.content.qymc)
+                    than.users = response.data.content
+                    qymcID = response.data.content.qymc
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            shoucangs:function(){
+                var than = this;
+                var ueser = than.users;
+                this.$http.get('../../../index.php/index/stow/insert',{
+                    params:{
+                        type: "qyxx",
+                        act: "app",
+                        aid: search,
+                        pid: search,
+                        title:than.users.qymc
+                    }
+                })
+                .then(function (response) {
+                   console.log(response)
+                   ueser.isstow = response.data.isstow;
+                   console.log(ueser)
+                   than.users = ueser
+                   var panduan = localStorage.getItem("key1");
+                    if (panduan =='1') {
+                        window.control.LogShow(response.data.msg)
+                    }else{
+                        window.webkit.messageHandlers.showMessage.postMessage(response.data.msg)
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            }
+        } 
+    });
+}
+        function gongshangxinxi(element){
+            window.location.href = "gongshangxinxi.html?aid="+search
+        }
+        function gudongxinxi(element){
+            window.location.href = "gudongxinxi.html?aid="+search;
+        }
+        function zhuyaorenyuan(element){
+            window.location.href = "renyuanxinxi.html?aid="+search;
+        }
+        function biangengjilu(element){
+            window.location.href = "biangenjilu.html?aid="+search;
+        }
+        function qiyenianbao(element){
+            window.location.href = "qiyenianbao.html?aid="+search;
+        }
+        function jinrixinzeng(element){
+           
+            window.location.href = "jinrixinzeng.html?aid="+search + '&name=' + qymcID; 
+        }
+        function xinxizongliang(element){
+            window.location.href = "xinxizongliang.html?aid="+search;
+        }
+        function buliangxinxi(element){
+            window.location.href = "buliangxinxi.html?aid="+search;
+        }
+        function minshian(element){
+            window.location.href = "minshian.html?aid="+search;
+        }
+        function peichangan(element){
+            window.location.href = "peichangan.html?aid="+search;
+        }
+        function xingzhenan(element){
+            window.location.href = "xingzhengan.html?aid="+search;
+        }
+        function zhixingan(element){
+            window.location.href = "zhixingan.html?aid="+search;
+        }
+        function zhixingxinxi(element){
+             console.log(search)
+             window.location.href = "zhixingxinxi.html?aid="+search;
+        }
+        function chouchajiancha(element){
+             window.location.href = "chouchajiancha.html?aid="+search;
+        }
+        function shuangsuijichoucha(element){
+             window.location.href = "shuangsuijichoucha.html?aid="+search;
+        }
+        function sifaxiezhu(element){
+             window.location.href = "sifaxiezhu.html?aid="+search;
+        }
+         function heimingdan(element){
+             window.location.href = "heimingdan.html?aid="+search;
+        }
+         function zizhizhengshu(element){
+             window.location.href = "qiyezizhizhengshu.html?aid="+search;
+        }
+        function zizhizhengshu(element){
+             window.location.href = "qiyezizhizhengshu.html?aid="+search;
+        }
+        function shangbiao(element){
+             window.location.href = "shangbiaoxinxi.html?aid="+search;
+        }
+        function zhishichanquan(element){
+             window.location.href = "zhishichanquanchuzhi.html?aid="+search;
+        }
+        function zhaopin(element){
+            window.location.href = "zhaoping.html?aid="+ search;
+        }
+        function zhucewangzhan(element){
+            window.location.href = "zhucewangzhan.html?aid="+ search +"&name="+qymcID;;
+        }
+        function chanpinxinxi(element){
+            window.location.href = "chanpinxinxi.html?aid="+ search +"&name="+qymcID;
+        }
+        function chanpinxinxi(element){
+            window.location.href = "chanpinxinxi.html?aid="+ search +"&name="+qymcID;
+        }
+        function gongsijianjie(element){
+            window.location.href = "gongsijianjie.html?sn="+search +"&name="+qymcID;
+        }
+        function zhaotoubiao(element){
+            window.location.href = "zhaotoubiao.html?name="+search;
+        }
+        function qiyeyuangong(element){
+             window.location.href = "qiyeyuangong.html?name="+search;
+        }
+        function gongchenxingmu(element){
+             window.location.href = "gongchenxiangmu.html?name="+search;
+        }
+         function weixin(element){
+             window.location.href = "weiixngongzhonghao.html?name="+search;
+        }
+        function zhuanli(element){
+            window.location.href = "zhuanli.html?id="+search
+        }
+        function zhuzuoquan(element){
+             window.location.href = "zhuzuoquan.html?id="+search
+        }
+
+function Mclose(){
+      var widthLIN1 = localStorage.getItem("key1"); 
+      if (widthLIN1 == "2") {
+         window.webkit.messageHandlers.Mclose.postMessage("123");
+     }else{
+        window.control.mClose();
+     }
+      
+}
+function Mback(){
+    window.history.go(-1);
+}
+</script>
+</html>

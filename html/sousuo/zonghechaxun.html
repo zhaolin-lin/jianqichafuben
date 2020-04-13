@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" /> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+</head>
+<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+<script src="../../js/jquery.js"></script>
+<script src="../../js/vue.js"></script>
+<script src="../../js/bootstrap.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="../../js/axios.js"></script>
+<style type="text/css">
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+        }
+        .navbar {
+            position: relative;
+            min-height: 50px;
+            margin-bottom: 0px;
+            border: 0px solid transparent;
+        }
+        .form-control {
+            width: 80%;
+        }
+        .form-control{
+            border: 0px solid #000;
+            border-right: 1px solid #d4d4d4;
+        }
+        .input-group-addon{
+            border: 0px solid #000;
+        }
+         input{
+            outline: none;
+         }
+           .header {
+            width: 100%;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header div:before,
+        .header div:after {
+            position: absolute;
+            background: #ccc;
+            content: "";
+            height: 1px;
+            top: 50%;
+            width: 100px;
+        }
+
+        .header div:before {
+            left: 10px;
+        }
+
+        .header div:after {
+            right: 10px;
+        }
+        .col-xs-3{
+            padding-left: 0px;
+        }
+        .col-xs-12{
+            padding-left: 0px;
+        }
+        .col-xs-8{
+            padding-left: 0px;
+        }
+        [v-cloak] {
+            display: none !important;
+        }
+        .alert {
+    display: none;
+    position: fixed;
+    top: 84%;
+    left: 21%;
+    z-index: 99999;
+    padding: 8px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    text-align: center;
+    width: 200px;
+    max-width: 200px;
+}
+ 
+.alert-success {
+    color: #fff;
+    background-color: #000000;
+    border-color: #040404;
+}
+ 
+.alert-info {
+    color: #fff;
+    background-color: #000000;
+    border-color: #000000;
+}
+ 
+.alert-warning {
+    color: #fff;
+    background-color: #000000;
+    border-color: #000000;
+}
+ 
+.alert-danger {
+    color: #fff;
+    background-color: #000000;
+    border-color: #000000;
+}
+</style>
+<body style="background:#fff;height:100%;">
+<div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
+    </div>
+<nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+    <div class="container-fluid">
+        <div class="">
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
+            <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10" style="color: #fff;text-align: center;">综合查询</a>
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;float: right;text-align: right;" ><span class="glyphicon glyphicon-remove" style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
+        </div>
+    </div>
+</nav>
+
+<!-- 内容开始 -->
+<div style="background: #fff" id="app" v-cloak> 
+<div style="position:relative;overflow:auto" id="zhongjian">
+        <div style="width: 100%;overflow: hidden;">
+        <div style="line-height: 50px;width: 23%;float: left;margin-left: 20px">地区选择：</div>
+        <div style="line-height: 30px;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;padding-left: 15px;padding-right: 15px" @click="shengObj" onclick="shengon(this)" id="shengS" >省/直辖市</div> 
+        <div style="display: none" id="shengaid" ref="nativeplace">省/直辖市</div> 
+        <div style="line-height: 30px;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 10px;padding-left: 15px;padding-right: 15px" @click="shiObj" onclick="shengon(this)"id="shiS">市/县</div>  
+        <div style="display: none" id="shiaid" ref="nativeplace1">市/县</div> 
+    </div>
+    <div style="width: 100%;height: 25px;overflow: hidden;">
+        <div style="line-height: 25px;width: 23%;float: left;margin-left: 20px">资质类别：</div>
+        
+    </div>
+    <div style="width: 100%;height: 50px;overflow: hidden;">
+        <div style="line-height: 30px;width: 30%;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 8px" @click="qiyezzObj" onclick="zizhi(this)" id="qiyeS">企业类型</div> 
+        <div style="display: none" id="qiyetid" ref="nativeplace2"></div>
+        <div style="line-height: 30px;width: 30%;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 10px" @click="zizhilbObj" onclick="zizhilb(this)" id="qiyelbS">选择资质类别
+        </div>  
+        <div style="line-height: 30px;width: 30%;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 10px;display: none;" @click="zizhilbX" onclick="qiyelbSX(this)" id="qiyelbSX">选择资质类别
+        </div>  
+    </div>
+    <div style="width: 100%;height: 50px;overflow: hidden;">
+       <div style="line-height: 30px;width: 30%;background: #FD9700;border: 1px solid #FD9700;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 8px;color: #fff" onclick="tianjia0()">+添加资质</div> 
+    </div>
+     <div style='width: 100%;overflow: hidden;display: none;border-bottom: 1px solid #636363;' id="qiyezizhi">
+        <div style='width: 30%;background: #fff;border-radius: 5px;float: left;height: 22px;text-align: center;margin-left: 10px;'>以选择资质</div>
+    </div>
+    <div id="tianjian0">
+        
+    </div>
+    <div style="width: 100%;height: 25px;overflow: hidden;">
+        <div style="line-height: 25px;width: 23%;float: left;margin-left: 20px">人员类别：</div>
+    </div>
+    <div style="width: 100%;height: 50px;overflow: hidden;">
+        <div style="line-height: 30px;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 8px;padding-left: 15px;padding-right: 15px"@click="renyuandale" onclick="renyuan(this)" id="renyuan" >选择人员大类</div> 
+        <div style="display: none" id="qiyetid" ref="nativeplace2"></div>
+        <div style="line-height: 30px;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 10px;padding-left: 15px;padding-right: 15px" @click="zhungshudengji" onclick="renyuanID(this)" id="renyuanID">证书专业、等级</div>   
+    </div>
+     <div style="width: 100%;height: 50px;overflow: hidden;">
+       <div style="line-height: 30px;width: 30%;background: #FD9700;border: 1px solid #FD9700;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 8px;color: #fff" onclick="tianjia1()">+添加人员</div> 
+    </div>
+     <div style='width: 100%;overflow: hidden;display: none;border-bottom: 1px solid #636363;' id="qiyerenyuan">
+        <div style='width: 30%;background: #fff;border-radius: 5px;float: left;height: 22px;text-align: center;margin-left: 10px;'>已选择人员</div>
+    </div>
+    <div id="tianjian1">
+        
+    </div>
+      <div style="width: 100%;height: 25px;overflow: hidden;">
+        <div style="line-height: 25px;width: 23%;float: left;margin-left: 20px">工程业绩：</div>
+    </div>
+    <div style="width: 100%;height: 50px;overflow: hidden;">
+        <div style="line-height: 30px;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 8px;padding-left: 15px;padding-right: 15px"  @click="xiangmuleixing" onclick="xiangmuleixing(this)" id="xiangmuleixingS">工程类型</div> 
+    </div>
+    <div style="width: 100%;height: 50px;overflow: hidden;">
+       <div style="line-height: 30px;width: 30%;background: #FD9700;border: 1px solid #FD9700;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 8px;color: #fff" onclick="tianjia2()">+添加工程类型</div> 
+    </div>
+     <div style='width: 100%;overflow: hidden;display: none;border-bottom: 1px solid #636363;' id="qiyegongcheng">
+        <div style='width: 30%;background: #fff;border-radius: 5px;float: left;height: 22px;text-align: center;margin-left: 10px;'>已选择工程</div>
+    </div>
+    <div id="tianjian2">
+        
+    </div>
+    <!-- 中标项目开始 -->
+    <div style="width: 100%;height: 25px;overflow: hidden;">
+        <div style="line-height: 25px;width: 23%;float: left;margin-left: 20px">中标项目：</div>
+    </div>
+    <div style="width: 100%;height: 50px;overflow: hidden;">
+        <div style="line-height: 30px;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 8px;padding-left: 15px;padding-right: 15px" id="starttime">起始日期
+        </div>
+        <div style="line-height: 30px;background: #fff;border: 1px solid #fff;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 8px;">—
+        </div>
+        <div style="display: none" id="qiyetid" ref="nativeplace2"></div>
+        <div style="line-height: 30px;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 10px;padding-left: 15px;padding-right: 15px" id="endtime">截止日期
+        </div>   
+    </div>
+
+    <div style="width: 100%;height: 50px;overflow: hidden;">
+        <input type="number" name="" placeholder="中标金额" style="line-height: 30px;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 8px;width: 88px" id="zhongbiaoje1">
+        <div style="line-height: 30px;background: #fff;border: 1px solid #fff;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 8px;">—
+        </div>  
+        <input type="number" name="" placeholder="中标金额" style="line-height: 30px;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 8px;width: 88px" id="zhongbiaoje2">
+    </div>
+<div style="width: 100%;height: 50px;overflow: hidden;">
+        <div style="line-height: 30px;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 8px;padding-left: 15px;padding-right: 15px"  @click="xiangmuleixing" onclick="xiangmuleixingS1(this)" id="xiangmuleixingS122">工程类型</div> 
+    </div>
+    <div style="width: 100%;height: 50px;overflow: hidden;">
+       <div style="line-height: 30px;width: 30%;background: #FD9700;border: 1px solid #FD9700;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 8px;color: #fff" onclick="tianjia3()">+添加项目类型</div> 
+    </div>
+     <div style='width: 100%;overflow: hidden;display: none;border-bottom: 1px solid #636363;' id="xiangmuleixingL">
+        <div style='width: 30%;background: #fff;border-radius: 5px;float: left;height: 22px;text-align: center;margin-left: 10px;'>已选择工程</div>
+    </div>
+    <div id="tianjian3">
+        
+    </div>
+</div>
+
+    <!-- 中标项目结束 -->
+    <div style="width: 100%;overflow: hidden;text-align: center; position: fixed;left: 0px;bottom: 0px;border-top: 1px solid #b1b1b1;background: #fff;" id="anniu">
+        <button style="margin: 13px 0 13px 0;background: #FD9700;border-radius: 10px;width: 30%;height: 40px;border:1px solid #FD9700;outline:none;color: #fff">开始查询</button>  
+    </div>
+
+<!-- 隐藏框1开始 -->
+<div style="position: fixed;bottom: 0px;left: 0px;width: 100%;background: #fff;display: none" id="ycsheng">
+    <div class="btn-group" style="width: 100%;">
+        <button type="button" class="btn btn-default col-xs-3" onclick="quxiao()">取消</button>
+        <button type="button" class="btn btn-default col-xs-6">选择</button>
+        <button type="button" class="btn btn-default col-xs-3" onclick="queding()">确定</button>
+    </div>
+    <div style="height: 200px;overflow-x: hidden;overflow-y: scroll;margin: 0 auto;padding: 20px 0 20px 0;">
+        <ul id="shengon">
+            <li v-for="sheng in shengs" style="text-align: center;line-height: 40px;font-size: 18px;color:#000" :id="sheng.key">{{sheng.name}}</li>
+        </ul>
+    </div>
+</div>
+<!-- 隐藏框1结束 -->
+<!-- 隐藏框2开始 -->
+<div style="position: fixed;bottom: 0px;left: 0px;width: 100%;background: #fff;display: none" id="ycsheng1">
+    <div class="btn-group" style="width: 100%;">
+        <button type="button" class="btn btn-default col-xs-3" onclick="quxiao()" >取消</button>
+        <button type="button" class="btn btn-default col-xs-6">选择</button>
+        <button type="button" class="btn btn-default col-xs-3" onclick="queding()" @click=" xingmuleixingS">确定</button>
+    </div>
+    <div style="height: 200px;overflow-x: hidden;overflow-y: scroll;margin: 0 auto;padding: 20px 0 20px 0;">
+        <ul id="xiangmuleixingon">
+            <li v-for="xiangmuleixing in xiangmuleixings" style="text-align: center;line-height: 40px;font-size: 18px;color:#000" :id="xiangmuleixing.id">{{xiangmuleixing.typename}}</li>
+        </ul>
+    </div>
+</div>
+<!-- 隐藏框2结束 -->
+<!-- 隐藏框3开始 -->
+<div style="position: fixed;bottom: 0px;left: 0px;width: 100%;background: #fff;display: none" id="ycsheng2">
+    <div class="btn-group" style="width: 100%;">
+        <button type="button" class="btn btn-default col-xs-3" onclick="quxiao()">取消</button>
+        <button type="button" class="btn btn-default col-xs-6">选择</button>
+        <button type="button" class="btn btn-default col-xs-3" onclick="queding()">确定</button>
+    </div>
+    <div style="height: 200px;overflow-x: hidden;overflow-y: scroll;margin: 0 auto;padding: 20px 0 20px 0;">
+        <ul id="xiangmuleixingonS" onclick="xiangmuleixingonS()">
+            <li v-for="xiangmuleixingS in xiangmuleixingSs" style="text-align: center;line-height: 40px;font-size: 18px;color:#000"  :id="xiangmuleixingS.id">{{xiangmuleixingS.typename}}</li>
+        </ul>
+    </div>
+</div>
+<!-- 隐藏框3结束 -->
+<!-- 隐藏框1开始 -->
+<div style="position: fixed;bottom: 0px;left: 0px;width: 100%;background: #fff;display: none" id="ycsheng3">
+    <div class="btn-group" style="width: 100%;">
+        <button type="button" class="btn btn-default col-xs-3" onclick="quxiao()">取消</button>
+        <button type="button" class="btn btn-default col-xs-6">选择</button>
+        <button type="button" class="btn btn-default col-xs-3" onclick="queding()">确定</button>
+    </div>
+    <div style="height: 200px;overflow-x: hidden;overflow-y: scroll;margin: 0 auto;padding: 20px 0 20px 0;">
+        <ul id="renyuanom">
+            <li v-for="(renyuan,index) in renyuans" style="text-align: center;line-height: 40px;font-size: 18px;color:#000"  :id="renyuan.key">{{renyuan.name}}</li>
+        </ul>
+    </div>
+</div>
+<!-- 隐藏框1结束 -->
+<!-- 隐藏框1开始 -->
+ <div style="position: fixed;bottom: 0px;left: 0px;width: 100%;background: #fff;display: none" id="ycsheng4">
+    <div class="btn-group" style="width: 100%;">
+        <button type="button" class="btn btn-default col-xs-3" onclick="quxiao()">取消</button>
+        <button type="button" class="btn btn-default col-xs-6">选择</button>
+        <button type="button" class="btn btn-default col-xs-3" onclick="queding()">确定</button>
+    </div>
+    <div style="height: 200px;overflow-x: hidden;overflow-y: scroll;margin: 0 auto;padding: 20px 0 20px 0;">
+        <ul id="renyuanN">
+            <li v-for="zhengshuzhuanye in zhengshuzhuanyes" style="text-align: center;line-height: 40px;font-size: 18px;color:#000" :id="zhengshuzhuanye.key">{{zhengshuzhuanye.name}}</li>
+        </ul>
+    </div>
+</div>
+<!-- 隐藏框2开始 -->
+<div style="position: fixed;bottom: 0px;left: 0px;width: 100%;background: #fff;display: none" id="ycsheng5">
+    <div class="btn-group" style="width: 100%;">
+        <button type="button" class="btn btn-default col-xs-3" onclick="quxiao()">取消</button>
+        <button type="button" class="btn btn-default col-xs-6">选择</button>
+        <button type="button" class="btn btn-default col-xs-3" onclick="queding()">确定</button>
+    </div>
+    <div style="height: 200px;overflow-x: hidden;overflow-y: scroll;margin: 0 auto;padding: 20px 0 20px 0;">
+        <ul id="zizhiS">
+            <li v-for="zizhi in zizhis" style="text-align: center;line-height: 40px;font-size: 18px;color:#000" :id="zizhi.id">{{zizhi.typename}}</li>
+        </ul>
+    </div>
+</div>
+<!-- 隐藏框2结束 -->
+
+<!-- 隐藏框4开始 -->
+<div style="position: fixed;bottom: 0px;left: 0px;width: 100%;background: #fff;display: none" id="ycsheng6">
+    <div class="btn-group" style="width: 100%;">
+        <button type="button" class="btn btn-default col-xs-3" onclick="quxiao()">取消</button>
+        <button type="button" class="btn btn-default col-xs-6">选择</button>
+        <button type="button" class="btn btn-default col-xs-3" onclick="queding()">确定</button>
+    </div>
+    <div style="height: 200px;overflow-x: hidden;overflow-y: scroll;margin: 0 auto;padding: 20px 0 20px 0;">
+        <ul id="zizhilS">
+            <li v-for="zizhil in zizhils" style="text-align: center;line-height: 40px;font-size: 18px;color:#000" >{{zizhil.name}}</li>
+        </ul>
+    </div>
+</div>
+<!-- 隐藏框4结束 -->
+
+<!-- 隐藏框5开始 -->
+<div style="position: fixed;bottom: 0px;left: 0px;width: 100%;background: #fff;display: none" id="ycsheng7">
+    <div class="btn-group" style="width: 100%;">
+        <button type="button" class="btn btn-default col-xs-3" onclick="quxiao()">取消</button>
+        <button type="button" class="btn btn-default col-xs-6">选择</button>
+        <button type="button" class="btn btn-default col-xs-3" onclick="queding()">确定</button>
+    </div>
+    <div style="height: 200px;overflow-x: hidden;overflow-y: scroll;margin: 0 auto;padding: 20px 0 20px 0;">
+        <ul id="zzlbss">
+            <li v-for="zzlbs in zzlbss" style="text-align: center;line-height: 40px;font-size: 18px;color:#000" >{{zzlbs.name}}</li>
+        </ul>
+    </div>
+</div>
+<!-- 隐藏框5结束 -->
+<!-- 悬浮按钮开始  -->
+<!-- 悬浮按钮结束 -->
+</div>
+<!-- 内容结束 -->
+<div class="alert"></div>
+</body>
+<script src="../../js/zonghechaxunanniu.js"></script>
+<script>
+    //color: #FD9700;background-color: #fff;border-color: #FD9700;
+    //     color: #333;
+    // background-color: #fff;
+    // border-color: #ccc;
+    var a = "";
+    var b = "";
+    var c = "";
+    var d = "";
+    var f = "";
+    var e = "";
+     var i = 1; 
+     var renyuanshul = 1;
+     var qiyegongcheng = 1;
+     var xiangmuleixingL = 1;
+    var diqu = "";
+    window.onload=function(){
+     var widthLIN = localStorage.getItem("key"); 
+    document.getElementById('widthLI').style.height = widthLIN + 'px';
+    document.getElementById('daohanglan').style.top = widthLIN + 'px';
+    var dhlH = document.getElementById('daohanglan').offsetHeight;
+    document.getElementById('app').style.marginTop = Number(widthLIN) + Number(dhlH) + 'px';
+   var shuzu = [];
+                new Vue({
+                 el:'#app',
+                 data:{
+                    xiangmuleixings:[],
+                    xiangmuleixingSs:[],
+                    shengs:[],
+                    renyuans:[],
+                    zhengshuzhuanyes:[],
+                    zizhis:[],
+                    zizhils:[],
+                    zzlbss:[],
+                 },
+                mounted:function(){                                                                                
+                    
+                },
+                created() {
+                },
+                 methods:{
+                      shengObj:function(){
+                          var than = this;
+                         // //2.get通过params选项
+                         this.$http.get('../../../plus/diqu.php',{
+                             params:{
+                                xian: "1",
+                                act: "app",
+                                qu: "1",
+                             }
+                         })
+                           .then(function (sheng) {
+                            console.log(sheng.data.list);
+                             than.shengs = sheng.data.list;
+
+                           })
+                           .catch(function (error) {
+                             console.log(error);
+                         });
+                     },
+                     shiObj:function(){
+                         var shengnei = document.getElementById("shengS").innerHTML;
+                         if (shengnei == "省/直辖市") {
+                            alert("请先选择省份")
+                         }else{
+                            var than = this;
+                         // //2.get通过params选项
+                         this.$http.get('../../../plus/diqu.php',{
+                             params:{
+                                xian: b,
+                                act: "app",
+                                qu: "1",
+                             }
+                         })
+                           .then(function (sheng) {
+                            console.log(sheng.data.list);
+                             than.shengs = sheng.data.list;
+
+                           })
+                           .catch(function (error) {
+                             console.log(error);
+                         });
+                         }   
+                     },
+                     xiangmuleixing:function(){
+                            var than = this;
+                         // //2.get通过params选项
+                         this.$http.get('../../../plus/cansu.php',{
+                             params:{
+                                action: "cslx",
+                                channeltype: "-8",
+                                typeid: "9",
+                             }
+                         })
+                           .then(function (xiangmuleixing) {
+                            console.log(xiangmuleixing.data.typeid);
+                            document.getElementById('ycsheng1').style.display = "block"
+                             than.xiangmuleixings = xiangmuleixing.data.typeid;
+                                ceshi = xiangmuleixing.data.typeid;
+                           })
+                           .catch(function (error) {
+                             console.log(error);
+                         });
+                    },
+                    xingmuleixingS:function(){
+                        document.getElementById('ycsheng2').style.display = "block";
+                        var than = this;
+                        than.xiangmuleixingSs = ceshi[xiangqing].next1;
+                    },
+                    renyuandale:function(){
+
+                          var than = this;
+                         // //2.get通过params选项
+                         this.$http.get('../../../plus/cansu.php',{
+                             params:{
+                                action: "rylb",
+                             }
+                         })
+                           .then(function (renyuan) {
+                            console.log(renyuan.data.list);
+                             than.renyuans = renyuan.data.list;
+                              ceshi1 = renyuan.data.list;
+                               document.getElementById('ycsheng3').style.display = "block";
+                           })
+                           .catch(function (error) {
+                             console.log(error);
+                         }); 
+                     },
+                    zhungshudengji:function(){
+                        var than = this;
+                        var renyuan = document.getElementById('renyuan').innerHTML;
+                        if (renyuan == "选择人员大类") {
+                            $('.alert').html('请先选择人员大类').addClass('alert-success').show().delay(1500).fadeOut();
+                        }else{
+                            document.getElementById('ycsheng4').style.display = "block"
+                            than.zhengshuzhuanyes = ceshi1[xiangqing].next;
+                        }
+                        
+                    },
+                    qiyezzObj:function(){
+                            var than = this;
+                         // //2.get通过params选项
+                         this.$http.get('../../../plus/cansu.php',{
+                             params:{
+                                action: 'cslx',
+                                channeltype: '17',
+                                typeid: '6'
+                             }
+                         })
+                           .then(function (qiyezz) {
+                            console.log(qiyezz.data.typeid);
+                             than.zizhis = qiyezz.data.typeid;
+                           })
+                           .catch(function (error) {
+                             console.log(error);
+                         }); 
+                     },
+                     zizhilbObj:function(){
+                            var than = this;
+                         // //2.get通过params选项
+                         this.$http.get('../../../plus/cansu.php',{
+                             params:{
+                                action: 'zzlb',
+                               
+                             }
+                         })
+                           .then(function (aiahilb) {
+                            console.log(aiahilb.data.list);
+                             than.zizhils = aiahilb.data.list;
+                             ceshi2 = aiahilb.data.list;
+                           })
+                           .catch(function (error) {
+                             console.log(error);
+                         }); 
+                     },
+                     zizhilbX:function(){
+                        document.getElementById('ycsheng7').style.display = "block"
+                            var than = this;
+                         // //2.get通过params选项
+                         // alert(zizhiindex);
+                          console.log(ceshi2[zizhiindex].next)
+                         than.zzlbss = ceshi2[zizhiindex].next;
+                     },
+                }  
+             });
+        var yemian0 = document.body.clientHeight;
+        var yemian1 = $("#nav").height(); 
+        var yemian2 = $("#anniu").height(); 
+        console.log(yemian0 +" "+ yemian1 +" "+ yemian2)
+        var  yemian = yemian0 - (yemian1+yemian2);
+        $("#zhongjian").css("height", yemian+"px");
+         }
+  
+
+      function shengon(element){
+       document.getElementById('ycsheng').style.display = "block";
+       document.getElementById('shiS').innerHTML = "市/县"
+        c = element.id
+
+       setTimeout(function(){ 
+        var uli = document.getElementById("shengon");
+        var lio = uli.getElementsByTagName('li');
+      
+        for (var i = 0; i < lio.length; i++) {
+            uli.getElementsByTagName('li')[i].style.color = "#000";
+        lio[i].index = i; 
+        lio[i].onclick = function(){
+            for (var p = 0; p < i ; p++) {
+                uli.getElementsByTagName('li')[p].style.color = "#000";
+            }
+            xiangqing = this.index;
+            uli.getElementsByTagName('li')[xiangqing].style.color = "#FD9700";
+             a = uli.getElementsByTagName('li')[xiangqing].innerHTML;
+             diqu = uli.getElementsByTagName('li')[xiangqing].id;
+            if (element.id == "shengS") {
+                 b = uli.getElementsByTagName('li')[xiangqing].id;
+            }
+        }
+    } }, 100);
+   }
+  function xiangmuleixing(element){
+        c = element.id
+       setTimeout(function(){ 
+        var uli = document.getElementById("xiangmuleixingon");
+        var lio = uli.getElementsByTagName('li');
+        for (var i = 0; i < lio.length; i++) {
+            uli.getElementsByTagName('li')[i].style.color = "#000";
+        lio[i].index = i; 
+        lio[i].onclick = function(){
+            for (var p = 0; p < i ; p++) {
+                uli.getElementsByTagName('li')[p].style.color = "#000";
+            }
+            xiangqing = this.index;
+            uli.getElementsByTagName('li')[xiangqing].style.color = "#FD9700";
+             //e = uli.getElementsByTagName('li')[xiangqing].innerHTML;
+            // aid = uli.getElementsByTagName('li')[xiangqing].id;
+        }
+    } }, 100);
+   }
+     function xiangmuleixingonS(element){
+       setTimeout(function(){ 
+        var uli = document.getElementById("xiangmuleixingonS");
+        var lio = uli.getElementsByTagName('li');
+        for (var i = 0; i < lio.length; i++) {
+           
+        lio[i].index = i; 
+        lio[i].onclick = function(){
+            for (var p = 0; p < i ; p++) {
+                uli.getElementsByTagName('li')[p].style.color = "#000";
+            }
+            xiangqing = this.index;
+            uli.getElementsByTagName('li')[xiangqing].style.color = "#FD9700";
+             e = uli.getElementsByTagName('li')[xiangqing].innerHTML;
+             f = uli.getElementsByTagName('li')[xiangqing].id;
+             
+            // aid = uli.getElementsByTagName('li')[xiangqing].id;
+        }
+    } }, 100);
+   }
+     function renyuan(element){
+        c = element.id
+       setTimeout(function(){ 
+        var uli = document.getElementById("renyuanom");
+        var lio = uli.getElementsByTagName('li');
+        for (var i = 0; i < lio.length; i++) {
+            uli.getElementsByTagName('li')[i].style.color = "#000";
+        lio[i].index = i; 
+        lio[i].onclick = function(){
+            for (var p = 0; p < i ; p++) {
+                uli.getElementsByTagName('li')[p].style.color = "#000";
+            }
+            xiangqing = this.index;
+            uli.getElementsByTagName('li')[xiangqing].style.color = "#FD9700";
+             d = uli.getElementsByTagName('li')[xiangqing].innerHTML;
+             f = uli.getElementsByTagName('li')[xiangqing].id;
+            // aid = uli.getElementsByTagName('li')[xiangqing].id;
+        }
+    } }, 100);
+   }
+function renyuanID(element){
+        c = element.id
+       setTimeout(function(){ 
+        var uli = document.getElementById("renyuanN");
+        var lio = uli.getElementsByTagName('li');
+        for (var i = 0; i < lio.length; i++) {
+            uli.getElementsByTagName('li')[i].style.color = "#000";
+        lio[i].index = i; 
+        lio[i].onclick = function(){
+            for (var p = 0; p < i ; p++) {
+                uli.getElementsByTagName('li')[p].style.color = "#000";
+            }
+            xiangqing = this.index;
+            uli.getElementsByTagName('li')[xiangqing].style.color = "#FD9700";
+            e = uli.getElementsByTagName('li')[xiangqing].innerHTML;
+            f = uli.getElementsByTagName('li')[xiangqing].id;
+            // aid = uli.getElementsByTagName('li')[xiangqing].id;
+        }
+    } }, 100);
+   }
+     function zizhi(element){
+       document.getElementById('ycsheng5').style.display = "block";
+        c = element.id
+       setTimeout(function(){ 
+        var uli = document.getElementById("zizhiS");
+        var lio = uli.getElementsByTagName('li');
+        for (var i = 0; i < lio.length; i++) {
+            uli.getElementsByTagName('li')[i].style.color = "#000";
+        lio[i].index = i; 
+        lio[i].onclick = function(){
+            for (var p = 0; p < i ; p++) {
+                uli.getElementsByTagName('li')[p].style.color = "#000";
+            }
+            xiangqing = this.index;
+            uli.getElementsByTagName('li')[xiangqing].style.color = "#FD9700";
+            e = uli.getElementsByTagName('li')[xiangqing].innerHTML;
+            tid = uli.getElementsByTagName('li')[xiangqing].id;
+        }
+    } }, 100);
+    }
+    ///////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////
+     function zizhilb(element){
+       document.getElementById('ycsheng6').style.display = "block";
+        c = element.id
+       setTimeout(function(){ 
+        var uli = document.getElementById("zizhilS");
+        var lio = uli.getElementsByTagName('li');
+        for (var i = 0; i < lio.length; i++) {
+            uli.getElementsByTagName('li')[i].style.color = "#000";
+        lio[i].index = i; 
+        lio[i].onclick = function(){
+
+            for (var p = 0; p < i ; p++) {
+                uli.getElementsByTagName('li')[p].style.color = "#000";
+            }
+            xiangqing = this.index;
+            zizhiindex = xiangqing
+            uli.getElementsByTagName('li')[xiangqing].style.color = "#FD9700";
+            f = uli.getElementsByTagName('li')[xiangqing].innerHTML;
+           
+        }
+    } }, 100);
+    }
+     //////////////////////////////////////////////////////////////////
+     function qiyelbSX(element){
+        c = element.id
+       setTimeout(function(){ 
+        var uli = document.getElementById("zzlbss");
+        var lio = uli.getElementsByTagName('li');
+        for (var i = 0; i < lio.length; i++) {
+            uli.getElementsByTagName('li')[i].style.color = "#000";
+        lio[i].index = i; 
+        lio[i].onclick = function(){
+
+            for (var p = 0; p < i ; p++) {
+                uli.getElementsByTagName('li')[p].style.color = "#000";
+            }
+            xiangqing = this.index;
+            zizhiindex = xiangqing
+            uli.getElementsByTagName('li')[xiangqing].style.color = "#FD9700";
+            ff = uli.getElementsByTagName('li')[xiangqing].innerHTML;
+           
+        }
+    } }, 100);
+    }
+    function xiangmuleixingS1(element){
+         c = element.id
+       setTimeout(function(){ 
+        var uli = document.getElementById("xiangmuleixingon");
+        var lio = uli.getElementsByTagName('li');
+        for (var i = 0; i < lio.length; i++) {
+            uli.getElementsByTagName('li')[i].style.color = "#000";
+        lio[i].index = i; 
+        lio[i].onclick = function(){
+            for (var p = 0; p < i ; p++) {
+                uli.getElementsByTagName('li')[p].style.color = "#000";
+            }
+            xiangqing = this.index;
+            uli.getElementsByTagName('li')[xiangqing].style.color = "#FD9700";
+             //e = uli.getElementsByTagName('li')[xiangqing].innerHTML;
+            // aid = uli.getElementsByTagName('li')[xiangqing].id;
+        }
+    } }, 100);
+    }
+    function queding(){
+        if (c == "shengS") {
+             document.getElementById('shengS').innerHTML = a;
+              document.getElementById('ycsheng').style.display = "none";
+         } else if(c == "shiS"){
+            document.getElementById('shiS').innerHTML = a;
+            document.getElementById('ycsheng').style.display = "none";
+        }else if(c == "xiangmuleixingS"){
+            document.getElementById('ycsheng1').style.display = "none";
+            document.getElementById('xiangmuleixingS').innerHTML = e;
+
+            document.getElementById('ycsheng2').style.display = "none";
+        } else if(c == "renyuan"){
+             document.getElementById('renyuan').innerHTML = d;
+              document.getElementById('ycsheng3').style.display = "none";
+         }else if(c == "renyuanID"){
+             document.getElementById('renyuanID').innerHTML = e;
+            var tid = f;
+            document.getElementById('ycsheng4').style.display = "none"
+         }else if(c == "qiyeS"){
+             document.getElementById('qiyeS').innerHTML = e;
+             document.getElementById('qiyetid').innerHTML = tid;
+         }else if (c == "qiyelbS") {
+            document.getElementById('qiyelbS').innerHTML = f;
+            document.getElementById('ycsheng3').style.display = "none";
+            document.getElementById('qiyelbSX').style.display = "block"
+            // document.getElementById('qiyetid').innerHTML = tid;
+         }else if(c == "qiyelbSX"){
+             document.getElementById('qiyelbSX').innerHTML = ff;
+             document.getElementById('ycsheng5').style.display = "none"
+         }else if(c == "xiangmuleixingS1"){
+            document.getElementById('ycsheng1').style.display = "none";
+            document.getElementById('xiangmuleixingS1').innerHTML = e;
+            document.getElementById('ycsheng2').style.display = "none";
+         }
+         document.getElementById('ycsheng5').style.display = "none";
+        document.getElementById('ycsheng6').style.display = "none";
+        document.getElementById('ycsheng7').style.display = "none";
+    }
+    function quxiao(){
+        document.getElementById('ycsheng').style.display = "none"
+        document.getElementById('ycsheng1').style.display = "none"
+        document.getElementById('ycsheng2').style.display = "none";
+        document.getElementById('ycsheng3').style.display = "none";
+        document.getElementById('ycsheng4').style.display = "none";
+    }
+    function tiaozhuan(element){
+        var aid = element.id;
+        window.location.href = "../shoucang/xiangmuxiangqing.html?aid="+aid;
+    }
+    function tianjia0(){
+        var leixing = document.getElementById('qiyeS').innerHTML;
+        var leixing1 = document.getElementById('qiyelbSX').innerHTML;
+        var leixing2 = document.getElementById('qiyelbS').innerHTML;
+        if (leixing == "企业类型" || leixing1 == "选择资质类别" || leixing2 == "选择资质类别") {
+             $('.alert').html('你还没有选择任何资质分类').addClass('alert-success').show().delay(1500).fadeOut();
+        }else{
+            document.getElementById('qiyezizhi').style.display = "block"        
+        console.log(leixing + " " + leixing1 + " " + leixing2)
+        document.getElementById('tianjian0').innerHTML += "<div style='width: 100%;overflow: hidden;padding: 12px;' id='tianjianI"+ i +"'><div style='width: 100%;height:23px'><div style='background: #fff;border-radius: 5px;float: left;height: 22px;margin-left: 10px;color: #FD9700;'>资质"+ i +"</div><div style='background: #fff;border-radius: 5px;float: right;height: 22px;margin-left: 10px;color: #FD9700;'><img src='../../image/chahao.png' style='width: 16px;' id='img"+i+"' onclick = 'img(this)'></div></div><div style='width: 100%;margin-left: 10px;'><span>"+ leixing +"</span>→<span>"+ leixing1 +"</span></div></div>"
+        i = i + 1;
+         document.getElementById('qiyeS').innerHTML = "企业类型";
+        document.getElementById('qiyelbSX').innerHTML = "选择资质类别";
+        document.getElementById('qiyelbS').innerHTML = "选择资质类别"
+        }
+    }
+    function img(elemnt){
+        var p = elemnt.id;
+        var p1 = p.substring(3,4) 
+        var tianjianI = "tianjianI" + p1;
+        var parent=document.getElementById("tianjian0");
+        var child=document.getElementById(tianjianI);
+        parent.removeChild(child);
+
+        i = i - 1;
+        if (i == "1") {
+             document.getElementById('qiyezizhi').style.display = "none"
+        }
+    } 
+    function tianjia1(){
+        var leixing = document.getElementById('renyuan').innerHTML;
+        var leixing1 = document.getElementById('renyuanID').innerHTML;
+        if (leixing == "选择人员大类" || leixing1 == "证书专业、等级") {
+             $('.alert').html('你还没有选择任何人员分类').addClass('alert-success').show().delay(1500).fadeOut();
+        }else{
+            document.getElementById('qiyerenyuan').style.display = "block"        
+        console.log(leixing + " " + leixing1)
+        document.getElementById('tianjian1').innerHTML += "<div style='width: 100%;overflow: hidden;padding: 12px;' id='tianjianP"+ renyuanshul +"'><div style='width: 100%;height:23px'><div style='background: #fff;border-radius: 5px;float: left;height: 22px;margin-left: 10px;color: #FD9700;'>资质"+ renyuanshul +"</div><div style='background: #fff;border-radius: 5px;float: right;height: 22px;margin-left: 10px;color: #FD9700;'><img src='../../image/chahao.png' style='width: 16px;' id='img"+renyuanshul+"' onclick = 'img1(this)'></div></div><div style='width: 100%;margin-left: 10px;'><span>"+ leixing +"</span>→<span>"+ leixing1 +"</span></div></div>"
+        renyuanshul = renyuanshul + 1;
+        document.getElementById('renyuan').innerHTML = "选择人员大类";
+        document.getElementById('renyuanID').innerHTML = "证书专业、等级";
+        }
+    }
+    function img1(elemnt){
+        var p = elemnt.id;
+        var p1 = p.substring(3,4) 
+        var tianjianP = "tianjianP" + p1;
+        var parent=document.getElementById("tianjian1");
+        var child=document.getElementById(tianjianP);
+        parent.removeChild(child);
+        renyuanshul = renyuanshul - 1;
+        if (renyuanshul == "1") {
+             document.getElementById('qiyerenyuan').style.display = "none"
+        }
+    } 
+    function tianjia2(){
+        var leixing = document.getElementById('xiangmuleixingS').innerHTML;
+        if (leixing == "工程类型") {
+             $('.alert').html('你还没有选择任何工程类型').addClass('alert-success').show().delay(1500).fadeOut();
+        }else{
+            document.getElementById('qiyegongcheng').style.display = "block"        
+        console.log(leixing)
+        document.getElementById('tianjian2').innerHTML += "<div style='width: 100%;overflow: hidden;padding: 12px;' id='tianjianO"+ qiyegongcheng +"'><div style='width: 100%;height:23px'><div style='background: #fff;border-radius: 5px;float: left;height: 22px;margin-left: 10px;color: #FD9700;'>资质"+ qiyegongcheng +"</div><div style='background: #fff;border-radius: 5px;float: right;height: 22px;margin-left: 10px;color: #FD9700;'><img src='../../image/chahao.png' style='width: 16px;' id='img"+qiyegongcheng+"' onclick = 'img2(this)'></div></div><div style='width: 100%;margin-left: 10px;'><span>"+ leixing +"</span></div></div>"
+        qiyegongcheng = qiyegongcheng + 1;
+        document.getElementById('xiangmuleixingS').innerHTML = "工程类型";
+        }
+    }
+    function img2(elemnt){
+        var p = elemnt.id;
+        var p1 = p.substring(3,4) 
+        var tianjianO = "tianjianO" + p1;
+        var parent=document.getElementById("tianjian2");
+        var child=document.getElementById(tianjianO);
+        parent.removeChild(child);
+        qiyegongcheng = qiyegongcheng - 1;
+        if (qiyegongcheng == "1") {
+             document.getElementById('qiyegongcheng').style.display = "none"
+        }
+    }
+    function tianjia3(){
+        var leixing0 = document.getElementById('starttime').innerHTML;
+        var leixing1 = document.getElementById('endtime').innerHTML;
+        var leixing2 = document.getElementById('zhongbiaoje1').value;
+        var leixing3 = document.getElementById('zhongbiaoje2').value;
+        var leixing4 = document.getElementById('xiangmuleixingS122').innerHTML;
+        if (leixing0 == "起始日期"&&leixing1 == "截止日期"&&leixing2 == ""&&leixing3 == ""&&leixing4 == "工程类型") {
+            document.getElementById('tianjian3').innerHTML += "<div style='width: 100%;overflow: hidden;padding: 12px;' id='tianjianS"+ xiangmuleixingL +"'><div style='width: 100%;height:23px'><div style='background: #fff;border-radius: 5px;float: left;height: 22px;margin-left: 10px;color: #FD9700;'>资质"+ xiangmuleixingL +"</div><div style='background: #fff;border-radius: 5px;float: right;height: 22px;margin-left: 10px;color: #FD9700;'><img src='../../image/chahao.png' style='width: 16px;' id='img"+xiangmuleixingL+"' onclick = 'img3(this)'></div></div><div style='width: 100%;margin-left: 10px;'><span>不限</span>→<span>不限</span>→<span>不限</span></div></div>"
+        }else{
+            document.getElementById('xiangmuleixingL').style.display = "block"        
+        document.getElementById('tianjian3').innerHTML += "<div style='width: 100%;overflow: hidden;padding: 12px;' id='tianjianS"+ xiangmuleixingL +"'><div style='width: 100%;height:23px'><div style='background: #fff;border-radius: 5px;float: left;height: 22px;margin-left: 10px;color: #FD9700;'>资质"+ xiangmuleixingL +"</div><div style='background: #fff;border-radius: 5px;float: right;height: 22px;margin-left: 10px;color: #FD9700;'><img src='../../image/chahao.png' style='width: 16px;' id='img"+xiangmuleixingL+"' onclick = 'img3(this)'></div></div><div style='width: 100%;margin-left: 10px;'><span>"+ leixing2 +"</span></div></div>"
+        xiangmuleixingL = xiangmuleixingL + 1;
+        document.getElementById('xiangmuleixingS').innerHTML = "工程类型";
+        }
+    }
+    function img3(elemnt){
+        var p = elemnt.id;
+        var p1 = p.substring(3,4);
+        var tianjianS = "tianjianS" + p1;
+        var parent=document.getElementById("tianjian3");
+        var child=document.getElementById(tianjianS);
+        parent.removeChild(child);
+        xiangmuleixingL = xiangmuleixingL - 1;
+        if (xiangmuleixingL == "1") {
+             document.getElementById('xiangmuleixingL').style.display = "none"
+        }
+    }
+    function Mclose(){
+      var widthLIN1 = localStorage.getItem("key1"); 
+      if (widthLIN1 == "2") {
+         window.webkit.messageHandlers.Mclose.postMessage("123");
+     }else{
+        window.control.mClose();
+     }
+      
+}
+function Mback(){
+    window.history.go(-1);
+}
+</script>
+</html>

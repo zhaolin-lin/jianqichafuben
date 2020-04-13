@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>选择地区</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="0">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/xuanzediqu.css">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <script src="js/axios.js"></script>
+    <script src="js/jsencrypt.js"></script>
+    <script src="js/hsjidh.js"></script>
+    <script src="js/axiosjsqing.js"></script>
+    <script src="js/jgifdj.js"></script>
+    <style>
+        #app{
+            width: 100%;
+            height: 100%;
+            overflow:hidden;
+        }
+        .lis {
+            background-color: #fff;
+        }
+
+        .lis1 {
+            background: #f5f5f5;
+        }
+        .left_point{
+            padding:0;
+            height: 100%;
+            margin-top:10px;
+        }
+        .left_point img{
+            width: 100%;
+            height: 100%;
+        }
+
+        .zw_til{
+            width: 100%;
+            height: 40px;
+            overflow: hidden;
+            border-bottom: 1px solid #eee;
+            background-color: #fff;
+            position: fixed;
+            top:0;
+            left:0;
+            z-index: 10000;
+        }
+        .til_point1{
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .til_point1 img{
+            width: 60%;
+            height: 60%;
+        }
+        .til_point2{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            height: 100%;
+        }
+        .til_text{
+            height: 100%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 3px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <!-- <nav class="navbar navbar-default" role="navigation"
+        style="background:rgb(255,255,255);position: fixed;width: 100%;z-index: 100000;overflow: hidden;border-bottom: 1px solid #eee;" id="daohanglan">
+        <div class="container-fluid">
+            <div class="" style="overflow:hidden;">
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 left_point" @click="fanhui"><img src="img/left_point.png"></div>
+                <div class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10"
+                    style="color: #000;text-align: center;">选择地区</div>
+                <div class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
+                    style="color: #000;float: right;text-align: right;"><span style=";margin-left: -15px">X</span></div>
+            </div>
+        </div>
+    </nav> -->
+    <div class="zw_til">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 til_point1" @click="fanhui"><img src="img/left_point.png"></div>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 til_text">职位详情</div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 til_point2">
+            <span>X</span>
+        </div>
+    </div>
+    <div style="height: 100%;padding-top: 40px;" v-cloak>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0px;height: 100%;">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 caidanl">
+                <ul style="margin-top: 0px !important">
+                    <li v-for="(pros,index) in pro" @click="sheng(pros.id)" :class="xuanzhong == pros.id ? 'lis':'lis1'">{{pros.name}}</li>
+                </ul>
+            </div>
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 caidanr" style="overflow-y: scroll;">
+                <div class="leibiao">
+                    <span style="display: block" v-for="(citys,index) in citys" @click="shi(citys.id,citys);fanhui()">{{citys.name}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: {
+            pro:'1000',
+            citys:'',
+            xuanzhong:'',
+            cid:'',
+            shis:'',
+            shengs:''
+        },
+        mounted: function () {
+            this.huoqushuju()
+        },
+        methods: {
+            huoqushuju: function () {
+                fjdf();
+                var than = this;
+                this.$http.post('../../index.php/api/shouye/cityswitch', {
+                    params: {
+
+                    }
+                },{
+                    headers:{
+                            'Cookies':ashjd
+                        }
+                })
+                    .then(function (res) {
+                        console.log(res.data.data)
+                        than.pro = res.data.data;
+                        this.sheng(1000)
+                    }, function () {
+                        console.log('请求失败处理');
+                    });
+            },
+            sheng:function(id){
+                var than = this;
+                than.xuanzhong = id;
+                var a = than.pro[id].name.charAt(than.pro[id].name.length - 1);
+                if(a == '市'){
+                    var arr = {};
+                    var arr1 = {};
+                    arr['id'] = than.pro[id].id;
+                    arr['name'] = than.pro[id].name;
+                    arr['parent_id'] = than.pro[id].parent_id;
+                    arr1[id] = arr;
+                    than.pro[id].zi = arr1;
+                    console.log(arr1)
+                }
+                // console.log(than.pro[than.xuanzhong].name)
+                than.citys = than.pro[id].zi;
+            },
+            shi:function(id,citys){
+                var than = this;
+                than.cid = id;
+                console.log(than.cid);
+                than.shis = citys.name;
+                than.shengs = than.pro[than.xuanzhong].name;
+                console.log(than.shengs);
+                console.log(than.shis);
+
+                localStorage.setItem("cid",than.cid);
+                localStorage.setItem("shi",than.shis);
+                localStorage.setItem("sheng",than.shengs)
+            },
+            fanhui:function(){
+                console.log(111)
+                window.history.go(-1);
+            }
+        }
+    })
+</script>
+</html>

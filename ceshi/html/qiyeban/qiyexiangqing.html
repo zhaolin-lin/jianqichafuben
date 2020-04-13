@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>企业详情</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport"
+		content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../../css/qiyeban/qiyexiangqing.css">
+	<link rel="stylesheet" type="text/css" href="../../css/iconfont.css">
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script src="../../js/bootstrap.js"></script>
+	<script src="../../js/vue.js"></script>
+	<script src="../../js/vue.min.js"></script>
+	<script src="../../js/axios.js"></script>
+	<script src="../../js/vue-resource.js"></script>
+	<script src="../../js/jsencrypt.js"></script>
+    <script src="../../js/hsjidh.js"></script>
+    <script src="../../js/axiosjsqing.js"></script>
+    <script src="../../js/jgifdj.js"></script>
+</head>
+<style type="text/css">
+	.yanse{
+		color:#ff7800;
+	}
+	.file-box{
+	  display: inline-block;
+	    position: relative;
+	  padding: 3px 5px;
+	  overflow: hidden;
+	  color:#fff;
+	  background-color: #ccc;
+	}
+	.file-btn{
+	  position: absolute;
+	  width: 100%;
+	  height: 100%;
+	  top: 0;
+	    left: 0;
+	    outline: none;
+	    background-color: transparent;
+	    filter:alpha(opacity=0);
+	  -moz-opacity:0;
+	  -khtml-opacity: 0;
+	  opacity: 0;
+	}
+	input, textarea, select, a:focus {
+	    outline: none;
+	}
+	[v-cloak]{
+		display: none;
+	}
+</style>
+<body>
+<div id="shezhi" v-cloak>
+	<div class="til">
+		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 til_point" @click="fanhuiF"><img src="../../img/left_point.png"></div>
+		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 til_text">企业详情</div>
+		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 til_text1" @click="wanchengF">完成</div>
+	</div>
+	<div class="bodys">
+		<div class="qiye_logo" style="position: relative;">
+			<input type="file" name="fileToUpload" id="fileToUpload" class="file-btn" accept="image/*" capture="camera" @change="fileF($event)">
+			<div class="qiye_name">企业logo</div>
+			<div class="qiye_img" style="border-radius:5px;">
+				<img :src="user.logo" id="logo">
+			</div>
+		</div>
+		<div class="xiangmuname">
+			<div class="xm_name">融资阶段</div>
+			<div class="xm_text" style="color:#000;" @click="xuanzeF('rongzi')">{{rongzi}} <span class=" iconfont icon-jiantou1"></span></div>
+		</div>
+		<div class="xiangmuname">
+			<div class="xm_name">企业规模</div>
+			<div class="xm_text" style="color:#000;" @click="xuanzeF('guimo')">{{guimo}} <span class=" iconfont icon-jiantou1"></span></div>
+		</div>
+		<div class="xiangmuname">
+			<div class="xm_name">所属行业</div>
+			<div class="xm_text" style="color:#000;" @click="xuanzeF('hangye')">{{hangye}} <span class=" iconfont icon-jiantou1"></span></div>
+		</div>
+		<div class="xiangmuname">
+			<div class="xm_name">企业福利</div>
+			<div class="xm_text" style="color:#000;" @click="xuanzeFl">已选择{{count}}项 <span class=" iconfont icon-jiantou1"></span>
+			</div>
+		</div>
+		<div class="xiangmuname">
+			<div class="xm_name">企业地址</div>
+			<div class="xm_text" style="color:#000;" @click="xuanzeF('dishi')">{{dishi}} <span class=" iconfont icon-jiantou1"></span>
+			</div>
+		</div>
+		<div class="qiyedizhi">
+			<div class="dizhi_name">详细地址</div>
+			<div class="dizhi_text">
+				<form><input type="" name="" placeholder="请填写企业地址" class="inp" v-model = "xiangxidizhi"></form>
+			</div>
+		</div>
+		<div class="xiangmuname" @click="huanjingF">
+			<div class="xm_name">公司环境</div>
+			<div class="xm_text" style="color:#000;">立即上传 <span class=" iconfont icon-jiantou1"></span></div>
+		</div>
+		<div class="qiyedizhi">
+			<div class="xm_name jianjie">公司简介</div>
+			<div class="jianjie_text">
+				<textarea v-model = "text" style="outline: none"></textarea>
+			</div>
+		</div>
+		<div class="qiye_logo" style="position: relative;">
+			<input type="file" name="fileToUpload" id="fileToUpload" class="file-btn" accept="image/*" capture="camera" @change="fileF1($event)">
+			<div class="qiye_name">个人头像</div>
+			<div class="qiye_img" style="border-radius: 50%;">
+				<img :src="user.face" id="face">
+			</div>
+		</div>
+		<div class="qiyedizhi">
+			<div class="dizhi_name">姓名</div>
+			<div class="dizhi_text">
+				<form><input type="" name="" placeholder="请填写您的姓名" class="inp" v-model = "renname"></form>
+			</div>
+		</div>
+		<div class="qiyedizhi">
+			<div class="dizhi_name">公司职位</div>
+			<div class="dizhi_text">
+				<form><input type="" name="" placeholder="请填写您的公司职位" class="inp" v-model = "renzhiwei"></form>
+			</div>
+		</div>
+	</div>
+	<div class="tan1">
+		<div class="tan1" @click="tan1F"></div>
+		<div class="tan2" style="overflow-y: hidden;">
+			<!-- 融资 -->
+			<div style="overflow-y: scroll;width: 100%;height: 100%;" v-if="xz == 'rongzi'">
+				<div class="tan_text" v-for="(rongzis,index) in Arongzi" @click="tan2(rongzis.id,rongzis.name,'rongzi')">{{rongzis.name}}</div>
+			</div>
+			<!-- 规模 -->
+			<div style="overflow-y: scroll;width: 100%;height: 100%;" v-if="xz == 'guimo'">
+				<div class="tan_text" v-for="(guimos,index) in Aguimo" @click="tan2(guimos.id,guimos.name,'guimo')">{{guimos.name}}</div>
+			</div>
+			<!-- 行业 -->
+			<div style="overflow-y: scroll;width: 100%;height: 100%;" v-if="xz == 'hangye'">
+				<div class="tan_text" v-for="(hangyes,index) in Ahangye" @click="tan2(hangyes.id,hangyes.name,'hangye')">{{hangyes.name}}</div>
+			</div>
+			<!-- 福利 -->
+			<div style="overflow-y: scroll;width: 100%;height: 100%;position: relative;" v-if="xz == 'fuli'">
+				<div v-for="(fulis,index) in Afuli" @click="tanFuli(fulis.id,fulis.name
+				,index)" :class="arra.indexOf(fulis.id) > -1  ? 'tan_text yanse' : 'tan_text' " >{{fulis.name}}</div>
+				<div style="position: absolute;right:10px;top:0px;font-size: 1.3rem;" @click="quedingF">确定</div>
+			</div>
+			<!-- 地区 -->
+			<div v-if="xz == 'dishi'" style="width: 100%;height: 100%;">
+				<div style="width: 33.33%;height: 100%;float: left;overflow-y: scroll;">
+					<div v-for = "(shengs,index) in sheng" style="display: block;width: 100%;height: 35px;line-height: 35px;text-align: center;" @click="shengF(shengs.name,index,shengs.id)" :class = "'class' + index">{{shengs.name}}</div>
+				</div>
+				<div style="width: 33.33%;height: 100%;float: left;overflow-y: scroll;">
+					<div v-for = "(shis,index) in shi" style="display: block;width: 100%;height: 35px;line-height: 35px;text-align: center;" @click="shiF(shis.name,index)" :id = "'id' + index" class="shishi">{{shis.name}}</div>
+				</div>
+				<div style="width: 33.33%;height: 100%;float: left;overflow-y: scroll;">
+					<div v-for = "(qus,index) in qu" style="display: block;width: 100%;height: 35px;line-height: 35px;text-align: center;" @click="quF(qus.name,qus.id)">{{qus.name}}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+	var url = decodeURI(location.search); //获取url中"?"符后的字串
+    console.log(url)
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for(var i = 0; i < strs.length; i ++) {
+            theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+        }
+    }
+    var ids = theRequest.id;
+
+	new Vue({
+			el: '#shezhi',
+			data: {
+			  user:'',
+			  id:ids,
+			  renname:'', //招聘人的姓名
+			  renzhiwei:'',  //招聘人的职位
+			  text:'',//公司简介
+			  arra:'',
+			  count:'',
+
+			  xz:'', //显示情况
+
+			  sheng:'',//地区的数组
+			  Arongzi:'',//融资情况的数组
+			  Aguimo:'',//企业规模的数组
+			  Ahangye:'',//行业的数组
+			  Afuli:'',//福利的数组
+
+			  fuli:'',
+			  xiangxidizhi:'', //详细地址的内容
+			  dishi:'',  //显示的地市内容
+			  guimo:'',
+			  guimoid:'',//规模id
+			  hangye:'',
+			  hangyeid:'',//行业id
+			  rongzi:'',
+			  rongziid:'',//融资情况的id
+			  shengname:'',
+			  shi:'',
+			  shiname:'',
+			  qu:'',
+			  quname:'',
+			  quid:'', //地区的区id
+			  logo:'',
+			  img:'',//公司环境
+			  face:'',//招聘人头像
+			  formData:''
+			},
+			mounted: function () {
+				this.huoqushuju();
+			},
+			methods: {
+				huoqushuju:function(){
+					fjdf();
+	                var than = this;
+
+	                this.$http.post('../../../../index.php/api/qiye/qiyetiqu', {
+	                       id:than.id
+	                },{
+	                	headers:{
+	                		'Cookies':ashjd
+	                	}
+	                })
+	                    .then(function (res) {
+	                        console.log(res.data.data);
+
+	                        var arrxz = res.data.data.tag;
+							var arrwxz = res.data.data.tags;
+							var arra = [];
+							for(var i=0;i<arrxz.length;i++){
+								for(var j=0;j<arrwxz.length;j++){
+									if(arrxz[i].name == arrwxz[j].name){
+										arra.push(arrwxz[j].id)
+									}
+								}
+							}
+							than.arra = arra;
+
+	                        than.user = res.data.data;
+	                        than.count = res.data.data.tag.length;
+	                        than.guimo = res.data.data.scale.name;
+	                        than.guimoid = res.data.data.scale.id;
+	                        than.rongzi = res.data.data.if_financing.name;
+	                        than.rongziid = res.data.data.if_financing.id;
+	                        than.hangye = res.data.data.type_id.name;
+	                        than.hangyeid = res.data.data.type_id.id;
+	                        than.xiangxidizhi = res.data.data.address;
+	                        than.renname = res.data.data.recruit_name;
+	                        than.renzhiwei = res.data.data.position;
+	                        than.text = res.data.data.text;
+	                        than.fuli = res.data.data.tag;
+	                        than.tag = than.arra;
+	                        var placeLength = res.data.data.place.length - 1;
+	                        than.quid = res.data.data.place[placeLength].id;
+	                       
+	                        than.Ahangye = res.data.data.hangye;
+	                        than.Aguimo = res.data.data.scales;
+	                        than.Afuli = res.data.data.tags;
+	                        than.Arongzi = res.data.data.financing;
+	                        than.sheng = res.data.data.dishi;
+
+	                        // 显示地市的渲染内容
+			                var a = res.data.data.place;
+		                    var b = "";
+		                    for(var i =0 ; i < a.length ; i++){
+		                    	b += a[i].name + '-';
+		                    	than.dishi1id = a[i].id
+		                    	than.dishiid = a[i].id
+		                    }
+		                    var c = b.substring(0 , b.length-1);
+		                    than.dishi = c;
+
+	                    }, function () {
+	                        console.log('请求失败处理');
+	                    });
+				},
+				shangchuanshuju:function(){
+					fjdf();
+	                var than = this;
+	                this.$http.post('../../../../index.php/api/qiye/qiyeedit',than.formData ,{
+	                	headers:{
+	                		'Cookies':ashjd,
+	                		'contentType': false,
+            				'processData': false,
+	                	},
+	                })
+	                    .then(function (res) {
+	                        console.log(res.data.data);
+
+	                    }, function () {
+	                        console.log('请求失败处理');
+	                    });
+				},
+				bianjiF:function(){
+					window.location.href = "qiyexiangqing.html";
+				},
+				xuanzeF:function(text){
+					var than = this;
+					than.xz = text;
+					$('.tan1').css({'display':'block'});
+					$('.tan2').css({'display':'block'});
+					$('body').css({'overflow':'hidden'})
+				},
+				xuanzeFl:function(){
+					var than = this;
+					than.xz = 'fuli';
+					var arrxz = than.fuli;
+					var arrwxz = than.Afuli;
+					var arra = [];
+					for(var i=0;i<arrxz.length;i++){
+						for(var j=0;j<arrwxz.length;j++){
+							if(arrxz[i].name == arrwxz[j].name){
+								arra.push(arrwxz[j].id)
+							}
+						}
+					}
+					than.arra = arra;
+					$('.tan1').css({'display':'block'});
+					$('.tan2').css({'display':'block'});
+					$('body').css({'overflow':'hidden'})
+				},
+				tan1F:function(){
+					$('.tan1').css({'display':'none'});
+					$('.tan2').css({'display':'none'});
+					$('body').css({'overflow-y':'scroll'});
+				},
+				tan2:function(id,name,text){
+					var than = this;
+					if(text == 'rongzi'){
+						than.rongziid = id;
+						than.rongzi = name;
+					}else if(text == 'guimo'){
+						than.guimoid = id;
+						than.guimo = name;
+					}else if(text == 'hangye'){
+						than.hangyeid = id;
+						than.hangye = name;
+					}
+
+					$('.tan1').css({'display':'none'});
+					$('.tan2').css({'display':'none'});
+					$('body').css({'overflow-y':'scroll'});
+					
+				},
+				tanFuli:function(id,name,index){
+					var than = this;
+					var arrb = than.arra;
+					var arrNeirong = [];
+					var arrNR1 = {};
+					arrNeirong = than.fuli;
+					console.log(arrNeirong);
+					if(arrb.indexOf(id) > -1){
+						arrNeirong.splice(arrb.indexOf(id),1);
+						arrb.splice(arrb.indexOf(id),1);
+					}else{
+						arrb.push(id);
+						arrNR1['id'] = id;
+						arrNR1['name'] = name;
+						arrNeirong.push(arrNR1);
+					}
+					for(var i=0;i<arrb.length;i++){
+						for(var j=0;j<arrb.length;j++){
+							if(arrb[i] < arrb[j]){
+								var num = arrb[i];
+								arrb[i] = arrb[j];
+								arrb[j] = num;
+							}
+						}
+					}
+					than.arra = arrb;
+					than.count = than.arra.length;
+					than.fuli = arrNeirong;
+				},
+				quedingF:function(){
+					var than = this;
+					$('.tan1').css({'display':'none'});
+					$('.tan2').css({'display':'none'});
+					$('body').css({'overflow-y':'scroll'});
+				},
+				shengF:function(name,index,id){
+					var than = this;
+					than.qu = '';
+					than.shengname = name;
+					than.shi = than.sheng[index].zi;
+					$('.class' + index).css({'color':'#FF7800'}).siblings().css({'color':'#555'});
+					$('.shishi').css({'color':'#555'});
+					var a = name.charAt(name.length - 1);
+					if(a == '市'){
+	                    var arr = {};
+	                    var arr1 = {};
+	                    arr['id'] = than.sheng[index].id;
+	                    arr['name'] = than.sheng[index].name;
+	                    arr['parent_id'] = than.sheng[index].parent_id;
+	                    arr['zi'] = than.sheng[index].zi;
+	                    arr1[id] = arr;
+	                    than.sheng[id].zi = arr1;
+	                }
+	                than.shi = than.sheng[id].zi;
+				},
+				shiF:function(name,index){
+					var than = this;
+					than.shiname = name;
+					than.qu = than.shi[index].zi;
+					$('#id' + index).css({'color':'#FF7800'}).siblings().css({'color':'#555'});
+				},
+				quF:function(name,id){
+					var than = this;
+					than.quid = id;
+					than.quname = name;
+					var a = than.shengname.charAt(than.shengname.length - 1);
+					if(a == '市'){
+						than.dishi = than.shiname + '-' + than.quname;
+					}else{
+						than.dishi = than.shengname + '-' + than.shiname + '-' + than.quname;
+					}
+					$('.tan1').css({'display':'none'});
+					$('.tan2').css({'display':'none'});
+					$('body').css({'overflow-y':'scroll'});
+
+				},
+				wanchengF:function(){
+					var than = this;
+					var formData = new FormData();
+					formData.append('id' , than.id);
+					formData.append('logo' , than.logo);
+					formData.append('if_financing' , than.rongziid);
+					formData.append('scale' , than.guimoid);
+					formData.append('tag' , than.arra);
+					formData.append('type_id' , than.hangyeid);
+					formData.append('place' , than.quid);
+					formData.append('address' , than.xiangxidizhi);
+					formData.append('text' , than.text);
+					formData.append('face' , than.face);
+					formData.append('recruit_name' , than.renname);
+					formData.append('position' , than.renzhiwei);
+					than.formData = formData;
+					console.log(formData);
+					console.log(than.arra);
+					window.history.go(-1);
+					this.shangchuanshuju();
+				},
+				fanhuiF:function(){
+					window.history.go(-1);
+				},
+				fileF:function(e){
+					var than = this;
+					than.logo = e.target.files[0];
+					console.log(e.target.files[0]);
+					var objurl = this.getObjectURL(e.target.files[0]);
+					$('#logo').attr('src',objurl) 
+
+				},
+				fileF1:function(e){
+					var than = this;
+					than.face = e.target.files[0];
+					var objurl = this.getObjectURL(e.target.files[0]);
+					$('#face').attr('src',objurl) 
+				},
+				getObjectURL(file) {
+		          var url = null;
+		          if (window.createObjectURL != undefined) { 
+		            url = window.createObjectURL(file);
+		          } else if (window.URL != undefined) {
+		            url = window.URL.createObjectURL(file);
+		          } else if (window.webkitURL != undefined) {
+		            url = window.webkitURL.createObjectURL(file);
+		          }
+		          return url;
+		        },
+		        huanjingF:function(){
+		        	var than = this;
+		        	var formData = new FormData();
+					formData.append('id' , than.id);
+					formData.append('logo' , than.logo);
+					formData.append('if_financing' , than.rongziid);
+					formData.append('scale' , than.guimoid);
+					formData.append('tag' , than.arra);
+					formData.append('type_id' , than.hangyeid);
+					formData.append('place' , than.quid);
+					formData.append('address' , than.xiangxidizhi);
+					formData.append('text' , than.text);
+					formData.append('face' , than.face);
+					formData.append('recruit_name' , than.renname);
+					formData.append('position' , than.renzhiwei);
+					than.formData = formData;
+		        	this.shangchuanshuju();
+		        	window.location.href = "huanjing.html?id=" + than.id;
+		        }
+			}
+		})
+</script>
+</html>

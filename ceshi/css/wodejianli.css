@@ -1,0 +1,188 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    font-family:'苹方'
+}
+
+.navbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 0px !important;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.head {
+    height: 9%;
+    background: #fff;
+}
+
+.head-left span {
+    display: block;
+    height: 25px;
+    line-height: 25px;
+}
+
+.head-right span {
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    text-align: right;
+    color: #FF7800;
+}
+
+.head_fenlei {
+    height: 18%;
+    background: #fff;
+    padding-bottom: 10px;
+}
+
+.head_fenlei-left {
+    padding: 0px;
+}
+
+.head_fenlei-left span {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.head_fenlei-center span {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.head_fenlei-right span {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.image1 {
+    width: 50px;
+    height: 50px;
+}
+
+.content_btx {
+    display: block;
+    padding: 1px 3px;
+    border: 1px solid red;
+    color: red;
+    float: left;
+    border-radius: 3px;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+.content_bt {
+    display: block;
+    padding: 1px 3px;
+    color: #000;
+    float: left;
+    font-size: 17px;
+    line-height: 20px;
+    font-weight: bold;
+}
+
+.content {
+    background: #fff;
+    padding: 10px 0;
+}
+
+.content_wtx {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+    text-align: center;
+}
+
+.content_ws {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+    text-align: center;
+}
+
+.content_wtx span {
+    font-size: 16px;
+}
+
+.content_ws span {
+    font-size: 16px;
+    padding: 5px 25px;
+    border: 1px solid #FF7902;
+    border-radius: 20px;
+    color: #FF7902;
+}
+
+.inage2 {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    ;
+}
+
+.content1 {
+    background: #fff;
+}
+
+.name {
+    font-size: 17px;
+    font-weight: bold;
+    display: block;
+    height: 30px;
+    line-height: 30px;
+}
+
+.jianjie {
+    display: block;
+    font-size: 12px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.xiangx {
+    padding: 0px;
+}
+
+.bianji {
+    height: 60px;
+    line-height: 60px;
+}
+
+.xiangxi span {
+    display: block;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 15px;
+}
+
+.ziwopingjia {
+    display: block;
+    width: 100%;
+    text-indent: 2em;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+    font-size: 16px;
+}
+
+.xiala span {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding-top: 5px;
+}

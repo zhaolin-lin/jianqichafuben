@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title></title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport"
+		content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../../css/sousuo/panjueshu.css">
+	<script src="../../js/jquery.js"></script>
+	<script src="../../js/vue.js"></script>
+	<script src="../../js/bootstrap.js"></script>
+	<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+	<script src="../../js/axios.js"></script>
+	<script src="../../js/sousuo/panjueshu.js"></script>
+</head>
+
+<body style="background:#fff;height:100%;">
+	<div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px"> </div>
+	<nav class="navbar navbar-default" role="navigation"
+		style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+		<div class="container-fluid">
+			<div class=""> <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
+					style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left"
+						style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a> <a
+					class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10"
+					style="color: #fff;text-align: center;">判决书</a> <a
+					class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
+					style="color: #fff;float: right;text-align: right;"><span class="glyphicon glyphicon-remove"
+						style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a> </div>
+		</div>
+	</nav>
+	<div id="app" v-cloak>
+		<div style="background: #fff;width: 100%;height: 50px">
+			<div style="padding: 8px 24px 10px;">
+				<form class="bs-example bs-example-form" role="form">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="输入关键词企业名称" v-model='str'>
+						<span class="input-group-addon" @click="sendGetByObj"><img src="../../image/sousuo1.png"></span>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div style="background: #f2f2f2;height: 100px" class="col-xs-12">
+			<div class="col-xs-2" style="background: #fff;margin: 10px 0 0 10px;text-align: center;min-width: 62px"
+				onclick="mingshian()"><img src="../../image/minshian.png"><br>
+				民事案</div>
+			<div class="col-xs-2" style="background: #fff;margin: 10px 0 0 10px;text-align: center;min-width: 62px"
+				onclick="peichangan()"><img src="../../image/peichangan.png"><br>
+				赔偿案</div>
+			<div class="col-xs-2" style="background: #fff;margin: 10px 0 0 10px;text-align: center;min-width: 62px"
+				onclick="xingzhengan()"><img src="../../image/xingzhengan.png"><br>
+				行政案</div>
+			<div class="col-xs-2" style="background: #fff;margin: 10px 0 0 10px;text-align: center;min-width: 62px"
+				onclick="zhixingan()"><img src="../../image/zhixingan.png"><br>
+				执行案</div>
+			<div class="col-xs-2" style="background: #fff;margin: 10px 0 0 10px;text-align: center;min-width: 62px"
+				onclick="xingshianjian()"><img src="../../image/buliangxinxi.png"><br>
+				刑事案件</div>
+		</div>
+		<div style="background: #fff;" class="col-xs-12">
+			<div
+				style="background: #fff4E5;width: 94%;margin-left: 3%;margin-top: 10px;height: 65px;border-radius: 10px;">
+				<img src="../../image/zu1.png" style="height: 65px; float: left;"> <span
+					style="position: absolute;left: 45px;top: 20px;font-size: 16px;color: #fff; text-align: center;">案件总数</span>
+				<span
+					style="position: absolute;left: 39px;top: 40px;font-size: 22px;color: #fff; text-align: center;">{{ajsum.count}}</span>
+				<div style="height: 65px;float: left;" class="col-xs-7"> <span class="col-xs-6"
+						style="margin-top: 8px;padding-left: 0px;padding-right: 0px;">民事案：{{ajsum.ms}}</span> <span
+						class="col-xs-6"
+						style="margin-top: 8px;padding-left: 0px;padding-right: 0px;">行政案：{{ajsum.xz}}</span> <span
+						class="col-xs-6"
+						style="margin-top: 8px;padding-left: 0px;padding-right: 0px;">赔偿案：{{ajsum.pc}}</span> <span
+						class="col-xs-6"
+						style="margin-top: 8px;padding-left: 0px;padding-right: 0px;">执行案：{{ajsum.zx}}</span> </div>
+			</div>
+			<div
+				style="background: #fff4E5;width: 94%;margin-left: 3%;margin-top: 10px;height: 65px;border-radius: 10px;">
+				<img src="../../image/zu1.png" style="height: 65px; float: left;"> <span
+					style="position: absolute;left: 36px;top: 93px;font-size: 16px;color: #fff;">今日新增案</span> <span
+					style="position: absolute;left: 39px;top: 115px;font-size: 22px;color: #fff;">{{added.count}}</span>
+				<div style="height: 65px;float: left;" class="col-xs-7"> <span class="col-xs-6"
+						style="margin-top: 8px;padding-left: 0px;padding-right: 0px;">民事案：{{added.ms}}</span> <span
+						class="col-xs-6"
+						style="margin-top: 8px;padding-left: 0px;padding-right: 0px;">行政案：{{added.xz}}</span> <span
+						class="col-xs-6"
+						style="margin-top: 8px;padding-left: 0px;padding-right: 0px;">赔偿案：{{added.pc}}</span> <span
+						class="col-xs-6"
+						style="margin-top: 8px;padding-left: 0px;padding-right: 0px;">执行案：{{added.zx}}</span> </div>
+			</div>
+		</div>
+		<div style="background: #fff;" class="col-xs-12">
+			<ul style="border-bottom: 1px solid #F2F2F2;border-bottom-style: dashed;width: 92%;margin-left: 4%"
+				id="ulo">
+				<li v-for="(anjian,index) in anjians"
+					style="padding-bottom: 10px;padding-top: 10px;border-bottom: 1px solid #000;border-bottom-style: dashed;margin-left: 4%;width: 91%"
+					:id="anjian.aid" @click="xiangqing(anjian.aid)"> <img src="../../image/wenjian.png"
+						style="width: 16px;"> <span
+						style="overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis;white-space:nowrap;display:block;margin-left: 10px;margin-left: 22px;margin-top: -17px;width: 69%">{{anjian.title}}</span>
+					<span style="margin-top: -20px;width: 25%;float: right;">{{times[index]}}</span> </li>
+			</ul>
+		</div>
+	</div>
+	<!-- 悬浮按钮开始  -->
+	<div>
+		<div class="btn-group" style="position: fixed;right: 30px;bottom: 30px;" onclick="chaxunanniu(this)"
+			id="dianji1">
+			<button type="button" class="btn btn-default"
+				style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 60px;height: 38px">查询</button>
+		</div>
+		<div class="btn-group" style="position: fixed; right: 214px;bottom: 26px;display: none" id="zizhianniu"
+			onclick="zizhianniu()">
+			<button type="button" class="btn btn-default"
+				style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 45px;height: 45px;border-radius: 45px; padding: 0px;">资质</button>
+		</div>
+		<div class="btn-group" style="position: fixed; right: 183px;bottom: 114px;display: none" id="panjueshuanniu"
+			onclick="panjueshuanniu()">
+			<button type="button" class="btn btn-default"
+				style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 45px;height: 45px;border-radius: 45px; padding: 0px;">企业</button>
+		</div>
+		<div class="btn-group" style="position: fixed; right: 123px;bottom: 176px;display: none" id="xiangmuanniu"
+			onclick="xiangmuanniu()">
+			<button type="button" class="btn btn-default"
+				style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 45px;height: 45px;border-radius: 45px; padding: 0px;">项目</button>
+		</div>
+		<div class="btn-group" style="position: fixed; right: 34px;bottom: 201px;display: none" id="renyuananniu"
+			onclick="renyuananniu()">
+			<button type="button" class="btn btn-default"
+				style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 45px;height: 45px;border-radius: 45px; padding: 0px;">人员</button>
+		</div>
+		<!-- <div class="btn-group" style="position: fixed; right: 97px;bottom: 92px;display: none" id="zongheanniu" onclick="zongheanniu()">
+				<button type="button" class="btn btn-default" style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 45px;height: 45px;border-radius: 45px; padding: 0px;">综合</button>
+		</div> -->
+	</div>
+	<!-- 悬浮按钮结束 -->
+</body>
+<script src="../../js/zonghechaxunanniu.js"></script>
+
+</html>

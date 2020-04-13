@@ -1,0 +1,104 @@
+/* html{
+	height: 100% !important;
+	overflow:hidden;
+	font-size: 16px
+} */
+.empty {
+	text-align: center;
+	padding: 120px 0;
+}
+.chaxun {
+	width: 80%;
+	height: 50px;
+	background: #fff;
+	border: 1px solid #fff;
+	border-radius: 5px 0 0 5px;
+	float: left;
+	color: #000;
+}
+input::-webkit-input-placeholder {
+	color: #000;
+	line-height: 20px;
+	text-align: center;
+}
+.sousuo {
+	width: 20%;
+	height: 50px;
+	background: #cb8f31;
+	float: left;
+	border: 1px solid #cb8f31;
+	border-radius: 0 5px 5px 0;
+}
+.sousuo img {
+	margin-top: 10px;
+	color: #fff;
+}
+.chaxun2 {
+	margin-top: 10px;
+	display:inline-block;
+}
+/* body{
+	background-image: url(../../image/indexbeijing.png);
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	-moz-background-size:100% 100%; 
+	background-size:100% 100%;
+	overflow: hidden;
+} */
+a {
+	color: #fff;
+}
+.navbar-fixed-top, .navbar-fixed-bottom {
+	position:fixed;
+	right: 0;
+	left: 0;
+	z-index: 1030;
+	bottom: 0 !important;
+}
+.center-in-center{
+	width: 230px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	border-radius: 10px;
+	font-size: 18px;
+	background: #fff;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+input:focus { outline: none; }
+.myrow {
+	display: flex;
+	flex-direction: row;
+	/*margin-left:1em;*/
+}
+.xxxx {
+	height: 2px;
+	background: #999999;
+	margin-top: 16px;
+	width: 2em;
+	margin-left: 1em;
+	margin-right: 1em;
+}
+.col-xss-offset-1{
+	margin-left:12.5%
+}
+.chayixuan{
+	color: rgba(255,255,255,1);
+	font-size:5.5vw;
+	text-align: center;
+	border-bottom: 2px solid #fff;
+	padding-bottom: 4px;
+	border-bottom-width: 80%;
+}
+.chaweixuan{
+	color: rgba(255,255,255,0.5);
+	font-size: 3.5vw
+}

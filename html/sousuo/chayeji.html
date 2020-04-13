@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8" /> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../../css/qiyechaxun.css">
+	<link rel="stylesheet" type="text/css" href="../../css/sousuo/qiyechaxun.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="../../js/vue.js"></script>
+	<script src="../../js/bootstrap.js"></script>
+	<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+	<script src="../../js/axios.js"></script>
+	<script src="../../js/sousuo/qiyechaxun.js"></script>
+	<script src="../../js/vconsole.min.js"></script>
+</head>
+<body style="background:#fff;height:100%;">
+<div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
+	</div>
+<nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+	<div class="container-fluid">
+		<div class="">
+			<a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
+			<a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10" style="color: #fff;text-align: center;">业绩查询</a>
+			<a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;float: right;text-align: right;" ><span class="glyphicon glyphicon-remove" style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
+		</div>
+	</div>
+</nav>
+
+<!-- 内容开始 -->
+
+<div style="background: #fff;position: absolute;top:50px;width: 100%" id="app" v-cloak>
+	<div style="width: 100%;">
+		<div style="line-height: 50px;width: 23%;float: left;margin-left: 20px">地区选择：</div>
+		 <div style="line-height: 30px;width: 30%;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 10px" @click='shengObj'>{{sheng}}
+		</div>  
+		<div style="line-height: 30px;width: 30%;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 10px;" @click='shiObj'>{{shi}}
+		</div>  
+	</div>
+
+	<div style="height: 50px;overflow: hidden;" class="col-xs-12">
+		<div style="line-height: 50px;float: left;margin-left: 20px;" class="col-xs-3">企业名称：</div>
+		<div style="line-height: 30px;float: left;margin-top: 10px;" class="col-xs-8"><input type="serch" name="" placeholder="输入企业名称" style="border-radius: 10px;border:1px solid #C2C2C2" class="col-xs-12"  v-model='str' id="inputi" @keyup.enter="sendGetByObj"></div>  
+	</div>
+	<div style="width: 100%;overflow: hidden;text-align: center;">
+		<button style="margin: 20px 0 20px 0;background: #FD9700;border-radius: 10px;width: 30%;height: 40px;border:1px solid #FD9700;outline:none;color: #fff" @click = 'sendGetByObj'>开始查询</button>  
+	</div>
+	<div class="header" style="background: #f2f2f2">
+		<div style="font-size:10px;color:#737780">总共找到<span v-if="users == undefined">0</span><span v-else>{{number}}</span>条相关信息</div>
+</div>
+<!-- 企业自动生成开始 -->
+	<div class="jiazaizhong" id="jiazaizhong">
+		<img src="../../image/jiazai.gif" width="30px;">
+	</div>
+	<div class="nones" v-if="users == undefined">
+		<img src="../../image/undraw_signal_searching_bhpc.png" style="width: 80%;margin-left: 10%;">
+	</div>
+	<div style="background:#f0f0f0" class="quanbu111" v-else>
+		<div v-for="(user,index) in users" style="background: #fff;margin-top: 10px;" @click="Company(user.aid)">
+			<div style="margin-left:15px;padding-bottom:10px;padding-top:15px;" >{{user.qymc}}   <span style="float: right;padding-right: 15px;">业绩<span style="color:red">{{user.xiangmu}}</span>项</span></div>
+				<!-- <div style="width:90%;height:30px;line-height:30px;margin-left:15px">
+					<div style="float:left"><img src="../../image/zizhi.png" alt="" style="float:left;width:18px;margin-top: 6px;">
+					<div style="float:left" @click="zizhi(user.aid)">资质<span style="color:red">{{user.zizhi}}</span>项</div></div>
+					<div style="float:left;margin-left:10px">
+						<img src="../../image/xiangmu.png" alt="" style="float:left;width:18px;margin-top: 6px;">
+						<div style="float:left" @click="xiangmu(user.aid)">项目<span style="color:red">{{user.xiangmu}}</span>项</div>
+					</div>
+					<div style="float:left;margin-left:10px">
+						<img src="../../image/renyuan.png" alt="" style="float:left;width:18px;margin-top: 6px;">
+						<div style="float:left" @click="zhucerenyuan(user.aid)">注册人员<span style="color:red">{{user.rynum}}</span>人</div>
+					</div>
+				</div> -->
+				<div style="font-size:14px;padding:10px 15px 20px 15px">{{user.xm.title}}</span></div>
+			</div>
+		</div>
+<div>
+	<div class="btn-group" style="position: fixed;right: 30px;bottom: 30px;" onclick="chaxunanniu(this)" id="dianji1">
+		<button type="button" class="btn btn-default" style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 60px;height: 38px">查询</button></div><div class="btn-group" style="position: fixed; right: 214px;bottom: 26px;display: none" id="zizhianniu" onclick="zizhianniu()">
+		<button type="button" class="btn btn-default" style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 45px;height: 45px;border-radius: 45px; padding: 0px;">资质</button>
+	</div>
+	<div class="btn-group" style="position: fixed; right: 183px;bottom: 114px;display: none" id="panjueshuanniu" onclick="panjueshuanniu()">
+		<button type="button" class="btn btn-default" style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 45px;height: 45px;border-radius: 45px; padding: 0px;">判决书</button>
+	</div>
+	<div class="btn-group" style="position: fixed; right: 123px;bottom: 176px;display: none" id="xiangmuanniu" onclick="xiangmuanniu()">
+		<button type="button" class="btn btn-default" style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 45px;height: 45px;border-radius: 45px; padding: 0px;">项目</button>
+	</div>
+	<div class="btn-group" style="position: fixed; right: 34px;bottom: 201px;display: none" id="renyuananniu" onclick="renyuananniu()">
+		<button type="button" class="btn btn-default" style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 45px;height: 45px;border-radius: 45px; padding: 0px;">人员</button>
+	</div>
+</div>
+<!-- 悬浮按钮结束 -->
+<!-- 下方弹框开始 -->
+<div class="xuanze" style="display: none">
+	<div class="xuanze1">
+		<div class="xuanze_1">
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+				<button @click='quxiao'>取消</button>
+			</div> 
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></div>
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+				<button @click="queding">确定</button>
+			</div>
+		</div>
+		<div class="libiao">
+			<ul>
+				<li v-for = "(diqu,index) in diqus" :id="diqu.id" @click="dianji(diqu.id)">{{diqu.name}}</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="xuanzes" style="display: none">
+	<div class="xuanze1s">
+		<div class="xuanze_1s">
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+				<button @click='quxiao'>取消</button>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></div>
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+				<button @click="quedings">确定</button>
+			</div>
+		</div>
+		<div class="libiaos">
+			<ul>
+				<li v-for = "(leixings,index) in leixing" :id="leixings.id" @click="dianji1(leixings.id)">{{leixings.typename}}</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="xuanzes_1" style="display: none">
+	<div class="xuanze1s_1">
+		<div class="xuanze_1s_1">
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+				<button @click='quxiao'>取消</button>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></div>
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+				<button @click="quedings_1">确定</button>
+			</div>
+		</div>
+		<div class="libiaos_1">
+			<ul>
+				<li v-for = "(zzleixings,index) in zzleixing" :id="'s' + zzleixings.key" @click="dianji1_1(zzleixings.key)">{{zzleixings.name}}</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="xuanzes_1s" style="display: none">
+	<div class="xuanze1s_1s">
+		<div class="xuanze_1s_1s">
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+				<button @click='quxiao'>取消</button>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></div>
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+				<button @click="quedings_1s">确定</button>
+			</div>
+		</div>
+		<div class="libiaos_1s">
+			<ul>
+				<li v-for = "(zzleixingss,index) in zzleixings" :id="'zzlb' + index" @click="dianji1_1s(index)">{{zzleixingss.name}}</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- 下方弹框结束 -->
+<div class="center-in-center" id="tank" style="display: none">
+	请先选择省份
+</div>
+</div>
+</body>
+</html>
+<script src="../../js/sousuo/chayeji.js"></script>
+<script src="../../js/zonghechaxunanniu.js"></script>
+<script type="text/javascript">
+	
+</script>

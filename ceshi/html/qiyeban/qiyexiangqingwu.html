@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>企业详情</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport"
+		content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+	<!-- <link rel="stylesheet" type="text/css" href="../../css/iconfont.css"> -->
+	<link rel="stylesheet" type="text/css" href="../../css/qiyeban/qiyexiangqingwu.css">
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script src="../../js/bootstrap.js"></script>
+	<script src="../../js/vue.js"></script>
+	<script src="../../js/vue.min.js"></script>
+	<script src="../../js/axios.js"></script>
+	<script src="../../js/vue-resource.js"></script>
+	<script src="../../js/jsencrypt.js"></script>
+    <script src="../../js/hsjidh.js"></script>
+    <script src="../../js/axiosjsqing.js"></script>
+    <script src="../../js/jgifdj.js"></script>
+</head>
+<body>
+<div id="qiyexiangqingwu">
+	<div class="til">
+		<div class="col-xs-2 col-sm-3 col-md-2 col-lg-2 til_point" @click="fanhuiF"><img src="../../img/left_point.png"></div>
+		<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 til_text"></div>
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 til_text">企业详情</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 til_text1" @click="bianjiF"><span class="bianji1"></span>编辑</div>
+	</div>
+	<div class="bodys">
+		<div class="qiye">
+			<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 qiye_img"><img :src="user.logo"></div>
+			<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 qiye_name">{{user.company_name}}</div>
+		</div>
+		<div class="zhaopinren">
+			<div class="zhaopinren_img"><img :src="user.face"></div>
+			<div class="zhaopinren_xx">
+				<span>{{user.recruit_name}}</span>
+				<span>|</span>
+				<span>{{user.position}}</span>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+	new Vue({
+			el: '#qiyexiangqingwu',
+			data: {
+			  user:''
+
+			},
+			mounted: function () {
+				this.huoqushuju();
+			},
+			methods: {
+				huoqushuju:function(){
+					fjdf();
+	                var than = this;
+	                this.$http.post('../../../../index.php/api/qiye/qiyenone', {
+	                       
+	                },{
+	                	headers:{
+	                		'Cookies':ashjd
+	                	}
+	                })
+	                    .then(function (res) {
+	                        console.log(res.data.data);
+	                        than.user = res.data.data;
+	                    }, function () {
+	                        console.log('请求失败处理');
+	                    });
+				},
+				bianjiF:function(){
+					var than = this;
+					window.location.href = "qiyexiangqing.html?id=" + than.user.id;
+				},
+				fanhuiF:function(){
+					window.history.go(-1);
+				}
+			}
+		})
+</script>
+</html>

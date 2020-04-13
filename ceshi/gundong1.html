@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <script src="js/jsencrypt.js"></script>
+    <script src="js/hsjidh.js"></script>
+    <script src="js/axiosjsqing.js"></script>
+    <script src="js/jgifdj.js"></script>
+	<title>Document</title>
+</head>
+<style>
+	html,
+	body,
+	ul,
+	li {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		height: 100%;
+	}
+
+	.wrap {
+		overflow: hidden;
+		height: 40px;
+		position: fixed;
+		background: #FD9700;
+		width: 100%;
+		z-index: 10000;
+	}
+
+	.cont {
+		height: 40px;
+		overflow-x: auto;
+		overflow-y: hidden;
+		position: relative;
+	}
+
+	.state {
+		left: 0px;
+		top: 0px;
+		position: absolute;
+		height: 40px;
+		background: #FD9700;
+		overflow-x: auto;
+		white-space: nowrap;
+		display: flex;
+	}
+
+	.state li {
+		display: inline-block;
+		font-size: 20px;
+		text-decoration: none;
+		color: #fff;
+		padding: 1px 5px;
+	}
+
+	.diyige {
+		position: absolute;
+		top: 40px;
+		left: 0;
+		overflow: scroll;
+		padding-bottom: 600px;
+	}
+
+	.yi {
+		height: 300px;
+		background: red;
+	}
+
+	.er {
+		height: 300px;
+		background: #000;
+	}
+
+	.san {
+		height: 300px;
+		background: #fff;
+	}
+
+	.si {
+		height: 300px;
+		background: forestgreen;
+	}
+
+	.wu {
+		height: 300px;
+		background: fuchsia;
+	}
+
+	.liu {
+		height: 300px;
+		background: yellow;
+	}
+
+	.qi {
+		height: 300px;
+		background: violet;
+	}
+
+	.ba {
+		height: 300px;
+		background: aqua;
+	}
+
+	.jiu {
+		height: 300px;
+		background: rgb(0, 255, 0);
+	}
+
+	.corle {
+		display: none
+	}
+</style>
+
+<body>
+	<div id="app">
+		<div class="wrap" id="ceshi" style="display: none">
+			<div class="cont">
+				<ul class="state" id="ul1">
+					<li style="text-align: center;" id="li1"> <span style="width: 100%;display: block;"
+							@click="xuanze('yi')" id="yis">第一个</span>
+					</li>
+					<li style="text-align: center;" id="li2"> <span style="width: 100%;display: block;"
+							@click="xuanze('er')" id="ers">第二个</span>
+					</li>
+					<li style="text-align: center;" id="li3"> <span style="width: 100%;display: block;"
+							@click="xuanze('san')" id="sans">第三个</span>
+					</li>
+					<li style="text-align: center;" id="li4"> <span style="width: 100%;display: block;"
+							@click="xuanze('si')" id="sis">第四个</span>
+					</li>
+					<li style="text-align: center;" id="li5"> <span style="width: 100%;display: block;"
+							@click="xuanze('wu')" id="wus">第五个</span>
+					</li>
+					<li style="text-align: center;" id="li6"> <span style="width: 100%;display: block;"
+							@click="xuanze('liu')" id="lius">第六个</span>
+					</li>
+					<li style="text-align: center;" id="li7"> <span style="width: 100%;display: block;"
+							@click="xuanze('qi')" id="qis">第七个</span>
+					</li>
+					<li style="text-align: center;" id="li8"> <span style="width: 100%;display: block;"
+							@click="xuanze('ba')" id="bas">第八个</span>
+					</li>
+					<li style="text-align: center;" id="li9"> <span style="width: 100%;display: block;"
+							@click="xuanze('jiu')" id="jius">第九个</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 diyige" id="wan">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 yi" id="yi">
+				1
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 er" id="er">
+				2
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 san" id="san">
+				3
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 si" id="si">
+				4
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 wu" id="wu">
+				5
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 liu" id="liu">
+				6
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 qi" id="qi">
+				7
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ba" id="ba">
+				8
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 jiu" id="jiu">
+				9
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	window.onload = function () {
+		var heightlist = new Array();
+		var daodaid = new Array();
+		var wan1 = document.getElementById('wan');
+		var wan2 = wan1.getElementsByTagName('div')
+		for (var i = 0; i < wan2.length; i++) {
+
+			var Height = document.querySelector('#' + wan2[i].id).offsetTop;
+			heightlist.push(Height)
+			daodaid.push(wan2[i].id)
+		}
+		new Vue({
+			el: '#app',
+			data: {
+				heightlist: heightlist,
+				daodaid: daodaid,
+			},
+			mounted: function () {
+
+			},
+			created() {
+				window.addEventListener('scroll', this.onScroll)
+			},
+			methods: {
+				xuanze: function (e) {
+					var id = e;
+					var oUl = document.getElementById('ul1');
+					var oLi = oUl.getElementsByTagName('li');
+					for (var i = 0; i < oLi.length; i++) {
+						var p = i + 1
+						document.getElementById('li' + p).style.color = '#fff';
+						oLi[i].index = i;
+						oLi[i].onclick = function () {
+							var s = this.index + 1
+							document.getElementById('li' + s).style.color = '#000'
+						};
+					}
+					var innerHeight = document.querySelector('#' + id).offsetTop;
+					var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+					if (innerHeight > scrollTop) {
+						var b = scrollTop
+						var setI = setInterval(() => {
+							b = Number(b) + Number(20);
+							window.scrollTo(0, b);
+							if (b >= innerHeight) {
+								clearInterval(setI)
+							}
+						}, 10);
+					} else if (innerHeight < scrollTop) {
+						var b = scrollTop
+						var setI = setInterval(() => {
+							b = b - 20;
+							window.scrollTo(0, b);
+							if (b <= innerHeight) {
+								clearInterval(setI)
+							}
+						}, 10);
+					}
+				},
+				onScroll: function () {
+					var heightlist = this.heightlist;
+					var daodaid = this.daodaid;
+					var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+					scrollTop = scrollTop + 10;
+					if (scrollTop >= heightlist[1]) {
+						document.getElementById('ceshi').style.display = 'block';
+						for (var i = 0; i < heightlist.length; i++) {
+							var s = i + 1;
+							document.getElementById('li' + s).style.color = '#fff'
+							if (heightlist[i - 1] < scrollTop && scrollTop < heightlist[i]) {
+								document.getElementById('li' + i).style.color = 'red'
+							}else if(scrollTop > heightlist[heightlist.length - 1]){
+
+								document.getElementById('li' + heightlist.length).style.color = 'red'
+
+							}
+						}
+					} else {
+						document.getElementById('ceshi').style.display = 'none';
+					}
+				},
+			}
+		})
+
+	}
+
+</script>
+
+</html>

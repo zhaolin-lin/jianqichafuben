@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+
+<head>
+	<title>首页</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport"
+		content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+	<meta http-equiv="expires" content="0">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<script src="js/jquery.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+	<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+	<script src="js/axios.js"></script>
+</head>
+<style>
+	input,
+	textarea,
+	select,
+	a:focus {
+		outline: none;
+	}
+
+	.chaxun {
+		width: 80%;
+		height: 30px;
+		background: #f2f2f2;
+		border: 1px solid #f2f2f2;
+		border-radius: 20px 0 0 20px;
+		float: left;
+		color: #000;
+		text-align: center;
+	}
+
+	input::-webkit-input-placeholder {
+		color: #7a7a7a;
+		line-height: 20px;
+		text-align: center;
+	}
+
+	.sousuo {
+		width: 20%;
+		height: 30px;
+		background: #f2f2f2;
+		float: left;
+		border: 1px solid #f2f2f2;
+		border-radius: 0 20px 20px 0;
+	}
+
+	.sousuo img {
+
+		color: rgb(105, 101, 101);
+	}
+</style>
+
+<body id="body">
+	<div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
+	</div>
+	<nav class="navbar navbar-default" role="navigation"
+		style="background:#FD9700;position: fixed;width: 100%;z-index: 100000;" id="daohanglan">
+		<div class="container-fluid">
+			<div class="">
+				<a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
+					style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left"
+						style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
+				<a class="navbar-brand col-xs-9 col-sm-9 col-md-9 col-lg-10"
+					style="color: #fff;text-align: center;">搜索</a>
+				<a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
+					style="color: #fff;float: right;text-align: right;"><span class="glyphicon glyphicon-remove"
+						style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
+			</div>
+		</div>
+	</nav>
+	<div id="app" style="height: 100%;">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div style="text-align:center;color:#fff;margin-top:15px;">
+
+				<input type="serch" name="chaxun" value="" class="chaxun" placeholder="企业查询" id="input">
+
+				<div class="sousuo" id="sousuo">
+					<img src="image/sousuo2.png" alt="" style="width: 20px;margin-top: 5px;">
+				</div>
+				<br>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 25px;">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 历史记录：</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 10px;position: relative;height: 65px; overflow: hidden;" >
+				<span
+					style="display: inline-block;background: #f2f2f2;padding: 5px 10px 5px 10px;border-radius: 5px;margin-top: 5px;">九天鲲鹏集团</span>
+				<span
+					style="display: inline-block;background: #f2f2f2;padding: 5px 10px 5px 10px;border-radius: 5px;margin-top: 5px;">石家庄建设第三集团</span>
+				<span
+					style="display: inline-block;background: #f2f2f2;padding: 5px 10px 5px 10px;border-radius: 5px;margin-top: 5px;">九天</span>
+				<span
+					style="display: inline-block;background: #f2f2f2;padding: 5px 10px 5px 10px;border-radius: 5px;margin-top: 5px;">更大还是个电源接口是个打击</span>
+				<span
+					style="display: inline-block;background: #f2f2f2;padding: 5px 10px 5px 10px;border-radius: 5px;margin-top: 5px;">小米科技有限公司</span>
+				<div  style="display: inline-block;background: #f2f2f2;padding: 5px 10px 5px 10px;border-radius: 5px;margin-top: 5px; position:absolute;right: 0px; bottom: px;;"> <img src="image/xiala.png" alt="" width="10px"> </div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	window.onload = function () {
+		var widthLIN = localStorage.getItem("key");
+		document.getElementById('widthLI').style.height = widthLIN + 'px';
+		document.getElementById('daohanglan').style.top = widthLIN + 'px';
+		var dhlH = document.getElementById('daohanglan').offsetHeight;
+		document.getElementById('app').style.marginTop = Number(widthLIN) + Number(dhlH) + 'px';
+	}
+</script>
+
+</html>

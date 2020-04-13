@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/gerenrenzheng.css">
+	<link rel="stylesheet" type="text/css" href="css/iconfont.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/vue-resource.js"></script>
+	<script src="js/vconsole.min.js"></script>
+    <script src="js/jsencrypt.js"></script>
+    <script src="js/hsjidh.js"></script>
+    <script src="js/axiosjsqing.js"></script>
+    <script src="js/jgifdj.js"></script>
+	<title>实名认证</title>
+	<style type="text/css">
+		.notclick{
+			pointer-events: none;
+		}
+	</style>
+</head>
+<body>
+<div id="gerenrenzheng">
+	<div class="til">
+		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 til_point"><img src="img/left_point.png"></div>
+		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 til_text">实名认证</div>
+	</div>
+	<!-- 填写个人信息 -->
+	<div class="bodys" v-if="xianshi == 'xinxi'">
+		<div class="name">
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 name_til">姓名:</div>
+			<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 name_text">
+				<input type="text" name="" class="nameInp" placeholder="请填写姓名" v-model="name">
+			</div>
+		</div>
+		<div class="name">
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 name_til">身份证号:</div>
+			<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 name_text">
+				<input type="text" name="" class="nameInp shenf" placeholder="请填身份证号" v-model="shenfengzheng" @blur="shenfenF">
+			</div>
+		</div>
+		<div class="name">
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 name_til">手机号:</div>
+			<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 name_text">
+				<input type="text" name="" class="nameInp shouji" placeholder="请填手机号" v-model="tel" @blur="shoujihaoF">
+			</div>
+		</div>
+		<div class="name yanzhengma">
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 name_til">验证码:</div>
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 name_text yanzhengma_text">
+				<input type="text" name="" class="yzmInp" placeholder="请填您收到的验证码" v-model="code">
+			</div>
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 yanzhengma_time" @click="yanzhengmaF" style="font-size: 1rem;">{{time}}</div>
+		</div>
+		<div class="cailiao">
+			<div class="cailiao_til">
+				<span><img src="img/start.png"></span>
+				<span>&nbsp;&nbsp;上传证件材料</span>
+			</div>
+			<div class="cailiao_img">
+				<div class="img cailiao_img1">
+					<input type="file" name="fileToUpload" id="fileToUpload" class="file-btn" accept="image/*" capture="camera" @change="fileF($event,'1')">
+					<img src="img/shenfenzheng1.png" class="zhengmianimg">
+				</div>
+				<div class="img cailiao_img2">
+					<input type="file" name="fileToUpload" id="fileToUpload" class="file-btn" accept="image/*" capture="camera" @change="fileF($event,'2')">
+					<img src="img/shenfenzheng2.png" class="fanmianimg">
+				</div>
+				<div class="img cailiao_img3">
+					<input type="file" name="fileToUpload" id="fileToUpload" class="file-btn" accept="image/*" capture="camera" @change="fileF($event,'3')">
+					<img src="img/shenfenzheng3.png" class="shouimg">
+				</div>
+			</div>
+		</div>
+		<div class="tijiao">
+			<div class="tijiao1" @click="tijiaoF"><img src="img/tijiao.png"></div>
+		</div>
+		<div class="bot"><a href="###">为什么要进行实名认证?</a></div>
+	</div>
+	<!-- 已提交等待审核 -->
+	<div class="bodys1" v-if="xianshi == 'dengdai'">
+		<div class="dengdai">
+			<div class="dengdai_img"><img src="img/dengdai.png"></div>
+			<div class="dengdai_til">已提交,等待审核</div>
+			<div class="dengdai_text">预计将在一个工作日内完成人工审核 <br> 请您耐心等待。</div>
+		</div>
+	</div>
+	<!-- 通过认证 -->
+	<div class="bodys2" v-if="xianshi == 'tongguo'">
+		<div class="tongguo">
+			<div class="tongguo_img"><img src="img/tongguo.png"></div>
+			<div class="tongguo_til">审核通过</div>
+		</div>
+	</div>
+	<!-- 审核未通过 -->
+	<div class="bodys3" v-if="xianshi == 'weitongguo'">
+		<div class="weitongguo">
+			<div class="weitongguo_img"><img src="img/weitongguo.png"></div>
+			<div class="weitongguo_til">审核为通过</div>
+			<div class="weitongguo_text">身份证号与上传证件不符</div>
+			<div class="xiugai_img"><img src="img/xiugai.png"></div>
+		</div>
+	</div>
+	<div class="tan1" @click="tanF">
+		<div class="tan2"><span>{{tishi}}</span></div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+	$('.img').height($('.img').width() * 0.7);
+	new Vue({
+		el: '#gerenrenzheng',
+		data: {
+			xianshi:'xinxi',
+			name:'',
+			shenfengzheng:'',
+			tel:'',
+			yanzheng:'',
+			code:'',
+			time:'获取验证码',
+			front_card:'',
+			back_card:'',
+			hold_card:'',
+			formData:'',
+			tishi:'请填写完整信息'
+		},
+		mounted: function (){},
+		created(){
+			this.huoqushuju1();
+		},
+		methods:{
+			huoqushuju1: function () {
+				fjdf();
+                var than = this;
+                this.$http.post('../../../../index.php/api/qiye/real_personl',{
+                	type:'1'
+                } ,{
+                	headers:{
+                		'Cookies':ashjd
+                	}
+                })
+                    .then(function (res) {
+                        console.log(res.data.data.status);
+                        if(res.data.data.status == '0'){
+                        	than.xianshi = 'xinxi';
+                        }else if(res.data.data.status == '1'){
+                        	than.xianshi = 'dengdai';
+                        }else if(res.data.data.status == '2'){
+                        	than.xianshi = 'tongguo';
+                        }else if(res.data.data.status == '3'){
+                        	than.xianshi = 'weitongguo';
+                        }
+                    }, function () {
+                        console.log('请求失败处理');
+                    });
+
+            },
+			huoqushuju: function () {
+				fjdf();
+                var than = this;
+                this.$http.post('../../../../index.php/api/qiye/real_personl', than.formData ,{
+                	headers:{
+                		'Cookies':ashjd
+                	}
+                })
+                    .then(function (res) {
+                        console.log(res.data);
+                        if(res.data.code == '200'){
+                        	than.xianshi = 'dengdai';
+                        }else{
+                        	$('.tan1').css({'display':'block'});
+                        	than.tishi = res.data.message;
+                        }
+                    }, function () {
+                        console.log('请求失败处理');
+                    });
+
+            },
+            yanzhengmaF:function(){
+            	var than = this;
+            	fjdf();
+                this.$http.post('../../../../index.php/api/denglu/send', {
+                     phone:than.tel,
+                     type:'3'
+                },{
+                	headers:{
+                		'Cookies':ashjd
+                	}
+                })
+                    .then(function (res) {
+                        console.log(res.data);
+                        if(res.data.code == '200'){
+                        	than.xianshi = 'dengdai';
+                        }else{
+                        	$('.tan1').css({'display':'block'});
+                        	than.tishi = res.data.message;
+                        }
+                        var timess = 60;
+                        than.time =  timess + 'S';
+                        var timer = setInterval(function(){
+                        	timess --;
+                        	than.time = timess + 'S';
+                        	$('.yanzhengma_time').addClass('notclick');
+                        	if(timess == '0'){
+		                    	clearInterval(timer);
+		                    	$('.yanzhengma_time').removeClass('notclick');
+		                    	than.time="重新获取";
+		                    }
+                        },1000);
+                        
+                    }, function () {
+                        console.log('请求失败处理');
+                    });
+            },
+            fileF:function(e,a){
+            	var than = this;
+				if(a == '1'){
+					var objurl = this.getObjectURL(e.target.files[0]);
+					$('.zhengmianimg').attr('src',objurl);
+					than.front_card = e.target.files[0];
+				}else if(a == '2'){
+					var objurl = this.getObjectURL(e.target.files[0]);
+					$('.fanmianimg').attr('src',objurl);
+					than.back_card = e.target.files[0];
+				}else if(a == '3'){
+					var objurl = this.getObjectURL(e.target.files[0]);
+					$('.shouimg').attr('src',objurl);
+					than.hold_card = e.target.files[0];
+				}
+				
+            },
+            tijiaoF:function(){
+            	var than = this;
+            	var formData = new FormData();
+				formData.append('real_name' , than.name);
+				formData.append('id_num' , than.shenfengzheng);
+				formData.append('front_card' , than.front_card);
+				formData.append('back_card' , than.back_card);
+				formData.append('hold_card' , than.hold_card);
+				formData.append('mobile' , than.tel);
+				formData.append('type' , '2');
+				formData.append('code' , than.code);
+				than.formData = formData;
+
+				if(than.name == '' || than.shenfengzheng == '' || than.front_card == '' || than.name == '' || than.back_card == '' || than.hold_card == '' || than.tel == '' || than.code == ''){
+					$('.tan1').css({'display':'block'});
+				}else{
+					this.huoqushuju();
+				}
+				
+            },
+            shenfenF:function(){
+            	var than = this;
+            	console.log($('.shenf').val().length);
+            	if($('.shenf').val().length != 18){
+            		$('.tan1').css({'display':'block'});
+            		than.tishi = "请输入有效的身份证号码！";
+            	}
+            },
+            shoujihaoF:function(){
+            	var than = this;
+            	console.log($('.shouji').val());
+			    var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0-9]{1})|(15[0-3]{1})|(15[4-9]{1})|(18[0-9]{1})|(19[0]{1})|(19[6]{1})|(19[7]{1})|(19[2]{1}))+\d{8})$/;
+			    if ($('.shouji').val() == '') {
+			    	$('.tan1').css({'display':'block'});
+			        than.tishi = "手机号码不能为空！";
+			    } else if ($('.shouji').val().length != 11) {
+			    	$('.tan1').css({'display':'block'});
+			        than.tishi = "请输入11位手机号码！";
+			    } else if (!myreg.test($('.shouji').val())) {
+			    	$('.tan1').css({'display':'block'});
+			        than.tishi = "请输入有效的手机号码！";
+			    }
+            },
+            tanF:function(){
+            	var than = this;
+            	$('.tan1').css({'display':'none'})
+            },
+			getObjectURL(file) {
+		          var url = null;
+		          if (window.createObjectURL != undefined) { 
+		            url = window.createObjectURL(file);
+		          } else if (window.URL != undefined) {
+		            url = window.URL.createObjectURL(file);
+		          } else if (window.webkitURL != undefined) {
+		            url = window.webkitURL.createObjectURL(file);
+		          }
+		          return url;
+	        },
+		}
+	})
+</script>
+</html>

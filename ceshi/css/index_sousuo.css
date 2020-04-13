@@ -1,0 +1,330 @@
+*{
+	margin: 0;
+	padding:0;
+	text-decoration: none;
+	list-style: none;
+}
+html,body{
+	width: 100%;
+	font-size: 12px;
+}
+#index_sousuo{
+	width: 100%;
+}
+.til{
+	width: 100%;
+	height: 40px;
+	border-bottom: 1px solid #eee;
+	overflow:hidden;
+	position: fixed;
+	top:0;
+	left: 0;
+	background-color: #fff;
+	z-index: 9999;
+}
+.til_point{
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;	
+}
+.til_point img{
+	width: 60%;
+	height: 60%;
+}
+.til_text{
+	height: 100%;
+	font-size: 1.5rem;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	letter-spacing: 3px;
+}
+
+.heads{
+	width: 100%;
+	height: 30px;
+	overflow:hidden;
+	position: fixed;
+	left:0;
+	top:40px;
+	background-color: #fff;
+	z-index: 9999;
+}
+.heads_dizhi{
+	height: 100%;
+	overflow:hidden;
+	padding:0;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+.dizhi_text{
+	font-size: 1.3rem;
+	float: left;
+	padding-left:12px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding-right: 3px;
+}
+.dizhi_img{
+	width: 13px;
+    float: left;
+    margin-top:3px;
+}
+.dizhi_img img{
+	width: 100%;
+	height: 100%;
+}
+.heads_inp{
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding:0;
+}
+.heads_inp form{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+.top_inp{
+	width:90%;
+	height: 28px;
+	margin:auto;
+	border-radius: 14px;
+	border:0;
+	background:rgb(244,244,244);
+	outline: none;
+	line-height: 24px;
+	font-size: 1.3rem;
+	padding-left: 7px;
+}
+input::-webkit-input-placeholder{
+ 	background: url('../img/sousuo.png') no-repeat;
+ 	background-size: 7% 76%;
+ 	background-position: 3% 50%; 
+}
+
+.bodys{
+	width: 100%;
+	margin-top: 70px;
+}
+.bodys_til{
+	width: 100%;
+	font-size: 1.3rem;
+	display: flex;
+	align-items: center;
+	padding-left:7px;
+	padding-top:10px;
+}
+.bodys_text{
+	width: 100%;
+}
+.bodys_text span{
+	padding:8px 10px;
+	margin-right:15px;
+	color:#999;
+	display: block;
+	float: left;
+	font-size: 1.2rem;
+}
+
+
+.bodys_head{
+	width: 100%;
+	overflow: hidden;
+	padding:5px 10px;
+}
+.didian{
+	width: 25%;
+	float: left;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.didian_text{
+	font-size: 1.3rem;
+    color: #888;
+    float: left;
+    width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+}
+.didian_img{
+	width: 13px;
+	height:10px;
+	float: left;
+	margin-top: -3px;
+}
+.didian_img img{
+	width: 100%;
+	height: 100%;
+}
+.gaoji{
+	font-size: 1.3rem;
+	color:#000;
+	float: left;
+	width: 70%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.bodys_zhiwei{
+	width: 100%;
+}
+.zhiwei1{
+	width:100%;
+	margin:auto;
+	padding:5px 0px 5px 0px;
+	margin-top:6px;
+	border-bottom: 1px solid #eee;
+}
+.zhiwei{
+	width: 100%;
+}
+.zuixin_zhiwei{
+	display: none;
+}
+.zhiwei_name{
+	width: 100%;
+	overflow: hidden;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.zhiwei_name1{
+	float: left;
+	font-size: 1.3rem;
+	font-weight: bold;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	padding-top: 5px;
+}
+.zhiwei_money{
+	float: right;
+	color:#ff7800;
+	font-size: 1.2rem;
+	text-align: right;
+}
+.zhiwei_xinxi{
+	width: 100%;
+	overflow: hidden;
+	padding-left: 10px;
+	padding-right: 10px;
+	overflow: hidden;
+}
+.zhiwei_xinxi1 span{
+	padding-right:5px;
+	padding-top:5px;
+	padding-bottom:5px;
+	color:#aaa;
+	font-size: 1.1rem;
+}
+.gongsi{
+	width: 100%;
+	padding:5px 10px;
+	overflow: hidden;
+}
+.gongsi_img{
+	width: 45px;
+	height: 45px;
+	border-radius: 50%;
+	float: left;
+	overflow: hidden;
+}
+.gongsi_img img{
+	width: 100%;
+	height: 100%;
+}
+.gongsi_xinxi{
+	width: 80%;
+	float: left;
+	padding-left: 8px;
+	height: 45px;
+}
+p{
+	margin:0;
+}
+.gongsi_name{
+	width: 100%;
+	font-size: 1.1rem;
+	display: flex;
+	align-items: center;
+	padding-top:5px;
+	padding-bottom: 5px;
+}
+.gongsi_name span{
+	font-size: 1rem;
+	background-color: #ff7800;
+	padding:0px 2px;
+	color:#fff;
+	border-radius: 3px;
+}
+.gongsi_zhaopin{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	padding-bottom: 5px;
+}
+.gongsi_zhaopin span{
+	float: left;
+	padding-right: 8px;
+	color:#aaa;
+	font-size: 1rem;
+}
+
+
+
+.tan1{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top:0;
+	background-color: rgba(0,0,0,0.3);
+	display: none;
+}
+.tan2{
+	width: 100%;
+	height: 50%;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	background-color: #fff;
+	display: none;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	overflow-y: scroll;
+}
+.tan2_text{
+	background: rgb(244,244,244);
+    font-size: 1.2rem;
+    width: 100%;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+}
+
+
+
+.sousuo_tan{
+	width: 100%;
+	height: 400px;
+	padding-top: 10px;
+}
+.sousuo_tanText{
+	padding:10px 10px;
+	background-color: #fff;
+	font-size: 1.3rem;
+}

@@ -1,0 +1,396 @@
+ <!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+</head>
+<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+<script src="../../js/vue.js"></script>
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="../../js/axios.js"></script>
+<style type="text/css">
+html,
+body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.navbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 0px;
+    border: 0px solid transparent;
+}
+
+.form-control {
+    width: 80%;
+}
+
+.form-control {
+    border: 0px solid #000;
+    border-right: 1px solid #d4d4d4;
+}
+
+.input-group-addon {
+    border: 0px solid #000;
+}
+
+input {
+    outline: none;
+}
+
+.header {
+    width: 100%;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    position: relative;
+}
+
+.header div:before,
+.header div:after {
+    position: absolute;
+    background: #ccc;
+    content: "";
+    height: 1px;
+    top: 50%;
+    width: 100px;
+}
+
+.header div:before {
+    left: 10px;
+}
+
+.header div:after {
+    right: 10px;
+}
+
+.col-xs-3 {
+    padding-left: 0px;
+}
+
+.col-xs-12 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.col-xs-6 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.btn-default {
+    color: #000;
+    background-color: #fff;
+    border-color: #fff;
+}
+
+.btn {
+    border-radius: 0px;
+}
+
+select {
+    width: 70px;
+    height: 37px;
+    text-align: center;
+    text-align-last: center;
+}
+
+.form-control {
+    width: 50%
+}
+
+[v-cloak] {
+    display: none !important;
+}
+
+ul ol li {
+    margin: 0;
+    padding: 0;
+}
+
+.xuanze {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    overflow: auto;
+}
+
+.xuanze1 {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    z-index: 99999;
+
+}
+
+.xuanze_1 {
+    width: 100%;
+    height: 30px;
+    margin-top: -6px;
+    text-align: center;
+    display: flex;
+}
+
+.xuanze_1 div {
+    height: 0px;
+}
+
+.xuanze_1 div button {
+    margin: 20px 0px;
+    background: rgb(253, 151, 0);
+    border-radius: 10px;
+    width: 90%;
+    height: 30px;
+    border: 1px solid rgb(253, 151, 0);
+    outline: none;
+    color: rgb(255, 255, 255);
+}
+
+.libiao ul li {
+    width: 100%;
+    text-align: center;
+    line-height: 40px;
+    height: 40px;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.libiao {
+    margin-top: 20px;
+    width: 100%;
+    height: 90%;
+    overflow: auto;
+
+}
+
+.center-in-center {
+    width: 230px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 18px;
+    background: #fff;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    -moz-box-shadow: 2px 2px 5px #333333;
+    -webkit-box-shadow: 2px 2px 5px #333333;
+    box-shadow: 2px 2px 5px #333333;
+}
+
+.xuanzes {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    overflow: auto;
+}
+</style>
+
+<body style="background:#f2f2f2;height:100%;">
+    <div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
+    </div>
+    <nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+        <div class="container-fluid">
+            <div class="">
+                <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
+                <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10" style="color: #fff;text-align: center;">民事案</a>
+                <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;float: right;text-align: right;"><span class="glyphicon glyphicon-remove" style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
+            </div>
+        </div>
+    </nav>
+    <div id="app" v-cloak>
+        <div class="col-xs-12 col-sm-12" style="height: 40px;background: #fff;">
+            <div class="col-xs-5 col-sm-5" style="height: 40px;line-height: 40px;text-align: center;padding: 0px;" @click='fayuan'>{{fycjxzs}}</div>
+            <div class="col-xs-2 col-sm-2" style="height: 40px;line-height: 40px;text-align: center;padding: 0px;">|</div>
+            <div class="col-xs-5 col-sm-5" style="height: 40px;line-height: 40px;text-align: center;padding: 0px;" @click='wenshu'>{{wslxzs}}</div>
+        </div>
+        <!-- 正文开始 -->
+        <div class="col-xs-12 col-sm-12">
+            <ul style="" id="ulID">
+                <li style="margin-top:10px; background:#fff; width:100%; padding-top:10px; padding-bottom:10px;padding-left:20px" v-for="(user,index) in users">
+                    <span style="font-size:14px;display: inline-block;" :id="'name' + index">{{user.title}}</span>
+                    <span style="font-size:10px;"><span v-if="user.fycj == '500'">判决书</span><span v-if="user.fycj == '1000'">裁定书</span><span v-if="user.fycj == '1500'">调解书</span><span v-if="user.fycj == '2000'">决定书</span><span v-if="user.fycj == '2500'">通知书</span>&nbsp;&nbsp;{{ user.cpnumber }}</span>
+                    <br>
+                    <span>裁定日期：{{user.endtime}}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="xuanze" style="display: none">
+            <div class="xuanze1">
+                <div class="xuanze_1">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <button @click="quxiao">取消</button>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <button @click="queding">确定</button>
+                    </div>
+                </div>
+                <div class="libiao">
+                    <ul>
+                        <li @click="fycjxz" id="500">基层法院</li>
+                        <li @click="fycjxz" id="1000">中级法院</li>
+                        <li @click="fycjxz" id="1500">高级法院</li>
+                        <li @click="fycjxz" id="2000">最高法院</li>
+                        <li @click="fycjxz" id="0">不限</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="xuanzes" style="display: none;">
+            <div class="xuanze1">
+                <div class="xuanze_1">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <button @click="quxiao">取消</button>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <button @click="queding">确定</button>
+                    </div>
+                </div>
+                <div class="libiao">
+                    <ul>
+                        <li @click="wslxxz" id="500">判决书</li>
+                        <li @click="wslxxz" id="1000">裁定书</li>
+                        <li @click="wslxxz" id="1500">调解书</li>
+                        <li @click="wslxxz" id="2000">决定书</li>
+                        <li @click="wslxxz" id="2500">通知书</li>
+                        <li @click="wslxxz" id="0">不限</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 正文结束 -->
+    </div>
+</body>
+<script>
+var aaa = "";
+window.onload = function() {
+    var widthLIN = localStorage.getItem("key");
+    document.getElementById('widthLI').style.height = widthLIN + 'px';
+    document.getElementById('daohanglan').style.top = widthLIN + 'px';
+    var dhlH = document.getElementById('daohanglan').offsetHeight;
+    document.getElementById('app').style.marginTop = Number(widthLIN) + Number(dhlH) + 'px';
+    var qyid = "";
+    var minshian = [];
+    var name, value;
+    var str = location.href; //取得整个地址栏
+    var num = str.indexOf("?")
+    str = str.substr(num + 1); //取得所有参数   stringvar.substr(start [, length ]
+    var arr = str.split("&"); //各个参数放到数组里
+    for (var i = 0; i < arr.length; i++) {
+        num = arr[i].indexOf("=");
+        if (num > 0) {
+            name = arr[i].substring(0, num);
+            value = arr[i].substr(num + 1);
+            this[name] = value;
+            var haizi = decodeURI(value);
+            aid = haizi;
+        }
+    }
+    new Vue({
+        el: '#app',
+        data: {
+            users: [],
+            total: "",
+            wslb: "0",
+            fycj: "0",
+            fycjxzs: "法院层级筛选",
+            wslxzs: "文书类筛选",
+        },
+        mounted: function() {
+            this.sendGetByObj();
+        },
+        methods: {
+            sendGetByObj: function() {
+                var than = this;
+                this.$http.get('../../../index.php/index/qy/anzi', {
+                        params: {
+                            act: "app",
+                            aid: aid,
+                            wslb: than.wslb,
+                            fycj: than.fycj,
+                            tid: '2',
+                        }
+                    })
+                    .then(function(response) {
+                        console.log(response.data.content.list)
+                        than.users = response.data.content.list
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+            },
+            fayuan: function() {
+                $(".xuanze").css("display", "block");
+                $(".libiao ul li").css("color", "#000");
+            },
+            fycjxz: function(e) {
+                console.log(e)
+                $(".libiao ul li").css("color", "#000");
+                var than = this;
+                $("#" + e.srcElement.id).css("color", "#FD9700");
+                than.fycjxzs = e.srcElement.innerHTML;
+                than.fycj = e.srcElement.id;
+            },
+            quxiao: function() {
+                $(".xuanze").css("display", "none");
+                $(".xuanzes").css("display", "none");
+            },
+            queding: function() {
+                $(".xuanzes").css("display", "none");
+                $(".xuanze").css("display", "none");
+                this.sendGetByObj();
+            },
+            wenshu: function() {
+                $(".xuanzes").css("display", "block");
+            },
+            wslxxz: function(e) {
+                console.log(e)
+                var than = this;
+                than.wslxzs = e.srcElement.innerHTML;
+                than.wslb = e.srcElement.id;
+            },
+        },
+    });
+}
+
+function Mclose() {
+    var widthLIN1 = localStorage.getItem("key1");
+    if (widthLIN1 == "2") {
+        window.webkit.messageHandlers.Mclose.postMessage("123");
+    } else {
+        window.control.mClose();
+    }
+
+}
+
+function Mback() {
+    window.history.go(-1);
+}
+</script>
+
+</html>

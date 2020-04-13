@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>求职意向</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jibenxinxi.css">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../../js/bootstrap.js"></script>
+    <script src="../../js/vue.js"></script>
+    <script src="../../js/vue.min.js"></script>
+    <script src="../../js/axios.js"></script>
+    <script src="../../js/vue-resource.js"></script>
+    <script src="../../js/vconsole.min.js"></script>
+    <script src="../../js/minganci.js"></script>
+    <script src="../../js/jsencrypt.js"></script>
+    <script src="../../js/hsjidh.js"></script>
+    <script src="../../js/axiosjsqing.js"></script>
+    <script src="../../js/jgifdj.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <nav class="navbar navbar-default" role="navigation" style="background:#fff;width: 100%;z-index: 100000;"
+            id="daohanglan">
+            <div class="container-fluid">
+                <div class="">
+                    <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
+                        style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left"
+                            style="color: rgb(0, 0, 0);" onclick="Mback()"></span></a>
+                    <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10"
+                        style="color: #000;text-align: center;font-size: 20px;font-weight: blod;">求职意向</a>
+                    <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
+                        style="color: #000;float: right;text-align: right;"><span
+                            style="color: rgb(0, 0, 0);margin-left: -15px;font-size:14px;"></span></a>
+                </div>
+            </div>
+        </nav>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 leibiao" @click="gongzuoxz('xingzhi' , '1')">
+            <span class="leibiao_left">工作性质</span>
+            <span class="leibiao_rigth">{{xingzhi}} ></span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 leibiao" @click="gongzuoxz('zhuangtai' , '2')">
+            <span class="leibiao_left">目前状态</span>
+            <span class="leibiao_rigth">{{mqzhuangtai}} ></span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 leibiao" @click="gongzuoxz('xinzi' , '3')">
+            <span class="leibiao_left">期望薪资</span>
+            <span class="leibiao_rigth">{{qiwangxz}} ></span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 leibiao" @click="hangye('hangye' , '4')">
+            <span class="leibiao_left">期望行业</span>
+            <span class="leibiao_rigth">{{qiwanghy}} ></span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 leibiao" @click="zhiwei('zhiye' , '5')">
+            <span class="leibiao_left">期望职位</span>
+            <span class="leibiao_rigth">{{qiwangzw}} ></span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 leibiao" @click="qiqu('diqu')">
+            <span class="leibiao_left">工作地址</span>
+            <span class="leibiao_rigth">{{dizhi}} ></span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <button @click="xiugai">123</button>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 yingcangyi" id="yingcangyi">
+
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 yingcangsan" id="yingcangsan">
+            <div class="form-group">
+                <label class="radio-inline sex" v-for="user in users" @click="xuanze(user.id,user.name)">
+                    {{user.name}}
+                </label>
+                <label class="radio-inline quxiao">
+                    取消
+                </label>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 yingcangwu" id="yingcangwu" style="padding: 0px;">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 diqu" style="padding: 0px;">
+                <div v-for="hy in hys"
+                    style="text-align: center;white-space:nowrap;overflow: hidden;text-overflow: ellipsis;width: 100%;"
+                    @click="diquxuanze(hy.id,hy.name)">
+                    {{hy.name}}
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 diqus"
+                style="text-align: center;background: #f4f4f4;padding: 0;padding: 0px;">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 diqus_l" style="text-align: center;padding: 0px;">
+                    <div v-for="hyser in hysers"
+                        style="text-align: center;background: #f4f4f4;white-space:nowrap;overflow: hidden;text-overflow: ellipsis;width: 100%;"
+                        @click="queding(hyser.id,hyser.name)">
+                        {{hyser.name}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 yingcangsi" id="yingcangsi" style="padding: 0px;">
+
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 diqu">
+                <div v-for="shengjileibiaos in shengjileibiao"
+                    style="text-align: center;white-space:nowrap;overflow: hidden;text-overflow: ellipsis;width: 100%;"
+                    @click="shengji(shengjileibiaos.id,shengjileibiaos.name)">
+                    {{shengjileibiaos.name}}
+                </div>
+            </div>
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 diqus"
+                style="text-align: center;background: #f4f4f4;padding: 0;">
+                <div class="diqus_l" id="shis" style="text-align: center;float: left;">
+                    <div v-for="shijileibieos in shijileibieo"
+                        style="text-align: center;background: #f4f4f4;white-space:nowrap;overflow: hidden;text-overflow: ellipsis;width: 100%;"
+                        @click="shi(shijileibieos.id,shijileibieos.name)">
+                        {{shijileibieos.name}}
+                    </div>
+                </div>
+                <div id="qus" class="diqus_l" style="text-align: center;float: left;">
+                    <div v-for="qujileibieos in qujileibieo"
+                        style="text-align: center;background: #f4f4f4;white-space:nowrap;overflow: hidden;text-overflow: ellipsis;width: 100%;"
+                        @click="quedings(qujileibieos.id,qujileibieos.name)">
+                        {{qujileibieos.name}}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    window.onload = function () {
+        var name, value , search;
+        var str = location.href;
+        var num = str.indexOf("?");
+        str = str.substr(num + 1);
+        var arr = str.split("&");
+        for (var i = 0; i < arr.length; i++) {
+            num = arr[i].indexOf("=");
+            if (num > 0) {
+                name = arr[i].substring(0, num);
+                value = arr[i].substr(num + 1);
+                this[name] = value;
+                search = value;
+            }
+        }
+        if(search == null){
+            search = ''
+        }
+        new Vue({
+            el: '#app',
+            data: {
+                users: "",
+                xingzhi: "请选择",//工作性质
+                xingzhiid: "",//工作性质id
+                panduan: "",//判断
+                mqzhuangtai: "请选择",//目前状态
+                mqzhuangtaiid: "",//目前状态id
+                qiwangxz: "请选择",//期望薪资
+                qiwangxzid: "",//期望薪资id
+                qiwanghy: "请选择",//期望行业
+                qiwanghyid: "",//期望行业id
+                hys: "",//行业数组
+                hysers: "",//行业数组二级
+                hyyiji: "",
+                qiwangzw: "请选择",//期望职位
+                qiwangzwid: "",//期望职位id
+                shengjileibiao: "",
+                shijileibieo: "",
+                qujileibieo: "",
+                median: "",
+                dizhi: "请选择",
+                dizhiid: "",
+            },
+            mounted: function () {
+                this.huoquleibiao();
+                //    window.sdhsj = this.changeCount;
+            },
+            methods: {
+                huoquleibiao:function(){
+                    fjdf();
+                    var than = this;
+                    this.$http.post('../../../../index.php/api/wode/obtain_intention', {
+                        id: search,
+                        types:'0',
+                    },{
+                        headers:{
+                            'Cookies':ashjd
+                        }
+                    })
+                        .then(function (res) {
+                            console.log(res);
+                            than.dizhi = res.data.data.city;
+                            than.qiwanghy = res.data.data.hangye;
+                            than.xingzhi = res.data.data.xingzhi;
+                            than.qiwangxz = res.data.data.xinzi;
+                            than.qiwangzw = res.data.data.zhiye;
+                            than.mqzhuangtai = res.data.data.zhuangtai;
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+                },
+                huoquxinxi: function (e, id) {
+                    fjdf();
+                    var than = this;
+                    this.$http.post('../../../../index.php/api/wode/personal_xiala?xingzhi&city_id&hangye&industry', {
+                        xingzhi: than.xingzhiid,
+                        city_id: "",
+                        hangye: "",
+                        industry: "",
+                    },{
+                        headers:{
+                            'Cookies':ashjd
+                        }
+                    })
+                        .then(function (res) {
+                            var a = res.data.data;
+                            var b = a[e];
+                            //console.log(b)
+                            than.users = b
+                            than.panduan = id;
+                        }, function () {
+                            //console.log('请求失败处理');
+                        });
+                },
+                gongzuoxz: function (e, id) {
+                    var than = this;
+                    $('#yingcangyi').css('display', 'block')
+                    $('#yingcangsan').css('display', 'block')
+                    than.huoquxinxi(e, id);
+                },
+                xuanze: function (id, name) {
+                    var than = this;
+                    var panduan = than.panduan;
+                    $('#yingcangyi').css('display', 'none')
+                    $('#yingcangsan').css('display', 'none')
+                    if (panduan == '1') {
+                        than.xingzhi = name;
+                        than.xingzhiid = id;
+                    } else if (panduan == '2') {
+                        than.mqzhuangtai = name;
+                        than.mqzhuangtaiid = id;
+                    } else if (panduan == '3') {
+                        than.qiwangxz = name;
+                        than.qiwangxzid = id;
+                    } else if (panduan == '5') {
+                        than.qiwangzw = name;
+                        than.qiwangzwid = id;
+                    }
+
+                },
+                hangye: function (id, name) {
+                    fjdf();
+                    var than = this;
+                    $('#yingcangyi').css('display', 'block')
+                    $('#yingcangwu').css('display', 'block')
+                    var than = this;
+                    this.$http.post('../../../../index.php/api/wode/personal_xiala?xingzhi&city_id&hangye&industry', {
+                        xingzhi: than.xingzhiid,
+                        city_id: "",
+                        hangye: "",
+                        industry: "",
+                    },{
+                        headers:{
+                            'Cookies':ashjd
+                        }
+                    })
+                        .then(function (res) {
+                            var a = res.data.data;
+                            var b = a[id];
+                            //console.log(b)
+                            than.hys = b
+                        }, function () {
+                            //console.log('请求失败处理');
+                        });
+                },
+                diquxuanze: function (id, name) {
+                    var than = this;
+                    // //console.log(id + '-' + name)
+                    than.hyyiji = name;
+                    var hys = than.hys;
+                    than.hysers = hys[id].zi
+                },
+                queding: function (id, name) {
+                    $('#yingcangyi').css('display', 'none')
+                    $('#yingcangwu').css('display', 'none')
+                    var than = this;
+                    var hyyiji = than.hyyiji;
+                    // //console.log(hyyiji + ',' + name)
+                    than.qiwanghy = hyyiji + '-' + name;
+                    than.qiwanghyid = id;
+                },
+                zhiwei: function (id, name) {
+                    fjdf();
+                    $('#yingcangyi').css('display', 'block')
+                    $('#yingcangsan').css('display', 'block')
+                    var than = this;
+                    than.panduan = name;
+                    this.$http.post('../../../../index.php/api/wode/personal_xiala?xingzhi&city_id&hangye&industry', {
+                        xingzhi: than.xingzhiid,
+                        city_id: "",
+                        hangye: than.qiwanghyid,
+                        industry: "",
+                    },{
+                        headers:{
+                            'Cookies':ashjd
+                        }
+                    })
+                        .then(function (res) {
+                            var a = res.data.data;
+                            var b = a[id];
+                            than.users = b
+                            // than.hys = b
+                        }, function () {
+                            //console.log('请求失败处理');
+                        });
+                },
+                qiqu: function (id) {
+                    fjdf();
+                    $('#yingcangyi').css('display', 'block')
+                    $('#yingcangsi').css('display', 'block')
+                    var than = this;
+                    than.panduan = name;
+                    than.shijileibieo= "",
+                    than. qujileibieo= "",
+                    this.$http.post('../../../../index.php/api/wode/personal_xiala?xingzhi&city_id&hangye&industry', {
+                        xingzhi: than.xingzhiid,
+                        city_id: "",
+                        hangye: "",
+                        industry: "",
+                    },{
+                        headers:{
+                            'Cookies':ashjd
+                        }
+                    })
+                        .then(function (res) {
+                            var a = res.data.data;
+                            var b = a[id];
+                            than.shengjileibiao = b
+
+                        }, function () {
+                            //console.log('请求失败处理');
+                        });
+                },
+                shengji: function (id, name) {
+                    fjdf();
+                    // console.log(id + ',' + name)
+                    var than = this;
+                    than.median = name;
+                     than.shijileibieo = "",
+                        than.qujileibieo = "",
+                    this.$http.post('../../../../index.php/api/wode/personal_xiala?xingzhi&city_id&hangye&industry', {
+                        xingzhi: than.xingzhiid,
+                        city_id: id,
+                        hangye: "",
+                        industry: "",
+                    },{
+                        headers:{
+                            'Cookies':ashjd
+                        }
+                    })
+                        .then(function (res) {
+                            var a = res.data.data.diqu;
+                            // //console.log(name.length)
+                            if (name[name.length - 1] == '市') {
+                                var arr = {};
+                                arr['id'] = id;
+                                arr['name'] = '全市';
+                                a.unshift(arr)
+                                // shis
+                                $('#shis').css('width', '100%')
+                            } else {
+                                var arr = {};
+                                arr['id'] = id;
+                                arr['name'] = '全省';
+                                a.unshift(arr)
+                                $('#shis').css('width', '100%')
+                            }
+                            than.shijileibieo = a;
+
+                        }, function () {
+                            //console.log('请求失败处理');
+                        });
+                },
+                shi: function (id, name) {
+                    var than = this;
+                    than.qujileibieo = "",
+                    console.log(name)
+                    if (name == '全市' || name == '全省') {
+                        $('#yingcangyi').css('display', 'none')
+                        $('#yingcangsi').css('display', 'none')
+                        var median = than.median;
+                        than.dizhi = median;
+                        than.dizhiid = id;
+                    } else {
+                        var shijileibieo = than.shijileibieo;
+                        if (shijileibieo[0].name == '全省') {
+                            fjdf();
+                            $('#shis').css('width', '50%')
+                            $('#qus').css('width', '50%')
+                            this.$http.post('../../../../index.php/api/wode/personal_xiala?xingzhi&city_id&hangye&industry', {
+                                xingzhi: than.xingzhiid,
+                                city_id: id,
+                                hangye: "",
+                                industry: "",
+                            },{
+                                headers:{
+                                    'Cookies':ashjd
+                                }
+                            })
+                                .then(function (res) {
+                                    var a = res.data.data.diqu;
+
+                                    // //console.log(name.length)
+                                    if (shijileibieo[0].name == '全省') {
+                                        var arr = {};
+                                        arr['id'] = id;
+                                        arr['name'] = '全市';
+                                        a.unshift(arr)
+                                        // shis
+                                    }
+                                    than.qujileibieo = a;
+                                     var median = than.median;
+                                    name =  median + '-' + name;
+                                    than.dizhi = name;
+                                    than.median = name;
+                                    than.dizhiid = id;
+                                }, function () {
+                                    console.log('请求失败处理');
+                                });
+                        } else {
+                            $('#yingcangyi').css('display', 'none')
+                            $('#yingcangsi').css('display', 'none')
+                            var median = than.median;
+                            name = median + '-' + name;
+                            than.median = name;
+                            than.dizhi = name;
+                            than.dizhiid = id;
+                        }
+
+                    }
+                },
+                quedings: function (id, name) {
+                    console.log(id + '-' + name)
+                    $('#yingcangyi').css('display', 'none')
+                    $('#yingcangsi').css('display', 'none')
+                    var than = this;
+                    var median = than.median;
+                    if(name == '全市'){
+                        than.dizhi = median;
+                        than.dizhiid = id;
+                    }else{
+                        name = median + '-' + name;
+                        than.dizhi = name;
+                        than.dizhiid = id;
+                    }
+                },
+                xiugai:function(){
+                    fjdf();
+                    var than = this;
+                    than.qujileibieo = "",
+                    this.$http.post('../../../..//index.php/api/wode/add_intention', {
+                        id:"37",
+                        mid:"3299",
+                        xingzhi:than.xingzhiid,
+                        city_id:than.dizhiid,
+                        xinzi:than.qiwangxzid,
+                        hangye:than.qiwanghyid,
+                        zhiye:than.qiwangzwid,
+                        zhuangtai:than.mqzhuangtaiid,
+                    },{
+                        headers:{
+                            'Cookies':ashjd
+                        }
+                    })
+                    .then(function (res) {
+                        console.log(res)
+                    }, function () {
+                        console.log('请求失败处理');
+                    });
+                }
+            }
+        })
+    }
+</script>
+
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>职位详情</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport"
+		content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../../css/qiyeban/qiye_zhiweixiangqing.css">
+    <link rel="stylesheet" type="text/css" href="../../css/iconfont.css">
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script src="../../js/bootstrap.js"></script>
+	<script src="../../js/vue.js"></script>
+	<script src="../../js/vue.min.js"></script>
+	<script src="../../js/axios.js"></script>
+	<script src="../../js/vue-resource.js"></script>
+    <script src="../../js/jsencrypt.js"></script>
+    <script src="../../js/hsjidh.js"></script>
+    <script src="../../js/axiosjsqing.js"></script>
+    <script src="../../js/jgifdj.js"></script>
+    <style type="text/css">
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="zhiweixiangqing" v-cloak>
+    <div class="zw_til">
+    	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 til_point" @click="fanhuiF"><img src="../../img/left_point.png"></div>
+    	<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 til_text">职位详情</div>
+    </div>
+    <div class="zw_body">
+    	<div class="zw_xiangqing">
+    		<div class="zwxq">
+    			<div class="zwxq_name">{{user.name}}</div>
+    			<div class="zwxq_money">{{user.money}}</div>
+    		</div>
+            <div class="zwxq_xinxi">
+                <span>{{user.area}}</span>
+                <span>|</span>
+                <span>{{user.experience}}</span>
+                <span>|</span>
+                <span>{{user.education}}</span>
+                <span>|</span>
+                <span>{{user.zhiye_leixing}}</span>
+            </div>
+    		<div class="zwxq_fuli">
+                <div class="fuli_text">
+                    <div style="width: 100%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+                        {{user.tag}}
+                    </div>
+                </div>      
+                <div class="fuli_more">更多福利</div>      
+            </div>
+            <div class="zwxq_dizhi">
+                <div style="width: 100%;margin:auto;">
+                    <div class="zwxq_img"><img src="../../img/ditu.png"></div>
+                    <div class="zwxq_dizhi_text">{{user.address}}</div>
+                </div>
+            </div>
+            <div class="zwxq_text">
+                <div class="zwxq_til">职位详情</div>
+                <div class="zwxq_neirong">{{user.duty}}</div>
+            </div>
+            <div class="zwxq_gongsi" @click="qiyexiangqingF">
+                <div class="zwxq_gongsi_img"><img :src="qiye.logo"></div>
+                <div class="zwxq_gongsi_text">
+                    <div style="height: 50%;display: flex;align-items: center;">
+                        <span style="font-size: 1.5rem;">{{qiye.company_name}}</span>
+                        <span style="font-size: 1rem;background-color: #ff7800;color:#fff;padding:0 3px;border-radius: 2px;margin-left:3px;">{{qiye.company_name}}</span>
+                    </div>
+                    <div style="height: 30%;font-size: 1.2rem;display: flex;align-items: center;">
+                        <span>{{qiye.scale}}</span>
+                        <span style="margin-left:15px;">{{qiye.leixing}}</span>
+                    </div>
+                </div>
+                <div class="zwxq_gongsi_point"><img src="../../img/point1.png"></div>
+            </div>
+    	</div>
+    </div>
+    <div class="zw_bot" style="padding-top: 7px;padding-bottom: 7px;" v-if="zhuangtai == '1'">
+        <div class="goutong" style="color:#fff"  @click="xiugaiF"><span class="iconfont icon-bianji" style="height: 23px;width: 23px;"></span>修改</div>
+    	<div class="toudi" @click="guanbiF">关闭</div>
+    </div>
+    <div class="zw_bot" style="padding-bottom: 7px;padding-top: 7px;" v-if="zhuangtai == '2'">
+        <div class="goutong" style="color:#fff"  @click="xiugaiF"><span class="iconfont icon-bianji" style="height: 23px;width: 23px;"></span>修改</div>
+        <div class="toudi" @click="huifuF">恢复</div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    // 获取地址栏里面的id和type的值
+    window.onload=function(){
+    var url = decodeURI(location.search); //获取url中"?"符后的字串
+    console.log(url)
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for(var i = 0; i < strs.length; i ++) {
+            theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+        }
+    }
+    var ids = theRequest.id;
+    var types = theRequest.type;
+    var zhuangtais = theRequest.zhuangtai;
+    console.log(zhuangtais)
+
+    new Vue({
+            el: '#zhiweixiangqing',
+            data: {
+                zhuangtai:zhuangtais,
+                id:ids,
+                type:types,
+                user:'',
+                qiye:'',
+                status:'1',
+            },
+            mounted: function () {
+                this.huoqushuju()
+            },
+            methods: {
+                huoqushuju:function(){
+                    console.log(this.zhuangtai)
+                    fjdf();
+                    var than = this;
+                    this.$http.post('../../../../index.php/api/position/position_detail', {
+                            id:than.id,
+                            type:than.type,
+                            mid:''
+                    },{
+                        headers:{
+                            'Cookies':ashjd
+                        }
+                    })
+                        .then(function (res) {
+                            console.log(res.data.data);
+                            than.user = res.data.data;
+                            than.qiye = than.user.qiye;
+                           
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+                },
+                guanbishuju:function(){
+                    var than = this;
+                    fjdf();
+                    this.$http.post('../../../../index.php/api/qiye/status',{
+                        status:than.status,
+                        id:than.id,
+                        type:than.type
+                    },{
+                        headers:{
+                            'Cookies':ashjd
+                        }
+                    })
+                        .then(function (res) {
+                            console.log(res.data.data);
+                            than.user = res.data.data;
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+                },
+                fanhuiF:function(){
+                    window.history.go(-1);
+                },
+                xiugaiF:function(){
+                    var than = this;
+                    console.log('xiugai');
+                    window.location.href = "fabuzhiwei.html?id=" + than.id + '&type=' + than.type + '&fenlei=2';
+                },
+                guanbiF:function(){
+                    var than = this;
+                    than.status = '1'
+                    window.history.go(-1);
+                    this.guanbishuju();
+                },
+                huifuF:function(){
+                    var than = this;
+                    than.status = '2';
+                    window.history.go(-1);
+                    this.guanbishuju();
+                },
+                qiyexiangqingF:function(){
+                    var than = this;
+                    window.location.href = "qiyexiangqing.html?id=" + than.user.qiye.id;
+                }
+            }
+        })
+    }
+</script>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>人才搜索</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport"
+		content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/rencaisousuo.css">
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/vue-resource.js"></script>
+	<script src="js/vconsole.min.js"></script>
+    <script src="js/jsencrypt.js"></script>
+    <script src="js/hsjidh.js"></script>
+    <script src="js/axiosjsqing.js"></script>
+    <script src="js/jgifdj.js"></script>
+</head>
+<body>
+<div id="rencaisousuo">
+	<div class="til">
+		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 til_point"><img src="img/left_point.png"></div>
+		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 til_text" style="display: none;">搜索</div>
+		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 til_text">人才搜索</div>
+	</div>
+	<div class="heads">
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 heads_dizhi">
+			<div class="dizhi_text">{{shi}}</div>
+			<div class="dizhi_img"><img src="img/ditu.png"></div>
+		</div>
+		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 heads_inp">
+			<form>
+				<input type="text" name="" class="top_inp" placeholder="搜索职位" @keyup.enter="sendGetByObj">
+			</form>
+		</div>
+	</div>
+	<div class="bodys">
+		<div class="bodys_head">
+			<div class="didian" @click="didian">
+				<div class="didian_text">地点</div>
+				<div class="didian_img"><img src="img/bot_point.png"></div>
+			</div>
+			<div class="didian" @click="didian">
+				<div class="didian_text">行业</div>
+				<div class="didian_img"><img src="img/bot_point.png"></div>
+			</div>
+			<div class="didian" @click="didian">
+				<div class="didian_text">薪资</div>
+				<div class="didian_img"><img src="img/bot_point.png"></div>
+			</div>
+			<div class="didian">
+				<div class="gaoji" style="width: 100%;color:#000" @click="gaojishaixuan">高级筛选</div>
+			</div>
+		</div>
+		<div class="bodys_zhiwei">
+			<div class="zhiwei1">
+				<div class="zhiwei1_img"><img src="img/buheshi.png"></div>
+				<div class="zhiwei1_cen">
+					<div style="font-size: 1.5rem;">产品经理</div>
+					<div class="zhiwei1_diqu">
+						<span>王丽</span>
+						<span>|</span>
+						<span>男</span>
+						<span>|</span>
+						<span>24岁</span>
+					</div>
+					<div class="zhiwei1_xx">
+						<span>石家庄</span>
+						<span>|</span>
+						<span>1~3年</span>
+						<span>|</span>
+						<span>本科</span>
+						<span>|</span>
+						<span>全职</span>
+					</div>
+				</div>
+				<div class="zhiwei1_right">
+					<div class="zhiwei1_money">8K~10K</div>
+					<div class="zhiwei1_time">2小时前</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="tan1" @click="tan1"></div>
+		<div class="tan2"></div>
+	</div>
+</div>
+</body>
+<script src="js/rencaisousuo.js"></script>
+</html>

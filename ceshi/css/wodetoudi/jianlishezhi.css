@@ -1,0 +1,120 @@
+*{
+	margin:0;
+	padding:0;
+	text-decoration: none;
+	list-style: none;
+}
+body,html{
+	width: 100%;
+	font-size: 12px;
+	overflow: hidden;
+}
+#jianlishezhi{
+	width: 100%;
+}
+.til{
+	width: 100%;
+	height: 40px;
+	border-bottom: 1px solid #eee;
+	overflow:hidden;
+	background-color: #fff;
+	position: fixed;
+	left:0;
+	top:0;
+	z-index: 9999;
+}
+.til_point{
+	height: 100%;
+	display: flex;
+	align-items: center;	
+}
+.til_point img{
+	width: 50%;
+	height: 80%;
+}
+.til_text{
+	height: 100%;
+	font-size: 1.5rem;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	letter-spacing: 3px;
+}
+
+
+.bodys{
+	width: 100%;
+	padding-top: 40px;
+	overflow-y:scroll;
+}
+.xiangmuname{
+	width: 100%;
+	padding:7px 10px;
+	border-bottom: 1px solid #eee;
+	overflow:hidden;
+}
+.xm_name{
+	width: 23%;
+	float: left;
+	font-size: 1.3rem;
+}
+.xm_text{
+	width: 58%;
+	text-align: right;
+	float: left;
+	font-size: 1.2rem;
+	padding-right: 15px;
+	color:#000;
+}
+.xm_bianji{
+	float: right;
+	width: 17%;
+	overflow:hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.bianji_img{
+	width: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	float: left;
+}
+.bianji_img img{
+	width: 100%;
+	height: 50%;
+}
+.bianji_text{
+	width: 70%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	float: left;
+	font-size: 1.2rem;
+	color:#FF8F00;
+}
+
+.jianlizhuangtai{
+	width: 100%;
+	padding:7px 10px;
+	border-bottom: 1px solid #eee;
+	overflow:hidden;
+}
+.jl_name{
+	float: left;
+	font-size: 1.3rem;
+}
+.jl_text{
+    float: right;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.jl_text img {
+    width: 7px;
+    margin-left: 6px;
+}

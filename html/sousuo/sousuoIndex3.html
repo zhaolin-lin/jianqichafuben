@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" /> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+</head>
+<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+<script src="../../js/jquery.js"></script>
+<script src="../../js/vue.js"></script>
+<script src="../../js/bootstrap.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="../../js/axios.js"></script>
+<style type="text/css">
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+        }
+        .navbar {
+            position: relative;
+            min-height: 50px;
+            margin-bottom: 0px;
+            border: 1px solid transparent;
+        }
+        .form-control {
+            width: 80%;
+        }
+        .form-control{
+            border: 0px solid #000;
+            border-right: 1px solid #d4d4d4;
+        }
+        .input-group-addon{
+            border: 0px solid #000;
+        }
+         input{
+            outline: none;
+         }
+           .header {
+            width: 100%;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header div:before,
+        .header div:after {
+            position: absolute;
+            background: #ccc;
+            content: "";
+            height: 1px;
+            top: 50%;
+            width: 100px;
+        }
+
+        .header div:before {
+            left: 10px;
+        }
+
+        .header div:after {
+            right: 10px;
+        }
+        [v-cloak] {
+            display: none !important;
+        }
+</style>
+<body style="background:#f2f2f2;height:100%;">
+    <div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
+    </div>
+<nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1" style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
+            <a class="navbar-brand col-xs-10 col-sm-10 col-md-10" style="color: #fff;text-align: center;">搜索结果</a>
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1" style="color: #fff;float: left;" ><span class="glyphicon glyphicon-remove" style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
+        </div>
+    </div>
+</nav>
+<!-- 内容开始 -->
+<div  id="app" v-cloak>
+<div style="padding:10px 0px 10px 0px;background: #fff">
+    <form class="bs-example bs-example-form" role="form">
+        <div class="input-group" style="width: 90%;margin-left: 5%">
+            <input type="text" class="form-control" placeholder="企业查询、人员、项目、诚信" style="background: #FFEACB" v-model='str'>
+           <span class="input-group-addon" style="background: #FFEACB"@click="sendGetByObj" onclick="checkbox()">搜索</span>
+        </div>
+        <div style="width: 90%;margin-left: 5%;margin-top: 10px">
+            <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox1"name="checkbox"  value="option1" onclick="inquire() ">企业查询
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox2"name="checkbox"  value="option2" onclick="inquire() ">人员查询
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox3"name="checkbox"  value="option3" onclick="inquire() ">项目查询
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox4"name="checkbox"  value="option3" onclick="inquire() ">判决书
+            </label>
+        </div>
+        </div>
+        <div style="font-size:10px;color:#EE1D1E;margin-top:10px;margin-left:20px;">您搜索的“<span>{{ str }}</span>”</div>
+    <div class="header" id="app">
+        <div style="font-size:10px;color:#737780">总共找到<span>{{ shuliang.total }}</span>条相关信息</div>
+    </div>
+    <div style="background:#f0f0f0" id="app" v-cloak>
+            <div v-for="(user,index) in users" class="shuliang" >
+                <!-- 搜索到的公司 开始-->
+                <ul v-if="user.typeid === '100' || user.typeid === '99' || user.typeid == '101' || user.typeid == '102' || user.typeid == '103' || user.typeid == '104' || user.typeid == '105'" onclick="tiaozhuan(this)" :id="user.id">
+                    <li style="background:#fff;padding-bottom:15px;margin-top:5px">
+                        <div style="margin-left:15px;padding-bottom:5px;padding-top:10px;">{{ user.value.qymc }}</div>
+                        <div style="width:90%;height:30px;line-height:30px;margin-left:15px">
+                            <div style="float:left"><img src="../../image/zizhi.png" alt="" style="float:left;width:18px;margin-top: 6px;">
+                                <div style="float:left">资质<span style="color:red">{{ user.zhizi }}</span>项</div></div>
+                                <div style="float:left;margin-left:10px">
+                                    <img src="../../image/xiangmu.png" alt="" style="float:left;width:18px;margin-top: 6px;">
+                                    <div style="float:left">项目<span style="color:red">{{ user.xiangmu }}</span>项</div>
+                                </div>
+                                <div style="float:left;margin-left:10px">
+                                    <img src="../../image/renyuan.png" alt="" style="float:left;width:18px;margin-top: 6px;">
+                                    <div style="float:left">注册人员<span style="color:red">{{ user.renyuan }}</span>人</div>
+                                    <div :id="'qiyexiangqingID'+index" style="display: none">{{ user.id }}</div>
+                                </div>
+                            </div>
+                            <div style="font-size:14px;margin-left:15px">详细地址：<span style="font-size:14px">{{user.value.xxdz}}</span>
+                            </div>
+                        </li>
+                </ul>
+                <!-- 搜索到的公司 结束  -->
+                  <!-- 搜索到的人员 开始-->
+                <ul id="J_List2" v-else-if="user.typeid === '94'" onclick="tiaozhuan1(this)" :id="user.id">
+                   <li style="background:#fff;padding-bottom:15px;margin-top:5px">
+                    <div :id="'xiangmu'+ user.id" style="display: none">{{user.value.name}}</div>
+                    <div style="margin-left:15px;padding-bottom:5px;padding-top:10px;" >{{user.value.name}}&nbsp;&nbsp;&nbsp;<span v-if="user.value.sex === '0'">性别：男</span><span v-else>性别：女</span></div>
+                    <div style="width:90%;height:30px;line-height:30px;margin-left:15px">
+                        证件号码：<span>{{ user.value.cardname }}</span>
+                    </div>
+                     <div style="width:90%;height:30px;line-height:30px;margin-left:15px">
+                        工程师类别：<span>{{ user.value.leixing }}</span>
+                    </div>
+                    <div style="width:90%;height:30px;line-height:30px;margin-left:15px">
+                        企业名称：<span>{{ user.value.companyid }}</span>
+                    </div>
+                </li>
+                </ul>
+                <!-- 搜索到的人员 结束  -->
+                <!-- 搜索到的判決书 开始撒-->
+                <ul id="J_List3" v-else-if="user.typeid == '2'||user.typeid == '3'||user.typeid == '4'||user.typeid == '5'||user.typeid == '95'" onclick="tiaozhuan2(this)" :id="user.id">
+                    <li style="background:#fff;padding-bottom:15px;margin-top:5px">
+                    <div style="margin-left:15px;padding-bottom:5px;padding-top:10px;">{{user.value.title}}</div>
+                     <div style="width:90%;height:30px;line-height:30px;margin-left:15px">
+                        <span>{{ user.value.fycj }}</span>
+                    </div>
+                    <div style="width:90%;height:30px;line-height:30px;margin-left:15px">
+                        裁定日期：<span>{{ times[index] }}</span>
+                    </div>  
+                </li>
+                </ul>
+                <!-- 搜索到的人员 结束  -->
+                <!-- 搜索到的项目 开始-->
+                <ul id="J_List4" v-else-if="user.typeid == '14' || user.typeid == '15' || user.typeid == '16' || user.typeid == '21' || user.typeid == '39' || user.typeid == '72' || user.typeid == '81' || user.typeid == '82' || user.typeid == '20'||user.typeid == '52' || user.typeid == '93' || user.typeid == '60' || user.typeid == '59' || user.typeid == '58' || user.typeid == '57' || user.typeid == '56' || user.typeid == '55' || user.typeid == '54' || user.typeid == '53' || user.typeid == '98' || user.typeid == '89'||user.typeid == '66' || user.typeid == '91' || user.typeid == '84' || user.typeid == '83' || user.typeid == '78' || user.typeid == '71' || user.typeid == '70' || user.typeid == '69' || user.typeid == '68' || user.typeid == '67' || user.typeid == '92' || user.typeid == '90'||user.typeid == '13' || user.typeid == '77' || user.typeid == '76' || user.typeid == '73' || user.typeid == '65' || user.typeid == '64' || user.typeid == '63' || user.typeid == '74' || user.typeid == '75' || user.typeid == '19' || user.typeid == '18' || user.typeid == '17' || user.typeid == '88'||user.typeid == '22' || user.typeid == '80' || user.typeid == '38' || user.typeid == '37' || user.typeid == '36' || user.typeid == '35' || user.typeid == '34' || user.typeid == '33' || user.typeid == '32' || user.typeid == '31' || user.typeid == '30' || user.typeid == '29' || user.typeid == '28' || user.typeid == '27' || user.typeid == '26' || user.typeid == '25' || user.typeid == '24' || user.typeid == '23' || user.typeid == '87'||user.typeid == '40' || user.typeid == '51' || user.typeid == '50' || user.typeid == '49' || user.typeid == '48' || user.typeid == '47' || user.typeid == '46' || user.typeid == '45' || user.typeid == '44' || user.typeid == '43' || user.typeid == '42' || user.typeid == '41' || user.typeid == '86'" onclick="tiaozhuan3(this)" :id="user.id">
+                   <li style="background:#fff;padding-bottom:15px;margin-top:5px" >
+                    <div style="margin-left:15px;padding-bottom:5px;padding-top:10px;">{{user.value.title}}</div>
+                    <div style="width:90%;line-height:30px;margin-left:15px">
+                        项目类型：<span>{{ user.typename }}</span>
+                    </div>
+                     <div style="width:90%;line-height:30px;margin-left:15px">
+                        项目编号：<span>{{ user.value.pnumber }}</span>
+                    </div>
+                    <div style="width:90%;line-height:30px;margin-left:15px">
+                        建设单位：<span>{{ user.value.linkman }}</span>
+                    </div>
+                    <div style="width:90%;line-height:30px;margin-left:15px">
+                        总投资：<span>{{ user.value.ztzmoney }}</span>
+                    </div>
+                    <div style="width:90%;line-height:30px;margin-left:15px" :id="index">
+                        截止日期：<span>{{ times[index] }}</span>
+                    </div>
+                </li>
+                </ul>
+                <!-- 搜索到的项目 结束  -->
+            </div>
+    </div>
+</div>
+    </form>
+</div>
+    
+    
+<!-- 内容结束 -->
+</body>
+<script>
+    ////////////////////////////点击跳转开始////////////////////////////////
+    function tiaozhuan(element){
+        var C2 = element.id;
+        window.location.href = "../qiyexiangqing/qiyeIndex.html?aid="+C2;
+    }
+    function tiaozhuan1(element){
+        var C3 = element.id;
+        var C4 = "xiangmu"+C3
+        var C5 = document.getElementById(C4).innerHTML;
+        window.location.href = "../gerenshooucang/gerenxiangqing.html?aid="+C5+"&id="+C3;
+    }
+    function tiaozhuan2(element){
+         var C6 = element.id;
+         window.location.href = "../anjianxiangqing/anjianxiangqing.html?aid="+C6;
+    }
+    function tiaozhuan3(element){
+        var C7 = element.id;
+         window.location.href = "../shoucang/xiangmuxiangqing.html?aid="+C7;
+    }
+
+function Mclose(){
+      var widthLIN1 = localStorage.getItem("key1"); 
+      if (widthLIN1 == "2") {
+         window.webkit.messageHandlers.Mclose.postMessage("123");
+     }else{
+        window.control.mClose();
+     }
+      
+}
+function Mback(){
+    window.history.go(-1);
+}
+    ////////////////////////////点击跳转结束////////////////////////////////
+     var ceshi1 = [];
+   var ceshi2 = [0, 1, 2, 3, 4]
+   var shuliangL = "10";
+// var channeltype = "0";
+         window.onload=function(){
+            var widthLIN = localStorage.getItem("key"); 
+    document.getElementById('widthLI').style.height = widthLIN + 'px';
+    document.getElementById('daohanglan').style.top = widthLIN + 'px';
+    var dhlH = document.getElementById('daohanglan').offsetHeight;
+    document.getElementById('app').style.marginTop = Number(widthLIN) + Number(dhlH) + 'px';
+            var time = [];
+    var timess = [];
+    var shijianceshi = [];
+var arr1 = "";
+var array = [17,18];
+var array1 = [];
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+            var search = "";
+             var name,value;
+   var str=location.href; //取得整个地址栏
+   var num=str.indexOf("?")
+   str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
+
+   var arr=str.split("&"); //各个参数放到数组里
+   for(var i=0;i < arr.length;i++){
+        num=arr[i].indexOf("=");
+        if(num>0){
+             name=arr[i].substring(0,num);
+             value=arr[i].substr(num+1);
+             this[name]=value;
+             var haizi = decodeURI(value);
+             search = haizi;
+        }
+   }
+             new Vue({
+                 el:'#app',
+                 data:{
+                    users:[],
+                    times:[],
+                    lbif:"",
+                    str: search,
+                    getStr: null,
+                    shuliang:[],
+                    // typpe:[]
+
+                 },
+                mounted:function(){
+                    this.sendGetByObj();
+                },
+                 methods:{
+                     sendGetByObj:function(){
+                           checkbox()
+                               function checkbox(){
+                                    inquire()
+                                     arr1 = getArrDifference(ceshi1, ceshi2);
+                                }
+                            if (arr1.indexOf(0) == "-1") {
+                                var tid = "6"
+                            }else if(arr1.indexOf(1) == "-1"){
+                                var tid = "94"
+                            }else if(arr1.indexOf(2) == "-1"){
+                                var tid = "9"
+                            }else if(arr1.indexOf(3) == "-1"){
+                                var tid = "1"
+                            }else if(arr1.length == "5"){
+                                var tid = "0"
+                            }
+                            this.users = [];
+                          this.times = [];   
+                           timess = [];
+                           shijianceshi = [];
+                          this.getStr = this.str.toUpperCase();
+                          var than = this;
+                         // //2.get通过params选项
+                         this.$http.get(`../../../plus/zsearch.php`,{
+                             params:{
+                                 typeid: tid,
+                                 q: this.getStr,
+                                 starttime: "-1",
+                                 channeltype: array,
+                                 orderby: "sortrank",
+                                 pagesize: '1000',
+                                 kwtype: "1",
+                                 searchtype: "titlekeyword",
+                                 act: "app"
+                             }
+                         })
+                           .then(function (response) {
+                            console.log(response.data.content);
+                              // than.users = response.data.content.content; 
+                              var a = response.data.content.content;
+                              than.shuliang = response.data.content.pagelist
+                           
+                            for (var i = 0; i < a.length; i++) {
+                                if (arr1.indexOf(0) == "-1") {
+                                   if (a[i].typeid == "104" || a[i].typeid === "100" || a[i].typeid === "99" || a[i].typeid == "101" || a[i].typeid == "102" ||a[i].typeid == "103" || a[i].typeid == "105") {
+                                 
+                                   var b = a[i];
+                                   than.users.push(b);
+                                }
+                                }
+                                if (arr1.indexOf(1) == "-1") {
+                                   if (a[i].typeid == "94") {
+                                
+                                   var b = a[i];
+                                   than.users.push(b);
+                                }
+                                }
+                                if (arr1.indexOf(2) == "-1") {
+                                   if (a[i].typeid == '14' || a[i].typeid == '15' || a[i].typeid == '16' || a[i].typeid == '21' || a[i].typeid == '39' || a[i].typeid == '72' || a[i].typeid == '81' || a[i].typeid == '82' || a[i].typeid == '20'||a[i].typeid == '52' || a[i].typeid == '93' || a[i].typeid == '60' || a[i].typeid == '59' || a[i].typeid == '58' || a[i].typeid == '57' || a[i].typeid == '56' || a[i].typeid == '55' || a[i].typeid == '54' || a[i].typeid == '53' || a[i].typeid == '98' || a[i].typeid == '89'||a[i].typeid == '66' || a[i].typeid == '91' || a[i].typeid == '84' || a[i].typeid == '83' || a[i].typeid == '78' || a[i].typeid == '71' || a[i].typeid == '70' || a[i].typeid == '69' || a[i].typeid == '68' || a[i].typeid == '67' || a[i].typeid == '92' || a[i].typeid == '90'||a[i].typeid == '13' || a[i].typeid == '77' || a[i].typeid == '76' || a[i].typeid == '73' || a[i].typeid == '65' || a[i].typeid == '64' || a[i].typeid == '63' || a[i].typeid == '74' || a[i].typeid == '75' || a[i].typeid == '19' || a[i].typeid == '18' || a[i].typeid == '17' || a[i].typeid == '88'||a[i].typeid == '22' || a[i].typeid == '80' || a[i].typeid == '38' ||a[i].typeid == '37' || a[i].typeid == '36' || a[i].typeid == '35' || a[i].typeid == '34' || a[i].typeid == '33' || a[i].typeid == '32' || a[i].typeid == '31' || a[i].typeid == '30' || a[i].typeid == '29' || a[i].typeid == '28' || a[i].typeid == '27' || a[i].typeid == '26' || a[i].typeid == '25' || a[i].typeid == '24' || a[i].typeid == '23' || a[i].typeid == '87'||a[i].typeid == '40' ||a[i].typeid == '51' || a[i].typeid == '50' || a[i].typeid == '49' || a[i].typeid == '48' || a[i].typeid == '47' || a[i].typeid == '46' ||a[i].typeid == '45' || a[i].typeid == '44' || a[i].typeid == '43' || a[i].typeid == '42' || a[i].typeid == '41' || a[i].typeid == '86') {
+                                
+                                   var b = a[i];
+                                   than.users.push(b);
+                                   shijianceshi.push(b);
+                             Date.prototype.toLocaleString = function() {
+                                return this.getFullYear() + "." + (this.getMonth() + 1) + "." + this.getDate();
+                                 };
+                             for (var i = 0; i < shijianceshi.length; i++) {
+                                 var time = shijianceshi[i].value.senddate
+                                     var unixTimestamp = new Date( time*1000 ) ;
+                                    commonTime = unixTimestamp.toLocaleString();
+                                    timess.push(commonTime)
+                                  
+                             }
+                              than.times = timess;
+                                }
+                                }
+                                if (arr1.indexOf(3) == "-1") {
+                                   
+                                   if (a[i].typeid == '2'|| a[i].typeid == '3'|| a[i].typeid == '4'|| a[i].typeid == '5'|| a[i].typeid == '95') {
+                                   var b = a[i];
+                                   than.users.push(b);
+                                     shijianceshi.push(b);
+                             Date.prototype.toLocaleString = function() {
+                                return this.getFullYear() + "." + (this.getMonth() + 1) + "." + this.getDate();
+                                 };
+                             for (var i = 0; i < shijianceshi.length; i++) {
+                                 var time = shijianceshi[i].value.senddate
+                                     var unixTimestamp = new Date( time*1000 ) ;
+                                    commonTime = unixTimestamp.toLocaleString();
+                                    timess.push(commonTime)
+                                  
+                             }
+
+                              than.times = timess;
+                                }
+                                }
+                                if (arr1.length == "5") {
+                                
+                                   than.users = response.data.content.content;
+                                 var shijianceshi = response.data.content.content;
+                                     Date.prototype.toLocaleString = function() {
+                                return this.getFullYear() + "." + (this.getMonth() + 1) + "." + this.getDate();
+                                 };
+                             for (var i = 0; i < shijianceshi.length; i++) {
+                                 var time = shijianceshi[i].senddate
+                                     var unixTimestamp = new Date( time*1000 ) ;
+                                    commonTime = unixTimestamp.toLocaleString();
+                                    timess.push(commonTime)
+                             }
+                              than.times = timess;
+                                }
+                                
+                            }
+                           })
+                           .catch(function (error) {
+                             console.log(error);
+                         });
+                     // than.users = array1;
+
+                        }
+                       
+                 }
+                 
+             });
+         }
+        
+          var checkArry = document.getElementsByName("checkbox");
+             function  inquire(){
+        ceshi1.length = 0;
+        for (var i = 0; i < checkArry.length; i++) {
+            if (checkArry[i].checked == true) {
+                ceshi1.push(i);
+            }
+        }
+        
+    }    
+    function getArrDifference(ceshi1, ceshi2) {
+                        return ceshi1.concat(ceshi2).filter(function(v, i, arr) {
+                            return arr.indexOf(v) === arr.lastIndexOf(v);
+                        });
+                    }
+                  
+    </script>
+</html>

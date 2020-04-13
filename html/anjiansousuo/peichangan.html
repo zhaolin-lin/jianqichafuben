@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" /> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+</head>
+<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="../../css/qiyechaxun.css">
+<script src="../../js/jquery.js"></script>
+<script src="../../js/vue.js"></script>
+<script src="../../js/bootstrap.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="../../js/axios.js"></script>
+<style type="text/css">
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+        }
+        .navbar {
+            position: relative;
+            min-height: 50px;
+            margin-bottom: 0px;
+            border: 1px solid transparent;
+        }
+        .form-control {
+            width: 80%;
+        }
+        .form-control{
+            border: 0px solid #000;
+            border-right: 1px solid #d4d4d4;
+        }
+        .input-group-addon{
+            border: 0px solid #000;
+        }
+         input{
+            outline: none;
+         }
+           .header {
+            width: 100%;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header div:before,
+        .header div:after {
+            position: absolute;
+            background: #ccc;
+            content: "";
+            height: 1px;
+            top: 50%;
+            width: 100px;
+        }
+
+        .header div:before {
+            left: 10px;
+        }
+
+        .header div:after {
+            right: 10px;
+        }
+        .col-xs-7{
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        .col-xs-12{
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        .col-xs-2{
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        .form-control {
+                background-color: #f2f2f2;
+        }
+        .input-group-addon {
+            padding: 3px 12px;
+        }
+        ul {
+            display: block;
+            list-style-type: disc;
+            margin-block-start: 0.5em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            padding-inline-start: 0px !important;
+        }
+        [v-cloak] {
+            display: none !important;
+        }
+        .navbar {
+            border: 0px solid transparent;
+        }
+</style>
+<body style="background:#fff;">
+<div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
+    </div>
+<nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+    <div class="container-fluid">
+        <div class="">
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
+            <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10" style="color: #fff;text-align: center;">赔偿案</a>
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;float: right;text-align: right;" ><span class="glyphicon glyphicon-remove" style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
+        </div>
+    </div>
+</nav>
+<div id="app" v-cloak style="height: 100%;">
+    <div style="background: #fff;width: 100%;height: 50px">
+        <div style="padding: 8px 24px 10px;">
+            <form class="bs-example bs-example-form" role="form">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="输入关键词企业名称"  v-model='str'>
+                    <span class="input-group-addon" @click="sendGetByObj"><img src="../../image/sousuo1.png"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div style="width: 100%;height: 50px;overflow: hidden;">
+            <div style="line-height: 30px;width: 30%;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 8px"@click="anjianleixing">{{tnames}}
+            </div>
+            <div style="line-height: 30px;width: 30%;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 10px" @click="fayuancengji">{{fayuancj}}
+            </div>  
+            <div style="line-height: 30px;width: 30%;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 10px;" @click="wenshuleishuaixuan">{{wenshulei}}
+            </div>  
+        </div>
+    <div style="background: #f2f2f2;" class="col-xs-12" id="app111">
+        <ul id="J_List3" style="margin-bottom: 7px;">
+            <li style="background:#fff;padding-bottom:15px;margin-top: 10px;"  v-for="(user,index) in users" :id="user.aid" onclick="tiaozhuan(this)">
+                <div style="margin-left:15px;padding-bottom:5px;padding-top:10px;">{{ user.title }}</div>
+                <div style="width:90%;height:30px;line-height:30px;margin-left:15px">
+                    <span>{{ user.fycjname }}&nbsp;&nbsp;&nbsp;{{ user.cpnumber }}</span>
+                </div>
+                <div style="width:90%;height:30px;line-height:30px;margin-left:15px">
+                    裁定日期：
+                    <span>{{ times[index] }}</span>
+                </div>  
+            </li>
+        </ul>
+    </div>
+    <!--  -->
+    <div class="xuanze" style="display: none">
+        <div class="xuanze1">
+            <div class="xuanze_1">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <button @click='quxiao'>取消</button>
+                </div> 
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <button @click="queding">确定</button>
+                </div>
+            </div>
+            <div class="libiao">
+                <ul v-if="leixing == '1'">
+                    <li id="2" @click="dianji($event)">民事案</li>
+                    <li id="3" @click="dianji($event)">赔偿案</li>
+                    <li id="4" @click="dianji($event)">行政案</li>
+                    <li id="5" @click="dianji($event)">执行案</li>
+                    <li id="95" @click="dianji($event)">刑法案</li>
+                    <li id="0" @click="dianji($event)">全部种类</li>
+                </ul>
+                <ul v-else-if="leixing == '2'" >
+                    <li id="500" @click="dianji($event)">基层法院</li>
+                    <li id="1000" @click="dianji($event)">中层法院</li>
+                    <li id="1500" @click="dianji($event)">高级法院</li>
+                    <li id="2000" @click="dianji($event)">最高级法院</li>
+                    <li id="0" @click="dianji($event)">不限</li>
+                </ul>
+                <ul v-else >
+                    <li id="500" @click="dianji($event)">判决书</li>
+                    <li id="1000" @click="dianji($event)">裁定书</li>
+                    <li id="1500" @click="dianji($event)">调解书</li>
+                    <li id="2000" @click="dianji($event)">决定书</li>
+                    <li id="2500" @click="dianji($event)">通知书</li>
+                    <li id="0" @click="dianji($event)">不限</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--  -->
+</div>
+</body>
+<script type="text/javascript">
+    
+window.onload=function(){
+    var tid = "";
+    var tname = "";
+    var jishu = "0";
+    var widthLIN = localStorage.getItem("key"); 
+    document.getElementById('widthLI').style.height = widthLIN + 'px';
+    document.getElementById('daohanglan').style.top = widthLIN + 'px';
+    var dhlH = document.getElementById('daohanglan').offsetHeight;
+    document.getElementById('app').style.marginTop = Number(widthLIN) + Number(dhlH) + 'px';
+    var haizi = "";
+    var name,value;
+    var str=location.href; //取得整个地址栏
+    var num=str.indexOf("?")
+    str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
+    var arr=str.split("&"); //各个参数放到数组里
+    for(var i=0;i < arr.length;i++){
+        num=arr[i].indexOf("=");
+        if(num>0){
+            name=arr[i].substring(0,num);
+            value=arr[i].substr(num+1);
+            this[name]=value;
+            haizi = decodeURI(value);
+        }
+   }
+    var time = [];
+    var timess = [];
+    new Vue({
+        el:'#app',
+        data:{
+            users:[],
+            str: haizi,
+            leixing:"",
+            tnames:"案件类型",
+            tids:"3",
+            fayuancj:"法院层级筛选",
+            fayuancjid:"",
+            wenshulei:"文书类筛选",
+            wenshuleiid:"",
+            times:"",
+            pages:"",
+        },
+        mounted:function(){
+            this.sendGetByObj();
+        },
+        created:function() {
+            window.addEventListener('scroll', this.onScroll);
+        },
+        methods:{
+            sendGetByObj:function(){
+                this.getStr = this.str.toUpperCase();
+                var than = this;
+                this.$http.get('../../../index.php/Index/pjs',{
+                    params:{  
+                        tid: than.tids,
+                        act: 'app',
+                        keyword:than.str,
+                        wslb:than.wenshuleiid,
+                        fycj:than.fayuancjid,
+                    }
+                })
+                .then(function (response) {
+                    console.log(response.data.content.content);
+                    than.users = response.data.content.content.data;
+                    than.pages = response.data.content.content.pages;
+                    var shijianceshi = response.data.content.content.data;
+                    Date.prototype.toLocaleString = function() {
+                        return this.getFullYear() + "." + (this.getMonth() + 1) + "." + this.getDate();
+                    };
+                    for (var i = 0; i < shijianceshi.length; i++) {
+                        var time = shijianceshi[i].endtime
+                        var unixTimestamp = new Date( time*1000 ) ;
+                        commonTime = unixTimestamp.toLocaleString();
+                        timess.push(commonTime)
+                    }
+                    than.times = timess;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            onScroll() {
+                var innerHeight = document.querySelector('#app111').clientHeight;
+                var outerHeight = document.documentElement.clientHeight;
+                var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+                if (innerHeight > (outerHeight + scrollTop)) {
+                    jishu = "1"
+                }
+                if (innerHeight < (outerHeight + scrollTop) && jishu == "1") {
+                    jishu = "2";
+                    var than = this;
+                    var shuzi = than.pages;
+                    shuzi++;
+                    console.log(shuzi)
+                    var qiye1 = than.users;
+                         //2.get通过params选项
+                    this.$http.get('../../../index.php/Index/pjs',{
+                        params:{
+                            tid: than.tids,
+                            act: 'app',
+                            keyword:than.str,
+                            wslb:than.wenshuleiid,
+                            fycj:than.fayuancjid,
+                            page:shuzi
+                        }
+                    })
+                    .then(function (response) {
+                        console.log(response.data.content.content);
+                        var qiyes = response.data.content.content.data;
+                        qiyes = qiye1.concat(qiyes)
+                        than.users = qiyes;
+                        
+                        than.pages = shuzi
+                        console.log(qiyes)
+                    })
+                    .catch(function (error){
+                        console.log(error);
+                    });
+                }
+            },
+            anjianleixing:function(){
+                 $(".libiao ul li ").css("color","#000");
+                this.leixing = '1';
+                $(".xuanze").css("display","block");
+            },
+            fayuancengji:function(){
+                 $(".libiao ul li ").css("color","#000");
+                this.leixing = '2';
+                $(".xuanze").css("display","block");
+            },
+            wenshuleishuaixuan:function(){
+                 $(".libiao ul li ").css("color","#000");
+                this.leixing = '3';
+                $(".xuanze").css("display","block");
+            },
+            queding:function(){
+                var than = this;
+                console.log(tid + '-' + tname)
+                var leixing = than.leixing;
+                if (leixing == '1') {
+                    than.tids = tid;
+                    than.tnames = tname;
+                    this.sendGetByObj();
+                }else if(leixing == '2'){
+                    than.fayuancjid = tid;
+                    than.fayuancj = tname;
+                    this.sendGetByObj();
+                }else{
+                    than.wenshuleiid = tid;
+                    than.wenshulei = tname;
+                    this.sendGetByObj();
+                }
+                
+                $(".xuanze").css("display","none");
+            },
+            dianji:function(e){
+                console.log(e);
+                var id = e.srcElement.id;
+                $(".libiao ul li ").css("color","#000");
+                $("#" + e.srcElement.id).css("color","#FD9700");
+                tid = e.srcElement.id;
+                tname = e.srcElement.innerHTML;
+            },
+            quxiao:function(){
+                $(".xuanze").css("display","none");
+            }
+        },
+                     
+    });
+}
+function tiaozhuan(element){
+    var aid = element.id;
+    window.location.href = "../anjianxiangqing/anjianxiangqing1.html?aid="+aid;
+}
+function Mclose(){
+      var widthLIN1 = localStorage.getItem("key1"); 
+      if (widthLIN1 == "2") {
+         window.webkit.messageHandlers.Mclose.postMessage("123");
+     }else{
+        window.control.mClose();
+     }
+      
+}
+function Mback(){
+    window.history.go(-1);
+}
+</script>
+</html>

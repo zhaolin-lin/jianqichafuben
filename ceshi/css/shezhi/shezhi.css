@@ -1,0 +1,96 @@
+*{
+	margin:0;
+	padding:0;
+	text-decoration: none;
+	list-style: none;
+}
+body,html{
+	width: 100%;
+	font-size: 12px;
+}
+#shezhi{
+	width: 100%;
+}
+
+.til{
+	width: 100%;
+	height: 40px;
+	border-bottom: 1px solid #eee;
+	overflow:hidden;
+	background-color: #fff;
+	position: fixed;
+	left:0;
+	top:0;
+	z-index: 9999;
+}
+.til_point{
+	height: 100%;
+	display: flex;
+	align-items: center;	
+}
+.til_point img{
+	width: 60%;
+	height: 60%;
+}
+.til_text{
+	height: 100%;
+	font-size: 1.5rem;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	letter-spacing: 3px;
+}
+
+.bodys{
+	width: 100%;
+	padding-top: 40px;
+	overflow-y:scroll;
+}
+.jianlizhuangtai{
+	width: 100%;
+	padding:10px 10px;
+	border-bottom: 1px solid #eee;
+	overflow:hidden;
+}
+.jl_name{
+	float: left;
+	font-size: 1.3rem;
+}
+.jl_text{
+	float: right;
+	width: 8px;
+}
+.jl_text img{
+	width: 100%;
+	height: 100%;
+}
+
+
+.jl_name1{
+	float: left;
+	width: 30%;
+	font-size: 1.3rem;
+}
+.jl_text1{
+	float: right;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.1rem;
+}
+.jl_text1 img{
+	width: 8px;
+	float: right;
+	margin-left:10px;
+}
+
+
+.qingchu{
+	color:#FF4A26;
+	padding-top:15px;
+	padding-bottom: 15px;
+	font-size: 1.5rem;
+	text-align: center;
+	border-bottom: 1px solid #eee;
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>高级筛选</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport"
+		content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/gaojishaixuan.css">
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/vue-resource.js"></script>
+	<script src="js/minganci.js"></script>
+	<script src="js/index_sousuo.js"></script>
+    <script src="js/jsencrypt.js"></script>
+    <script src="js/hsjidh.js"></script>
+    <script src="js/axiosjsqing.js"></script>
+    <script src="js/jgifdj.js"></script>
+	<!-- <script type="text/javascript" src="js/vconsole.min.js"></script> -->
+	<style type="">
+		.xuanze{
+			color: #f00;
+		}
+	</style>
+</head>
+<body>
+<div id="gaojishaixuan">
+	<div class="til">
+		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 til_point" @click="querenF"><img src="img/left_point.png"></div>
+		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 til_text">高级筛选</div>
+	</div>
+	<div class="bodys">
+		<div class="dv gongzuoxingzhi">
+			<div class="gongzuoxingzhi_til">
+				<div class="bodys_til">薪资</div>
+			</div>
+			<div class="gongzuoxingzhi_body">
+				<span v-for="(xz,index) in lists.xinzi" :class="xz.a == '1'? 'xuanze':'weixuanze' " @click="xzxz(xz.id ,'xinzi',index)">{{xz.name}}</span>
+			</div>
+		</div>
+		<div class="dv fabushijian">
+			<div class="gongzuoxingzhi_til">
+				<div class="bodys_til">发布时间</div>
+			</div>
+			<div class="gongzuoxingzhi_body">
+				<span v-for="(fb,index) in lists.fabu" :class="fb.a == '1'? 'xuanze':'weixuanze' " @click="xzxz(fb.id ,'fabu',index)">{{fb.name}}</span>
+			</div>
+		</div>
+		<div class="dv xueliyaoqiu">
+			<div class="gongzuoxingzhi_til">
+				<div class="bodys_til">学历要求</div>
+			</div>
+			<div class="gongzuoxingzhi_body">
+				<span v-for="(xl,index) in lists.xueli" :class="xl.a == '1'? 'xuanze':'weixuanze' " @click="xzxz(xl.id ,'xueli',index)">{{xl.name}}</span>
+			</div>
+		</div>
+		<div class="dv gongzuojingyan">
+			<div class="gongzuoxingzhi_til">
+				<div class="bodys_til">工作经验</div>
+			</div>
+			<div class="gongzuoxingzhi_body">
+				<span v-for="(jy,index) in lists.jingyan" :class="jy.a == '1'? 'xuanze':'weixuanze' " @click="xzxz(jy.id ,'jingyan',index)">{{jy.name}}</span>
+			</div>
+		</div>
+		<div class="dv gongsiguimo">
+			<div class="gongzuoxingzhi_til">
+				<div class="bodys_til">公司规模</div>
+			</div>
+			<div class="gongzuoxingzhi_body">
+				<span v-for="(gm,index) in lists.guimo" :class="gm.a == '1'? 'xuanze':'weixuanze' " @click="xzxz(gm.id ,'guimo',index)">{{gm.name}}</span>
+			</div>
+		</div>
+		<div class="dv rongzijieduan">
+			<div class="gongzuoxingzhi_til">
+				<div class="bodys_til">融资阶段</div>
+			</div>
+			<div class="gongzuoxingzhi_body">
+				<span v-for="(rz,index) in lists.rongzi" :class="rz.a == '1'? 'xuanze':'weixuanze' " @click="xzxz(rz.id ,'rongzi',index)">{{rz.name}}</span>
+			</div>
+		</div>
+		<div class="dv gongsixiangzhi">
+			<div class="gongzuoxingzhi_til">
+				<div class="bodys_til">公司性质</div>
+			</div>
+			<div class="gongzuoxingzhi_body">
+				<span v-for="(gs,index) in lists.gongsi" :class="gs.a == '1'? 'xuanze':'weixuanze' " @click="xzxz(gs.id ,'gongsi',index)">{{gs.name}}</span>
+			</div>
+		</div>
+	</div>
+	<div class="bot">
+		<div class="qingchu" @click="chongzhi">清除</div>
+		<div class="queren" @click="querenF">确认</div>
+	</div>
+</div>
+</body>
+<script src="js/gaojishaixuan.js"></script>
+</html>

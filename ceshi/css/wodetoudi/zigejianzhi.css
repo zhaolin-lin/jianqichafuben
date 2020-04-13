@@ -1,0 +1,141 @@
+*{
+	margin:0;
+	padding:0;
+	text-decoration: none;
+	list-style: none;
+}
+body,html{
+	width: 100%;
+	font-size: 12px;
+}
+#zigejianzhi{
+	width: 100%;
+}
+
+.til{
+	width: 100%;
+	height: 40px;
+	border-bottom: 1px solid #eee;
+	overflow:hidden;
+	background-color: #fff;
+	position: fixed;
+	left:0;
+	top:0;
+	z-index: 9999;
+}
+.til_text{
+	height: 100%;
+	font-size: 1.5rem;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	letter-spacing: 3px;
+}
+.til_text1{
+	height: 100%;
+	font-size: 1.3rem;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	padding-right: 15px;
+}
+
+.bodys{
+	width: 100%;
+	padding-left:10px;
+	padding-right: 10px;
+	overflow-y: scroll;
+	padding-top: 40px;
+	padding-bottom: 20px;
+}
+.top{
+	width: 100%;
+	overflow:hidden;
+}
+.top_left{
+	width: 80%;
+	height: 100%;
+	float: left;
+	font-size: 1.2rem;
+	padding-top: 10px;
+}
+.top_left div{
+	width: 100%;
+	height: 50%;
+	display: flex;
+	align-items: center;
+	padding-bottom: 3px;
+}
+.top_right{
+	width: 20%;
+	float: left;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	color:#FF8F00;
+	font-size: 1.2rem;
+	padding-top: 10px;
+}
+
+.jianli_nav{
+	width: 100%;
+	overflow:hidden;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+.liulan{
+	width: 33%;
+	float: left;
+}
+.liulan_img{
+	width: 45px;
+	margin:auto;
+}
+.liulan_img img{
+	width: 100%;
+	height: 100%;
+}
+.liulan_text{
+	text-align: center;
+	font-size: 1.4rem;
+	padding-top:7px;
+}
+
+.jibenxinxi{
+	width: 100%;
+	padding-top: 15px;
+	padding-bottom: 5px;
+}
+.jbxx_til{
+	width: 100%;
+	font-size: 1.5rem;
+}
+.jbxx_til span{
+	padding:1px 4px;
+	color:#FF4A26;
+	border:1px solid #FF4A26;
+	border-radius: 5px;
+	font-size: 1rem;
+	margin-left:10px;
+}
+.jbxx_text{
+	font-size: 1.3rem;
+	width: 100%;
+	text-align: center;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+.jbxx_wanshan{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.jbxx_wanshan span{
+	color:#FF8F00;
+	border:1px solid #FF8F00;
+	padding:3px 15px;
+	border-radius: 15px;
+	font-size: 1.3rem;
+
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+</head>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/shouye/guanzhu.css">
+<script src="js/jquery.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="js/axios.js"></script>
+<script src="js/shouye/guanzhu.js"></script>
+<style type="text/css">
+
+</style>
+<body style="background:#f2f2f2;height:100%;">
+<div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px"> </div>
+<nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+		<div class="container-fluid">
+				<div class=""> <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a> <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10" style="color: #fff;text-align: center;">关注</a> <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;float: right;text-align: right;" ><span class="glyphicon glyphicon-remove" style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a> </div>
+		</div>
+</nav>
+<!-- 内容开始 -->
+<div id="app" v-cloak> 
+		<!-- 内容开始 -->
+		<div class="col-xs-12 col-sm-12">
+				<div class="aui-bar aui-bar-btn" style="margin-top: 5px;width: 96%;margin-left: 2%;" v-for="(user,index) in users">
+						<ul  >
+								<li class="newLi" style="background:#fff; padding:5px; height:70px;border-radius: 8px;"> <img src="image/gongsitubiao.png" width="60px" style="float: left;">
+										<div class="Name" style="font-size:14px;text-align:left;padding-bottom:10px;float: left; height: 70px;line-height: 63px;margin-left: 10px;width: 230px; overflow: hidden; text-overflow:ellipsis; white-space: nowrap;">{{user.title}}</div>
+										<div style="float: right;position: relative;display: none"> <span style="width: 20px;height: 20px;border-radius: 20px;background-color: red;position: absolute;right: 10px;top: 20px;text-align: center;line-height: 21px;color: #fff">5</span> </div>
+								</li>
+						</ul>
+				</div>
+		</div>
+		<!-- 内容结束 --> 
+</div>
+<!-- 悬浮按钮开始  -->
+<div>
+		<div class="btn-group" style="position: fixed;right: 30px;bottom: 60px;" onclick="chaxunanniu(this)" id="dianji1">
+				<button type="button" class="btn btn-default" style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 60px;height: 38px">查询</button>
+		</div>
+		<div class="btn-group" style="position: fixed; right: 214px;bottom: 56px;display: none" id="zizhianniu" onclick="zizhianniu()">
+				<button type="button" class="btn btn-default" style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 45px;height: 45px;border-radius: 45px; padding: 0px;">资质</button>
+		</div>
+		<div class="btn-group" style="position: fixed; right: 183px;bottom: 144px;display: none" id="panjueshuanniu" onclick="panjueshuanniu()">
+				<button type="button" class="btn btn-default" style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 45px;height: 45px;border-radius: 45px; padding: 0px;">判决书</button>
+		</div>
+		<div class="btn-group" style="position: fixed; right: 123px;bottom: 206px;display: none" id="xiangmuanniu" onclick="xiangmuanniu()">
+				<button type="button" class="btn btn-default" style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 45px;height: 45px;border-radius: 45px; padding: 0px;">项目</button>
+		</div>
+		<div class="btn-group" style="position: fixed; right: 34px;bottom: 231px;display: none" id="renyuananniu" onclick="renyuananniu()">
+				<button type="button" class="btn btn-default" style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 45px;height: 45px;border-radius: 45px; padding: 0px;">人员</button>
+		</div>
+</div>
+<!-- 悬浮按钮结束 --> 
+<!-- 内容结束 -->
+<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+		<div class="col-xs-12" style="min-height: 50px;">
+				<div class="col-xs-4" style="text-align: center;" onclick="index()"> <img src="image/shouye.png" width="28px;"> <br>
+						<span style="display: inline-block;font-size: 13px;margin-left: -8px;color: #000">首页</span> </div>
+				<div class="col-xs-4" style="text-align: center;" onclick="shoucang()" > <img src="image/shoucang.png" width="28px;"> <br>
+						<span style="display: inline-block;font-size: 13px;margin-left: -8px;color: #000">收藏</span> </div>
+				<div class="col-xs-4" style="text-align: center;"> <img src="image/guanzhu1.png" width="28px;"> <br>
+						<span style="display: inline-block;font-size: 13px;margin-left: -8px;color: #FD9700">关注</span> </div>
+		</div>
+</nav>
+</body>
+<script src="js/zonghechaxunanniu.js"></script>
+<script type="text/javascript">
+
+</script>
+</html>

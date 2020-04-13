@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>工作环境</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport"
+		content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../../css/qiyeban/huanjing.css">
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script src="../../js/bootstrap.js"></script>
+	<script src="../../js/vue.js"></script>
+	<script src="../../js/vue.min.js"></script>
+	<script src="../../js/axios.js"></script>
+	<script src="../../js/vue-resource.js"></script>
+	<script src="../../js/jsencrypt.js"></script>
+    <script src="../../js/hsjidh.js"></script>
+    <script src="../../js/axiosjsqing.js"></script>
+    <script src="../../js/jgifdj.js"></script>
+</head>
+<style type="text/css">
+	[v-clock]{
+		display: none;
+	}
+	.img2{
+		border:1px dashed #999;
+		font-size: 2rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.file-box{
+	  display: inline-block;
+	    position: relative;
+	  padding: 3px 5px;
+	  overflow: hidden;
+	  color:#fff;
+	  background-color: #ccc;
+	}
+	.file-btn{
+	  position: absolute;
+	  width: 100%;
+	  height: 100%;
+	  top: 0;
+	    left: 0;
+	    outline: none;
+	    background-color: transparent;
+	    filter:alpha(opacity=0);
+	  -moz-opacity:0;
+	  -khtml-opacity: 0;
+	  opacity: 0;
+	}
+	input, textarea, select, a:focus {
+	    outline: none;
+	}
+</style>
+<body>
+<div id="huanjing" v-cloak> 
+	<div class="til">
+		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 til_point" @click="fanhuiF"><img src="../../img/left_point.png"></div>
+		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 til_text">工作环境</div>
+	</div>
+	<div class="bodys">
+		<div class="top_img"><img src="../../img/top_img.png"></div>
+		<div class="huanjing_img">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 img1 " style="border:1px solid #ccc" v-for="(users,index) in user">
+				<!-- 添加图片按钮 -->
+				<input type="file" name="fileToUpload" id="fileToUpload" class="file-btn" accept="image/*" capture="camera" @change="fileF($event,index,users.id)" v-if="users.id == '0'">
+				<!-- 弹出弹框的按钮 -->
+				<input type="button" name="fileToUpload" id="fileToUpload" class="file-btn" accept="image/*" capture="camera" @click="dianjiF(index,users.id)" v-if="users.id != '0'">
+
+				<img :src="users.img" :id = "'id' + index">
+			</div>
+		</div>
+	</div>
+	<div class="tan1" @click="tan1">
+		<div class="tan2">
+			<div class="tan2_text" @click="datuF">查看大图</div>
+			<div class="tan2_text tan22" style="position: relative;"><input type="file" name="fileToUpload" id="fileToUpload" class="file-btn" accept="image/*" capture="camera" @change="fileF($event,'a','b')">更换图片</div>
+			<div class="tan2_text" style="color:#f00;" @click="shanchuF">删除</div>
+		</div>
+	</div>
+	<div class="big" @click="xiaoshiF">
+		<div class="bigimg" id="bigimg">
+			<img src="" id="big_img">
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+	// 动态设置图片高度
+	$('.img1').height($('.img1').width());
+	var a = $('body').width();
+	document.getElementById('bigimg').style.maxWidth = a + 'px';
+	document.getElementById('big_img').style.maxWidth = a + 'px';
+
+
+	//获取url中"?"符后的字串
+	var url = decodeURI(location.search); 
+    console.log(url)
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for(var i = 0; i < strs.length; i ++) {
+            theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+        }
+    }
+    var ids = theRequest.id;
+    var tupianId ='';
+    var tupianIndex = '';
+	new Vue({
+        el: '#huanjing',
+        data: {
+        	id:ids,  //企业id
+            user:'',
+            length:'',
+            index:'',  //点击图片的索引
+            objurl:'',
+            formData:'',
+            fangshi:'tianjia',
+            shanchuId:''
+        },
+        mounted: function () {
+            this.huoqushuju()
+        },
+        methods: {
+            huoqushuju: function () {
+            	fjdf();
+                var than = this;
+                this.$http.post('../../../../index.php/api/qiye/qiye_environ', {
+                        id:than.id
+                },{
+                	headers:{
+	                		'Cookies':ashjd,
+	                		'contentType': false,
+            				'processData': false,
+	                	}
+                })
+                    .then(function (res) {
+                        console.log(res.data.data);
+                        var arr = res.data.data;
+                        var arra = {};
+                        if(res.data.data.length < '5'){
+                        	arra['id'] = '0';
+                        	arra['img'] = '../../img/tuceng.png';
+                        	arr.push(arra);
+                        }else{
+                        	arr = res.data.data;
+                        }
+                        than.user = arr;
+                        than.length = res.data.data.length;
+                    }, function () {
+                        console.log('请求失败处理');
+                    });
+            },	
+            tijiaoshuju:function(){
+            	fjdf();
+                var than = this;
+                this.$http.post('../../../../index.php/api/qiye/qiye_environup', than.formData ,{
+                	headers:{
+	                		'Cookies':ashjd,
+	                		'contentType': false,
+            				'processData': false,
+	                	}
+                })
+                    .then(function (res) {
+                        console.log(res);
+                        var arr = than.user;
+                        var arra = {};
+                        console.log(than.fangshi);
+                        if(res.data.code == '200' && than.fangshi == "tianjia" && arr.length < '5'){
+                        	arra['id'] = '0';
+                        	arra['img'] = '../../img/tuceng.png';
+                        	console.log(arra)
+                        	arr.push(arra);
+                        	than.user = arr;
+                        }else{
+                        	than.user = arr;
+                        }
+                    }, function () {
+                        console.log('请求失败处理');
+                    });
+            },
+            shanchushuju:function(){
+            	fjdf();
+                var than = this;
+                this.$http.post('../../../../index.php/api/qiye/qiye_shanchu',{
+                	id:than.shanchuId
+                },{
+                	headers:{
+	                		'Cookies':ashjd
+	                	}
+                })
+                    .then(function (res) {
+                        console.log(res);
+                        if(res.data.code == '200'){
+                        	this.huoqushuju();
+                        }
+                    }, function () {
+                        console.log('请求失败处理');
+                    });
+            },
+            dianjiF:function(index,id){
+            	var than = this;
+            	$('.tan1').css({'display':'block'});
+            	tupianId = id;
+            	tupianIndex = index;
+            },
+            fileF:function(e,index,id){
+				var than = this;
+				// 更换图片
+				console.log(tupianId + ',' + tupianIndex)
+				if(index == 'a' && id == 'b'){
+					than.fangshi = 'genggai';
+					var index = tupianIndex;
+					var id = tupianId;
+				}else{
+					than.fangshi = 'tianjia';
+					var index = index;
+					var id = id;
+				}
+				console.log(id)
+				var objurl = this.getObjectURL(e.target.files[0]);
+				than.objurl = objurl;
+				$('#id' + index).attr('src',objurl);
+            	var formData = new FormData();
+				formData.append('id' , than.id);
+				formData.append('count' , id);
+				formData.append('img' , e.target.files[0]);
+				than.formData = formData;
+				this.tijiaoshuju();
+				
+			},
+			getObjectURL(file) {
+		          var url = null;
+		          if (window.createObjectURL != undefined) { 
+		            url = window.createObjectURL(file);
+		          } else if (window.URL != undefined) {
+		            url = window.URL.createObjectURL(file);
+		          } else if (window.webkitURL != undefined) {
+		            url = window.webkitURL.createObjectURL(file);
+		          }
+		          return url;
+	        },
+	        shanchuF:function(){
+	        	var than = this;
+	        	this.huoqushuju();
+	        	setTimeout(function(){
+	        		var index = tupianIndex;
+					var id = tupianId;
+					than.shanchuId = id;
+					if(confirm('确定要删除吗')==true){
+				      than.shanchushuju();
+				    }
+	        	},500)
+
+	        },
+	        tianjiaF:function(){
+	        	var than = this;
+	        },
+            tan1:function(){
+            	$('.tan1').css({'display':'none'})
+            },
+            datuF:function(){
+            	var than = this;
+            	$('.big').css({'display':'block'});
+            	console.log(than.objurl);
+            	$('#big_img').attr('src',than.objurl);
+            },
+            xiaoshiF:function(){
+            	$('.big').css({'display':'none'})
+            },
+            fanhuiF:function(){
+            	window.history.go(-1);
+            }
+
+        }
+    })
+</script>
+</html>

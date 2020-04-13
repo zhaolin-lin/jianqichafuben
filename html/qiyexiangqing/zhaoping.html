@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" /> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+</head>
+<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+<script src="../../js/jquery.js"></script>
+<script src="../../js/vue.js"></script>
+<script src="../../js/bootstrap.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="../../js/axios.js"></script>
+<style type="text/css">
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+        }
+        .navbar {
+            position: relative;
+            min-height: 50px;
+            margin-bottom: 0px;
+            border: 0px solid transparent;
+        }
+        .form-control {
+            width: 80%;
+        }
+        .form-control{
+            border: 0px solid #000;
+            border-right: 1px solid #d4d4d4;
+        }
+        .input-group-addon{
+            border: 0px solid #000;
+        }
+         input{
+            outline: none;
+         }
+           .header {
+            width: 100%;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header div:before,
+        .header div:after {
+            position: absolute;
+            background: #ccc;
+            content: "";
+            height: 1px;
+            top: 50%;
+            width: 100px;
+        }
+
+        .header div:before {
+            left: 10px;
+        }
+
+        .header div:after {
+            right: 10px;
+        }
+        .col-xs-3{
+            padding-left: 0px;
+        }
+        .col-xs-12{
+            padding-left: 0px;
+        }
+        .col-xs-8{
+            padding-left: 0px;
+        }
+        .col-xs-6{
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+                .btn-default {
+            color: #000;
+            background-color: #fff;
+            border-color: #000;
+        }
+        .btn-default:hover {
+            color: #FD9700;
+            background-color: #fff;
+            border-color: #FD9700;
+}
+
+.btn-toolbar > .btn, .btn-toolbar > .btn-group, .btn-toolbar > .input-group {
+     margin-left: 6px; 
+}.btn-toolbar {
+     margin-left: 0px; 
+}
+.back1{
+    background: #fff;
+}
+.back{
+    background: #f2f2f2;
+}
+        [v-cloak] {
+            display: none !important;
+        }
+</style>
+<body style="background:#f2f2f2;height:100%;">
+<div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
+    </div>
+<nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+    <div class="container-fluid">
+        <div class="">
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
+            <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10" style="color: #fff;text-align: center;">招聘</a>
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;float: right;text-align: right;" ><span class="glyphicon glyphicon-remove" style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
+        </div>
+    </div>
+</nav>
+<div>
+    <!-- 正文开始 -->
+<div id="app" v-cloak>
+    <div style="width:100%; height:80%; overflow:scroll;">
+        <table border="0" rules="all" style="width:450px;text-align:center" id="mytable">
+            <tr style="background:#fff;height:50px">
+                <th style="text-align: center;border: 1px solid #fff">职位名称</th>
+                <th style="text-align: center;border: 1px solid #fff">招聘时间</th>
+                <th style="text-align: center;border: 1px solid #fff">月薪</th>
+                <th style="text-align: center;border: 1px solid #fff">地点</th>
+                <th style="text-align: center;border: 1px solid #fff">招聘详情</th>
+            </tr>
+            <tr style="height:50px;background: #f2f2f2" v-for="(user,index) in users">
+                <th style="text-align: center;border: 1px solid #fff">{{ user.name }}</th>
+                <th style="text-align: center;border: 1px solid #fff">{{ user.zpstart }}</th>
+                <th style="text-align: center;border: 1px solid #fff">{{ user.yuex1 }}K ~ {{ user.yuex2 }}K</th>
+                <th style="text-align: center;border: 1px solid #fff">{{ didian.nativeplace }}</th>
+                <th style="text-align: center;border: 1px solid #fff" :id ="user.id" v-on:click="say('hello!', $event)" >详情</th>
+            </tr>
+
+        </table>
+    </div>
+
+    <div style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.2);position: fixed;top: 0px;left: 0px;" id="xiangqing" v-for="(xiangqing,index) in xiangqings">
+        <div style="height: 74%;width: 90%;position: fixed;top: 20%;left: 5%; background-image: url(../../image/zhaopin.png);z-index: 10000"> 
+            <div style="text-align: center;margin-top: 10px;">
+                <span style="text-align: center;font-size: 22px;color: #fff;">招聘详情</span>
+                <span style="font-size: 12px;color: #fff;float: right;margin-right: 10px" id="guanbi"  onclick="guanbi()"><span class="glyphicon glyphicon-remove"></span></span>
+            </div>
+           <div style="height: 63%;width: 80%;position: fixed;top: 28%;left: 10%;background: rgb(0 , 0 , 0 );">
+                <div style="margin-top: 10px" class="col-xs-12">
+                   <div class="col-xs-6" style="text-align: left;padding-left: 15px;padding-right: 15px">
+                       <span><b>{{xiangqing.name}}</b></span>
+                   </div>
+                   <div class="col-xs-6" style="text-align: right;padding-left: 15px;padding-right: 15px">
+                       <span style="color: #FD9702">{{xiangqing.yuex1}}K~{{xiangqing.yuex2}}K/月</span>
+                   </div>
+                </div>
+                <div style="margin-top: 10px" class="col-xs-12">
+                   <div class="col-xs-5" style="text-align: left;padding-left: 15px;padding-right: 0px">
+                       <span><b>工作年限：</b></span>
+                   </div>
+                   <div class="col-xs-7" style="text-align: left;padding-left: 0px;padding-right: 0px">
+                       <span style="color: #FD9702">1-3年</span>
+                   </div>
+                </div>
+                <div style="margin-top: 10px" class="col-xs-12">
+                   <div class="col-xs-5" style="text-align: left;padding-left: 15px;padding-right: 0px">
+                       <span><b>职位描述：</b></span>
+                   </div>
+                   <div class="col-xs-7" style="text-align: left;padding-left: 0px;padding-right: 0px">
+                       <span style=" text-overflow: -o-ellipsis-lastline;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 6;line-clamp: 6;-webkit-box-orient: vertical;">{{xiangqing.info}}</span>
+                   </div>
+                </div>
+                <div style="margin-top: 10px" class="col-xs-12">
+                   
+                   <div class="col-xs-12" style="text-align: right;padding-left: 0px;padding-right: 0px">
+                       <span style="color: #FD9702">详情></span>
+                   </div>
+                </div>
+                <div style="margin-top: 10px;padding-left: 15px;padding-right: 15px;" class="col-xs-12">
+                   <div class="col-xs-12" style="text-align: left;padding-left: 0px;padding-right: 0px;background: #F4F5FA">
+                      <div style="font-size: 16px;padding: 10px">上海美达事建筑设计事务所&nbsp; <span style="border: 1px solid #000;font-size: 14px">365人</span> </div>
+                   </div>
+                   <div class="col-xs-12" style="text-align: left;padding-left: 0px;padding-right: 0px;background: #F4F5FA">
+                      <div style="padding: 10px"> <img src="../../image/dingwei.png"> <span style="font-size: 14px">河北省石家庄市桥西区槐安路365号</span> </div>
+                   </div>
+                </div>
+                <div style="margin-top: 10px" class="col-xs-12">
+                   
+                   <div class="col-xs-12" style="text-align: left;padding-left: 15px;padding-right: 0px">
+                       <span style="color: red">招聘时间：{{xiangqing.zpstart}}-{{xiangqing.zpend}}</span>
+                   </div>
+                </div>
+                <div style="margin-top: 5px" class="col-xs-12">
+                   
+                   <div class="col-xs-12" style="text-align: center;padding-left: 15px;padding-right: 0px">
+                          <div style="padding: 10px"> <img src="../../image/shoucang3.png"> <span style="font-size: 14px">收藏职位</span></div>
+                   </div>
+                </div>
+            </div> 
+
+        </div>
+    </div>
+</div>
+    <!-- 正文结束 -->
+</div>
+</body>
+<script>
+   var aid= "";
+window.onload=function(){
+  var widthLIN = localStorage.getItem("key"); 
+    document.getElementById('widthLI').style.height = widthLIN + 'px';
+    document.getElementById('daohanglan').style.top = widthLIN + 'px';
+    var dhlH = document.getElementById('daohanglan').offsetHeight;
+    document.getElementById('app').style.marginTop = Number(widthLIN) + Number(dhlH) + 'px';
+             var qyid = "";
+             var name,value;
+   var str=location.href;
+   var num=str.indexOf("?")
+   str=str.substr(num+1);
+   var arr=str.split("&");
+   for(var i=0;i < arr.length;i++){
+        num=arr[i].indexOf("=");
+        if(num>0){
+             name=arr[i].substring(0,num);
+             value=arr[i].substr(num+1);
+             this[name]=value;
+             aid = value;
+        }
+   }
+             new Vue({
+                 el:'#app',
+                 data:{
+                    users:[],
+                    didian:"",
+                    xiangqings:[],
+                 },
+                mounted:function(){
+                    this.sendGetByObj();
+                },
+                 methods:{
+                     sendGetByObj:function(){
+                          var than = this;
+                         // //2.get通过params选项
+                         this.$http.get('../../../index.php/index/qy/bl',{
+                             params:{
+                                sw: "zp",
+                                act: "app",
+                                aid: aid
+                             }
+                         })
+                           .then(function (response) {
+                            console.log(response);
+                            than.users = response.data.content.list;
+                            than.didian = response.data.content;
+                           })
+                           .catch(function (error) {
+                             console.log(error);
+                         });
+                     },
+                    say: function(msg, event) {
+                      this.xiangqings = [];
+                        //获取点击对象      
+                        var el = event.target.id;
+                         var than = this;
+                         // //2.get通过params选项
+                         this.$http.get(`../../../plus/view.php`,{
+                             params:{
+                                sw: "zp",
+                                act: "app",
+                                aid: aid,
+                                pid:el,
+                             }
+                         })
+                           .then(function (response) {
+                            console.log(response.data.content.next);
+                            
+                            than.xiangqings=response.data.content.next
+                            document.getElementById('xiangqing').style.display = "block"
+                           })
+                           .catch(function (error) {
+                             console.log(error);
+                         });
+                    }
+                 }
+                 
+             });
+                setTimeout(function(){ 
+              }, 100);
+         
+         }
+         function guanbi(){
+            document.getElementById('xiangqing').style.display = "none";
+         }
+function Mclose(){
+      var widthLIN1 = localStorage.getItem("key1"); 
+      if (widthLIN1 == "2") {
+         window.webkit.messageHandlers.Mclose.postMessage("123");
+     }else{
+        window.control.mClose();
+     }
+      
+}
+function Mback(){
+    window.history.go(-1);
+}
+</script>
+</html>

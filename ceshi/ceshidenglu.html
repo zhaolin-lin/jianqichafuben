@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>首页</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/swiper.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/axios.js"></script>
+    <script src="js/vue-resource.js"></script>
+    <script src="js/vconsole.min.js"></script>
+    <!-- <script src="https://map.qq.com/api/js?v=2.exp&key=NY7BZ-Z4JOJ-RF7F2-KMV2X-6F4CS-FXBFF"></script> -->
+    <!-- <script src="https://webapi.amap.com/maps?v=1.4.15&key=d57fe33ae62a7b66f826edc351c983a2"></script> -->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=zSCRepbigEi44pGWOQds92MLKiHUSt2k"></script>
+    <!--   <script src="http://passport.cnblogs.com/scripts/jsencrypt.min.js"></script> -->
+
+    <script src="js/jsencrypt.js"></script>
+    <!-- <script src="js/hsjidh.js"></script>
+    <script src="js/axiosjsqing.js"></script>
+    <script src="js/jgifdj.js"></script> -->
+    <style>
+        .dsajh{
+            width: 50px;
+            height: 50px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="dsajh"></div>
+   <div id="sajjhgdh"></div>
+    <div id="sajjhgdhs"></div>
+</body>
+<script>
+
+      var geolocation = new BMap.Geolocation();
+        geolocation.getCurrentPosition(function (r) {
+            if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+                var mk = new BMap.Marker(r.point);
+                var a = '您的位置：' + r.point.lng + ',' + r.point.lat
+                document.getElementById('sajjhgdh').innerHTML = a;
+                // alert('您的位置：' + r.point.lng + ',' + r.point.lat);
+            }
+            else {
+                alert('failed' + this.getStatus());
+            }
+        }, { enableHighAccuracy: true })
+        // var caishu = [];
+        // var str = location.href;
+        // var num = str.indexOf("?")
+        // str = str.substr(num + 1);
+        // arr = str.split("&");
+        // for (var i = 0; i < arr.length; i++) {
+        //     num = arr[i].indexOf("=");
+        //     if (num > 0) {
+        //         name = arr[i].substring(0, num);
+        //         value = arr[i].substr(num + 1);
+        //         this[name] = value;
+        //         caishu.push(value)
+        //     }
+        // }
+
+        // document.getElementById('sajjhgdhs').innerHTML = caishu[caishu.length - 1];
+        // if(caishu[caishu.length - 1] == '1'){
+        //     window.location.href = "index.html?who=geren"
+        // }else if (caishu[caishu.length - 1] == '2'){
+        //     window.location.href = "index.html?who=qiye"
+        // }
+    
+</script>
+    <!-- <script src="js/shengshi.js"></script> -->
+</html>

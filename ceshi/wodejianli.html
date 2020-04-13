@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="0">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="css/wodejianli.css">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/swiper.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/axios.js"></script>
+    <script src="js/vue-resource.js"></script>
+    <script src="js/vconsole.min.js"></script>
+    <script src="js/wodejianli.js"></script>
+    <script src="js/jsencrypt.js"></script>
+    <script src="js/hsjidh.js"></script>
+    <script src="js/axiosjsqing.js"></script>
+    <script src="js/jgifdj.js"></script>
+    <title>我的简历</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-default" role="navigation" style="background:#fff;width: 100%;z-index: 100000;"
+        id="daohanglan">
+        <div class="container-fluid">
+            <div class="">
+                <a class="navbar-brand col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                    style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left"
+                        style="color: rgb(0, 0, 0);" onclick="Mback()"></span></a>
+                <a class="navbar-brand col-xs-6 col-sm-6 col-md-6 col-lg-10"
+                    style="color: #000;text-align: center;font-size: 20px;font-weight: blod;">我的简历</a>
+                <a class="navbar-brand col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                    style="color: #000;float: right;text-align: right;"><span
+                        style="color: rgb(0, 0, 0);margin-left: -15px;font-size:14px;">资格兼职</span></a>
+            </div>
+        </div>
+    </nav>
+    <div id="app">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 head">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 head-left">
+                <span>我的简历</span>
+                <span>账户余额：20分钟</span>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 head-right">
+                <span>公开</span>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 head_fenlei">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 head_fenlei-left">
+                <span><img src="img/zhiwei.png" alt="" class="image1"></span>
+                <span>浏览简历</span>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 head_fenlei-center">
+                <span><img src="img/zhiwei.png" alt="" class="image1"></span>
+                <span>浏览简历</span>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 head_fenlei-right">
+                <span><img src="img/zhiwei.png" alt="" class="image1"></span>
+                <span>浏览简历</span>
+            </div>
+        </div>
+        <div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content"
+                v-if="users.length == '0' || users.jiben.length == '0'">
+                <span class="content_bt">基本信息</span><span class="content_btx">必填项</span>
+                <span class="content_wtx"><span>尚未填写</span></span>
+                <span class="content_ws"><span>立即完善</span></span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content" v-else style="margin-top:5px;">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" v-if="panduantouxiang == '0'">
+                    <img :src="'http://192.168.2.100/'+jiben.face" alt="" class="inage2">
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" v-else>
+                    <img :src="'https://www.jianqitongmeng.com/'+jiben.face" alt="" class="inage2">
+                </div>
+                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 xiangx">
+                    <span class="name">{{jiben.name}}</span>
+                    <span
+                        class="jianjie">{{jiben.sex}}&nbsp;{{jiben.age}}岁&nbsp;{{jiben.experience}}年经验&nbsp;{{jiben.area}}</span>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 xiangx">
+                    <span class="glyphicon glyphicon-edit bianji" style="color: rgb(255, 121, 2);"
+                        @click="tiaozhuan(jiben.id)">编辑</span>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xiangxi">
+                    <span>手机号：{{jiben.phone}}</span>
+                    <span>邮箱地址：{{jiben.email}}</span>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content"
+                v-if="users.length == '0' || users.yixiang.length == '0' ">
+                <span class="content_bt">求职意向</span><span class="content_btx">必填项</span>
+                <span class="content_wtx"><span>尚未填写</span></span>
+                <span class="content_ws" @click="qiuzhi()"><span>立即完善</span></span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content" v-else>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding: 0 0 0 8px;">
+                    <span class="content_bt">求职意向</span>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="text-align: right;">
+                    <span class="glyphicon glyphicon-edit" style="color: rgb(255, 121, 2);">编辑</span>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xiangxi" style="padding: 10px 35px 0 35px">
+                    <span>工作性质：{{yixiang.xingzhi}}</span>
+                    <span>工作地点：{{yixiang.city}}</span>
+                    <span>期望薪资：{{yixiang.xinzi}}</span>
+                    <span>职位类别：{{yixiang.zhiye}}</span>
+                    <span>行业类型：{{yixiang.hangye}}</span>
+                    <span>目前状态：{{yixiang.zhuangtai}}</span>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content"
+                v-if=" users.length == '0' || users.pingjia.length == '0'">
+                <span class="content_bt">自我评价</span>
+                <span class="content_wtx"><span>尚未填写</span></span>
+                <span class="content_ws" @click="ziwo()"><span>立即完善</span></span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content" v-else>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding: 0 0 0 8px;">
+                    <span class="content_bt">自我评价</span>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="text-align: right;">
+                    <!-- <span class="glyphicon glyphicon-edit" style="color: rgb(255, 121, 2);">编辑</span> -->
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                    style="padding: 10px 35px 0 35px;position: relative;">
+                    <div style="position: absolute;top: 10px;right: 10px;"><span class="glyphicon glyphicon-edit"
+                            style="color: rgb(255, 121, 2);">编辑</span></div>
+                    <span class="ziwopingjia" style=" white-space: pre-wrap;">{{pingjia.text}}</span>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xiala">
+                    <span><img src="img/bot_point.png" alt="" style="width: 15px;"></span>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content"
+                v-if=" users.length == '0' || users.jingyan.length == '0'">
+                <span class="content_bt">工作经历</span>
+                <span class="content_wtx"><span>尚未填写</span></span>
+                <span class="content_ws"  @click="gongzuo()"><span>立即完善</span></span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content" v-else>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding: 0 0 0 8px;">
+                    <span class="content_bt">工作经历</span>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="text-align: right;">
+                    <!-- <span class="glyphicon glyphicon-edit" style="color: rgb(255, 121, 2);">编辑</span> -->
+                </div>
+                <div v-for="(jingyans,index) in jingyan">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xiangxi"
+                        style="padding: 10px 35px 0 35px;position: relative;">
+                        <div style="position: absolute;top: 10px;right: 10px;"><span class="glyphicon glyphicon-edit"
+                                style="color: rgb(255, 121, 2);">编辑</span></div>
+                        <span>公司名称：{{jingyans.company}}</span>
+                        <span>开始时间：{{jingyans.start_time}}</span>
+                        <span>结束时间：{{jingyans.end_time}}</span>
+                        <span>职位类别：{{jingyans.zhiwei}}</span>
+                        <span>行业类型：{{jingyans.hangye}}</span>
+                        <span>职位名称：{{jingyans.zhiwei_ming}}</span>
+                        <span>职位薪资（税前）：{{jingyans.xinzi}}</span>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <span class="ziwopingjia">工作描述：{{jingyans.text}}</span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xiala">
+                    <span><img src="img/bot_point.png" alt="" style="width: 15px;"></span>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content"
+                v-if="users.length == '0' || users.xiangmu.length == '0'">
+                <span class="content_bt">项目经历</span>
+                <span class="content_wtx"><span>尚未填写</span></span>
+                <span class="content_ws" @click="xiangmu()"><span>立即完善</span></span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content" v-else>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 0 0 0 8px;">
+                    <span class="content_bt">项目经历</span>
+                </div>
+                <!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="text-align: right;">
+                    <span class="glyphicon glyphicon-edit" style="color: rgb(255, 121, 2);">编辑</span>
+                </div> -->
+                <div v-for="xiangmus in xiangmu">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xiangxi" style="padding: 10px 35px 0 35px;position: relative;" >
+                        <div style="position: absolute;top: 10px;right: 10px;"><span class="glyphicon glyphicon-edit"
+                                style="color: rgb(255, 121, 2);">编辑</span></div>
+                        <span>项目名称：{{xiangmus.name}}</span>
+                        <span>开始时间：{{xiangmus.start_time}}</span>
+                        <span>结束时间：{{xiangmus.end_time}}</span>
+                        <span v-if="users.jiben.resume == '2'">担任职务：{{xiangmus.zhiwu}}</span>
+                        <span v-if="users.jiben.resume == '2'">建设单位：{{xiangmus.company}}</span>
+                        <span v-if="users.jiben.resume == '2'">项目编号：{{xiangmus.number}}</span>
+                        <span v-if="users.jiben.resume == '2'">项目地址：{{xiangmus.address}}</span>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" v-if="users.jiben.resume == '1'">
+                        <span class="ziwopingjia">个人职责：{{xiangmus.duty}}</span>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" v-if="users.jiben.resume == '1'">
+                        <span class="ziwopingjia">项目描述：{{xiangmus.text}}</span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xiala">
+                    <span><img src="img/bot_point.png" alt="" style="width: 15px;"></span>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content"
+                v-if="users.length == '0' || users.jiaoyu.length == '0'">
+                <span class="content_bt">教育经历</span>
+                <span class="content_wtx"><span>尚未填写</span></span>
+                <span class="content_ws" @click="jiaoyu()"><span>立即完善</span></span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content" v-else>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding: 0 0 0 8px;">
+                    <span class="content_bt">教育经历</span>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xiangxi" style="padding: 10px 35px 0 35px;position: relative;"
+                    v-for="jiaoyus in jiaoyu" >
+                    <div style="position: absolute;top: 10px;right: 10px;"><span class="glyphicon glyphicon-edit"
+                            style="color: rgb(255, 121, 2);">编辑</span></div>
+                    <span>学校名称：{{jiaoyus.school}}</span>
+                    <span>专业名称：{{jiaoyus.major}}</span>
+                    <span>学历/学位：{{jiaoyus.education}}</span>
+                    <span>开始时间：{{jiaoyus.start_time}}</span>
+                    <span>结束时间：{{jiaoyus.end_time}}</span>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xiala">
+                    <span><img src="img/bot_point.png" alt="" style="width: 15px;"></span>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content"
+                v-if="users.length == '0' || users.peixun.length == '0'">
+                <span class="content_bt">培训经历</span>
+                <span class="content_wtx"><span>尚未填写</span></span>
+                <span class="content_ws" @clikc="peixun()"><span>立即完善</span></span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content" v-else>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding: 0 0 0 8px;">
+                    <span class="content_bt">培训经历</span>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xiangxi" style="padding: 10px 35px 0 35px;position: relative;"
+                    v-for="peixuns in peixun">
+                    <div style="position: absolute;top: 10px;right: 10px;"><span class="glyphicon glyphicon-edit"
+                            style="color: rgb(255, 121, 2);">编辑</span></div>
+                    <span>培训机构：{{peixuns.train}}</span>
+                    <span>开始时间：{{peixuns.start_time}}</span>
+                    <span>结束时间：{{peixuns.end_time}}</span>
+                    <span>专业名称：{{peixuns.course}}</span>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xiala">
+                    <span><img src="img/bot_point.png" alt="" style="width: 15px;"></span>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content"
+                v-if="users.length == '0' || users.zhengshu.length == '0'">
+                <span class="content_bt">证书</span>
+                <span class="content_wtx"><span>尚未填写</span></span>
+                <span class="content_ws"><span>立即完善</span></span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 content" v-else>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding: 0 0 0 8px;">
+                    <span class="content_bt">教育经历</span>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xiangxi" style="padding: 10px 35px 0 35px;position: relative;"
+                    v-for="zhengshus in zhengshu">
+                    <div style="position: absolute;top: 10px;right: 10px;"><span class="glyphicon glyphicon-edit"
+                            style="color: rgb(255, 121, 2);">编辑</span></div>
+                    <span>证书名称：{{zhengshus.name}}</span>
+                    <span v-if="users.jiben.resume == '2'">证书专业：{{zhengshus.zhuanye}}</span>
+                    <span v-if="users.jiben.resume == '2'">职称：{{zhengshus.leixing}}</span>
+                    <span v-if="users.jiben.resume == '2'">注册情况：{{zhengshus.register}}</span>
+                    <span v-if="users.jiben.resume == '2'">证书所在地：{{zhengshus.seat}}</span>
+                    <span>获得时间：{{zhengshus.time}}</span>
+                    <span v-if="users.jiben.resume == '2'">有效期：{{zhengshus.endtime}}</span>
+                    <span v-if="users.jiben.resume == '2'">证书状态：{{zhengshus.status}}</span>
+                    <span v-if="users.jiben.resume == '2'">注册单位：{{zhengshus.register_danwei}}</span>
+                    <span v-if="users.jiben.resume == '2'">执业印章号：{{zhengshus.seal}}</span>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 xiala">
+                    <span><img src="img/bot_point.png" alt="" style="width: 15px;"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,146 @@
+*{
+	margin:0;
+	padding:0;
+	text-decoration: none;
+	list-style: none;
+}
+body,html{
+	width: 100%;
+	font-size: 12px;
+}
+#yijianfankui{
+	width: 100%;
+}
+
+.til{
+	width: 100%;
+	height: 40px;
+	border-bottom: 1px solid #eee;
+	overflow:hidden;
+	background-color: #fff;
+	position: fixed;
+	left:0;
+	top:0;
+	z-index: 9999;
+}
+.til_point{
+	height: 100%;
+	display: flex;
+	align-items: center;	
+}
+.til_point img{
+	width: 60%;
+	height: 60%;
+}
+.til_text{
+	height: 100%;
+	font-size: 1.5rem;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	letter-spacing: 3px;
+}
+.til_zhuxiao{
+	height: 100%;
+	font-size: 1.1rem;
+	color:#888;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.bodys{
+	width: 100%;
+	overflow-y: scroll;
+	padding-top:40px;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+.fankui_text{
+	width: 100%;
+}
+.yjfk_til{
+	width: 100%;
+	overflow: hidden;
+	padding:10px 5px;
+}
+.yjfk_til_left{
+	float: left;
+	font-size: 1.3rem;
+	color:#888;
+}
+.yjfk_til_right{
+	float: right;
+	color:#888;
+	font-size: 1.2rem;
+}
+.yjfk_kuang{
+	width: 100%;
+	height: 150px;
+	border:1px solid #e0e0e0;
+	padding:5px;
+	margin-top:5px;
+}
+.text{
+	width: 100%;
+	height: 130px;
+	outline: none;
+	border:0;
+}
+.fankui_img{
+	width: 100%;
+}
+
+.yjfk_img_til{
+	width: 100%;
+	overflow: hidden;
+	padding:10px 5px;
+}
+.yjfk_img_left{
+	float: left;
+	font-size: 1.3rem;
+	color:#888;
+}
+.yjfk_img_right{
+	float: right;
+	font-size: 1.2rem;
+	color:#888;
+}
+.img_kuang{
+	width: 100%;
+	overflow: hidden;
+}
+.img1:nth-child(n){
+	width: 47%;
+	border:1px solid #e0e0e0;
+	border-radius: 5px;
+	float: left;
+	margin-bottom:10px;
+}
+.img1:nth-child(2n){
+	width: 47%;
+	border:1px solid #e0e0e0;
+	border-radius: 5px;
+	float: right;
+	margin-bottom:10px;
+}
+.img1 img{
+	width: 100%;
+	height: 100%;
+}
+
+.tijiao{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 30px 0;
+}
+.tijiao span{
+	color:#fff;
+	background: #FF7800;
+	padding:5px 35px;
+	font-size: 1.4rem;
+	border-radius: 5px;
+}

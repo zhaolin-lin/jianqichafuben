@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" /> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+</head>
+<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+<script src="../../js/jquery.js"></script>
+<script src="../../js/vue.js"></script>
+<script src="../../js/bootstrap.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="../../js/axios.js"></script>
+<style type="text/css">
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        .navbar {
+            position: relative;
+            min-height: 50px;
+            margin-bottom: 0px;
+            border: 0px solid transparent;
+        }
+        .form-control {
+            width: 80%;
+        }
+        .form-control{
+            border: 0px solid #000;
+            border-right: 1px solid #d4d4d4;
+        }
+        .input-group-addon{
+            border: 0px solid #000;
+        }
+         input{
+            outline: none;
+         }
+           .header {
+            width: 100%;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header div:before,
+        .header div:after {
+            position: absolute;
+            background: #ccc;
+            content: "";
+            height: 1px;
+            top: 50%;
+            width: 100px;
+        }
+
+        .header div:before {
+            left: 10px;
+        }
+
+        .header div:after {
+            right: 10px;
+        }
+        .col-xs-3{
+            padding-left: 0px;
+        }
+        .col-xs-12{
+            padding-left: 0px;
+        }
+        .col-xs-8{
+            padding-left: 0px;
+        }
+        .col-xs-6{
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+                .btn-default {
+            color: #000;
+            background-color: #fff;
+            border-color: #000;
+        }
+        .btn-default:hover {
+            color: #FD9700;
+            background-color: #fff;
+            border-color: #FD9700;
+}
+
+.btn-toolbar > .btn, .btn-toolbar > .btn-group, .btn-toolbar > .input-group {
+     margin-left: 0px; 
+}.btn-toolbar {
+     margin-left: 0px; 
+}
+.back1{
+    background: #fff;
+}
+.back{
+    background: #f2f2f2;
+}
+        [v-cloak] {
+            display: none !important;
+        }
+</style>
+<body style="background:#f2f2f2;height:100%;">
+</nav>
+<div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
+    </div>
+<nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+    <div class="container-fluid">
+        <div class="">
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
+            <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10" style="color: #fff;text-align: center;">黑名单</a>
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;float: right;text-align: right;" ><span class="glyphicon glyphicon-remove" style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
+        </div>
+    </div>
+</nav>
+<div>
+    <!-- 正文开始 -->
+<div id="app" v-cloak style="height: 100%">
+    <div style="width:100%; height:80%; overflow:scroll;" v-if="users.length == '0'">
+        <img src="../../image/zanwushuju.png" style="position: absolute; width: 60%;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-o-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+    </div>
+    <div style="width:100%; height:80%; overflow:scroll;"v-else>
+        <table border="0" rules="all" style="width:1000px;text-align:center" id="mytable">
+            <tr style="background:#fff;height:50px">
+                <th style="text-align: center;border: 1px solid #fff">黑名单记录编号</th>
+                <th style="text-align: center;border: 1px solid #fff">黑名单记录主体</th>
+                <th style="text-align: center;border: 1px solid #fff">黑名单认定依据</th>
+                <th style="text-align: center;border: 1px solid #fff">认定部门</th>
+                <th style="text-align: center;border: 1px solid #fff">列入黑名单日期</th>
+                <th style="text-align: center;border: 1px solid #fff">移除黑名单日期</th>
+            </tr>
+            <tr style="height:50px;background: #f2f2f2" v-for="(user,index) in users" :id="index" @click="xianshi(index)">
+                <th style="text-align: center;border: 1px solid #fff">{{ user.hmdjlbh }}</th>
+                <th style="text-align: center;border: 1px solid #fff">{{ user.hmdjlzt }}</th>
+                <th style="text-align: center;border: 1px solid #fff;width: 350px">{{ user.hmdrdyj }}</th>
+                <th style="text-align: center;border: 1px solid #fff">{{ user.rdbm }}</th>
+                <th style="text-align: center;border: 1px solid #fff">{{ user.lrhmdrq }}</th>
+                <th style="text-align: center;border: 1px solid #fff">{{ user.ychmdrq }}</th>
+            </tr>
+        </table>
+    </div>
+    <div style="position: fixed;left: 0px;bottom: 0px;width: 100%;height: 30%;background: #fff;display: none" id="yincang">
+        <div style="width: 100%;text-align: center;margin-top: 10px;color: rgb(253, 151, 0);height: 40px;line-height: 40px;font-size: 18px;">企业黑名单记录原由<span class="glyphicon glyphicon-remove" style="float:right;margin-right: 10px;color: #000;font-size: 1px;height: 40px;line-height: 40px" @click="guanbi"></span></div>
+        <div>
+            <div style="height: 40px;line-height: 40px">认定部门：<span>{{ xiangxi.rdbm }}</span></div>
+            <div style="height: 40px;line-height: 40px">列入黑名单日期：<span>{{ xiangxi.lrhmdrq }}</span></div>
+            <div style="height: 40px;line-height: 40px">移除黑名单日期：<span>{{ xiangxi.ychmdrq }}</span></div>
+            <div v-if="xiangxi.isstow == '0'" style="height: 40px;line-height: 40px;text-align:center;margin-top: -12px;"><img src="../../image/shoucang3.png" style="width: 30px" @click="shoucang(xiangxi.hmdjlzt,xiangxi.id,xiangxi.kid)">收藏</div>
+            <div v-else style="height: 40px;line-height: 40px;text-align:center;margin-top: -12px;"><img src="../../image/shoucang2.png" style="width: 30px" @click="shoucang(xiangxi.hmdjlzt,xiangxi.id,xiangxi.kid)">已收藏</div>
+        </div>
+    </div>
+</div>
+    <!-- 正文结束 -->
+</div>
+</body>
+<script>
+    //var search = "";
+    //var qyid = "";
+    var aid= "";
+window.onload=function(){
+    var widthLIN = localStorage.getItem("key"); 
+    document.getElementById('widthLI').style.height = widthLIN + 'px';
+    document.getElementById('daohanglan').style.top = widthLIN + 'px';
+    var dhlH = document.getElementById('daohanglan').offsetHeight;
+    document.getElementById('app').style.marginTop = Number(widthLIN) + Number(dhlH) + 'px';
+             var qyid = "";
+             var name,value;
+   var str=location.href; //取得整个地址栏
+   var num=str.indexOf("?")
+   str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
+
+   var arr=str.split("&"); //各个参数放到数组里
+   for(var i=0;i < arr.length;i++){
+        num=arr[i].indexOf("=");
+        if(num>0){
+             name=arr[i].substring(0,num);
+             value=arr[i].substr(num+1);
+             this[name]=value;
+             aid = value;
+        }
+   }
+             new Vue({
+                 el:'#app',
+                 data:{
+                    users:[],
+                    xiangxi:"",
+                 },
+                mounted:function(){
+                    this.sendGetByObj();
+                },
+                 methods:{
+                     sendGetByObj:function(){
+                          var than = this;
+                         // //2.get通过params选项
+                         this.$http.get('../../../index.php/index/qy/bl',{
+                             params:{
+                                sw: "hmdjl",
+                                act: "app",
+                                aid: aid
+                             }
+                         })
+                           .then(function (response) {
+                            console.log(response.data.content.list.data);
+                            than.users = response.data.content.list.data;
+                           })
+                           .catch(function (error) {
+                             console.log(error);
+                         });
+                     },
+                    xianshi:function(index){
+                        document.getElementById('yincang').style.display = "block"
+                        console.log(index)
+                        var than = this;
+                        var xinusers = than.users;
+                        than.xiangxi = xinusers[index];
+                        console.log(xinusers[index])
+                    },
+                    guanbi:function(){
+                        document.getElementById('yincang').style.display = "none"
+                    },
+                    shoucang:function(title,aid,pid){
+                         var than = this;
+                         // //2.get通过params选项
+                         var xinusers = than.xiangxi;
+                         this.$http.get(`../../../index.php/index/stow/insert`,{
+                             params:{
+                                type: "hmdjl",
+                                act: "app",
+                                aid: aid,
+                                pid: pid,
+                                title:title
+                             }
+                         })
+                           .then(function (response) {
+                                console.log(response);
+                                console.log(xinusers.isstow)
+                                xinusers.isstow = response.data.isstow;
+                                var tanchu = response.data.msg;
+                                var panduan = localStorage.getItem("key1");
+                                if (panduan =='1') {
+                                    window.control.LogShow(tanchu)
+
+                                }else{
+                                    window.webkit.messageHandlers.showMessage.postMessage(tanchu)
+                                }
+                           })
+                           .catch(function (error) {
+                                console.log(error);
+                         });
+                    }
+                 },
+                 
+             });
+        }
+function Mclose(){
+      var widthLIN1 = localStorage.getItem("key1"); 
+      if (widthLIN1 == "2") {
+         window.webkit.messageHandlers.Mclose.postMessage("123");
+     }else{
+        window.control.mClose();
+     }
+      
+}
+function Mback(){
+    window.history.go(-1);
+}
+</script>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+</head>
+<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+<script src="../../js/jquery.js"></script>
+<script src="../../js/vue.js"></script>
+<script src="../../js/bootstrap.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="../../js/axios.js"></script>
+<style type="text/css">
+html,
+body {
+    margin: 0;
+    height: 100%;
+}
+
+.navbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 0px;
+    border: 0px solid transparent;
+}
+
+.form-control {
+    width: 80%;
+}
+
+.form-control {
+    border: 0px solid #000;
+    border-right: 1px solid #d4d4d4;
+}
+
+.input-group-addon {
+    border: 0px solid #000;
+}
+
+input {
+    outline: none;
+}
+
+.header {
+    width: 100%;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    position: relative;
+}
+
+.header div:before,
+.header div:after {
+    position: absolute;
+    background: #ccc;
+    content: "";
+    height: 1px;
+    top: 50%;
+    width: 100px;
+}
+
+.header div:before {
+    left: 10px;
+}
+
+.header div:after {
+    right: 10px;
+}
+
+.col-xs-3 {
+    padding-left: 0px;
+}
+
+.col-xs-12 {
+    padding-left: 0px;
+}
+
+.col-xs-8 {
+    padding-left: 0px;
+}
+
+[v-cloak] {
+    display: none !important;
+}
+</style>
+
+<body style="background:#f2f2f2;height:100%;">
+    <div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
+    </div>
+    <nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+        <div class="container-fluid">
+            <div class="">
+                <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
+                <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10" style="color: #fff;text-align: center;">股东信息</a>
+                <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;float: right;text-align: right;"><span class="glyphicon glyphicon-remove" style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
+            </div>
+        </div>
+    </nav>
+    <!-- 正文开始 -->
+    <div id="app" v-cloak style="height: 100%;">
+        <div style="width: 100%;height: 100%;background-color: #fff" v-if="users.length == '0' ">
+            <img src="../../image/zanwushuju.png" v-if="jiazai == '1'" style="position: absolute; width: 60%;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-o-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+            <img src="../../image/jiazai.gif" v-else style="position: absolute; width: 10%;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-o-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+        </div>
+        <div style="width:96%;margin-left:2%;height:120px;background:#fff;margin-top:5px;" v-for="(user,index) in users" onclick="tiaozhuan(this)" :id="user.id" v-else>
+            <div style="width:40%;height:120px;float:left;text-align:center;padding-top:35px">{{ user.gdmc }}
+                <br>
+                <span style="font-size:14px;border:1px solid #FD9700;color:#FD9700">{{ user.gdlx }}</span>
+            </div>
+            <div style="width:40%;float:left">
+                <div style="height:60px;text-align:left;font-size:14px;color:#999999;padding-top:7px">
+                    证照/证件类型：<br>
+                    <span style="font-size:16px;color:#000">{{ user.zjlx }}</span>
+                </div>
+                <div style="height:60px;text-align:left;font-size:14px;color:#999999;padding-top:7px">证照/证件号码：<br>
+                    <span style="font-size:16px;color:#000">{{ user.zjhm }}</span>
+                </div>
+            </div>
+            <div style="width:20%;height:120px;float:left;background:url(../../image/qued.png) no-repeat center center">
+            </div>
+        </div>
+    </div>
+    <!-- 正文结束 -->
+</body>
+<script>
+var aid = [];
+window.onload = function() {
+    var widthLIN = localStorage.getItem("key");
+    document.getElementById('widthLI').style.height = widthLIN + 'px';
+    document.getElementById('daohanglan').style.top = widthLIN + 'px';
+    var dhlH = document.getElementById('daohanglan').offsetHeight;
+    document.getElementById('app').style.marginTop = Number(widthLIN) + Number(dhlH) + 'px';
+    var aid = [];
+    var sn = "";
+    var search = "";
+    var name, value;
+    var str = location.href; //取得整个地址栏
+    var num = str.indexOf("?")
+    str = str.substr(num + 1); //取得所有参数   stringvar.substr(start [, length ]
+
+    var arr = str.split("&"); //各个参数放到数组里
+    for (var i = 0; i < arr.length; i++) {
+        num = arr[i].indexOf("=");
+        if (num > 0) {
+            name = arr[i].substring(0, num);
+            value = arr[i].substr(num + 1);
+            this[name] = value;
+            aid.push(value)
+        }
+    }
+
+    new Vue({
+        el: '#app',
+        data: {
+            users: '',
+            jiazai :"0",
+        },
+        mounted: function() {
+            this.sendGetByObj();
+        },
+        methods: {
+            sendGetByObj: function() {
+                var than = this;
+                than.jiazai = '0';
+                // //2.get通过params选项
+
+                this.$http.get('../../../index.php/index/qy/views', {
+                        params: {
+                            act: 'app',
+                            dopost: 'czxx',
+                            aid: aid[0]
+                        }
+                    })
+                    .then(function(response) {
+                        console.log(response.data.content);
+                        than.users = response.data.content;
+                        than.jiazai = '1';
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+            }
+        }
+
+    });
+}
+
+function tiaozhuan(elemnt) {
+    var id = elemnt.id;
+    window.location.href = "gudongxiangqing.html?aid=" + aid[0] + "&id=" + id;
+}
+
+function Mclose() {
+    var widthLIN1 = localStorage.getItem("key1");
+    if (widthLIN1 == "2") {
+        window.webkit.messageHandlers.Mclose.postMessage("123");
+    } else {
+        window.control.mClose();
+    }
+
+}
+
+function Mback() {
+    window.history.go(-1);
+}
+</script>
+
+</html>

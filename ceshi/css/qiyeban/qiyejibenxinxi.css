@@ -1,0 +1,166 @@
+*{
+	margin:0;
+	padding:0;
+	text-decoration: none;
+	list-style: none;
+}
+body,html{
+	width: 100%;
+	font-size: 12px;
+}
+#qiyejibenxinxi{
+	width: 100%;
+}
+.til{
+	width: 100%;
+	height: 40px;
+	border-bottom: 1px solid #eee;
+	overflow:hidden;
+	background-color: #fff;
+	position: fixed;
+	left:0;
+	top:0;
+	z-index: 10000;
+}
+.til_point{
+	height: 100%;
+	display: flex;
+	align-items: center;	
+}
+.til_point img{
+	width: 60%;
+	height: 60%;
+}
+.til_text{
+	height: 100%;
+	font-size: 1.5rem;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	letter-spacing: 3px;
+}
+
+
+.bodys{
+	width: 100%;
+	padding-top:40px;
+	overflow-y:scroll;
+}
+.zhuce{
+	width: 100%;
+	border-bottom: 1px solid #eee;
+	display: flex;
+	align-items: center;
+	font-size: 1.3rem;
+	color:#888;
+	padding:10px 15px;
+}
+.zhuce_img{
+	display: block;
+	width: 20px;
+	height: 23px;
+	margin-right: 10px;
+}
+.zhuce_img img{
+	width: 100%;
+	height: 100%;
+}
+.touxiang{
+	width: 100%;
+	overflow: hidden;
+	padding:10px 10px;
+	border-bottom: 1px solid #e6e6e6;
+}
+.touxiang_left{
+	float: left;
+	width: 75%;
+}
+.touxiang_text1{
+	font-size: 1.3rem;
+	padding-top:5px;
+	padding-bottom: 5px;
+}
+.touxiang_text1 span{
+	padding-right: 32px;
+}
+.touxiang_text2{
+	font-size: 1.1rem;
+	color:#888;
+	padding-top:5px;    
+	width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.touxiang_img{
+	width: 50px;
+	height: 50px;
+	float: right;
+	border-radius: 50%;
+	overflow: hidden;
+}
+.touxiang_img img{
+	width: 100%;
+	height: 100%;
+}
+
+
+.mingcheng{
+	width: 100%;
+	padding:17px 10px;
+	border-bottom: 1px solid #e6e6e6;
+	overflow:hidden;
+}
+.mc_left{
+	float: left;
+	font-size: 1.3rem;
+}
+.mc_left span:nth-child(1){
+	padding-right: 32px;
+}
+.mc_right{
+	float: right;
+	font-size: 1.2rem;
+	padding-right: 10px;
+}
+.mc_right form{
+	width: 100%;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */ 
+	color: #888;
+	text-align: right;
+}
+::-moz-placeholder { /* Firefox 19+ */  
+	color: #888;
+	text-align: right;
+}
+::-ms-input-placeholder { /* IE 10+ */ 
+ 	color: #888;
+	text-align: right;
+}
+::-moz-placeholder { /* Firefox 18- */ 
+ 	color: #888;
+	text-align: right;
+}
+.inp{
+	border:0px;
+	outline: none;
+	text-align: right;
+	width: 210px;
+}
+.queren{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-top:30px;
+	padding-bottom: 20px;
+}
+.queren span{
+	padding: 10px 60px;
+	background: #FF7800;
+	color:#fff;
+	font-size: 1.3rem;
+	border-radius: 5px;
+}

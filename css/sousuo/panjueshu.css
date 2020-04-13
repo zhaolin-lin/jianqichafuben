@@ -1,0 +1,65 @@
+html,  body {
+	margin: 0;
+	height: 100%;
+}
+.navbar {
+	position: relative;
+	min-height: 50px;
+	margin-bottom: 0px;
+	border: 0px solid transparent;
+}
+.form-control {
+	width: 80%;
+}
+.form-control {
+	border: 0px solid #000;
+	border-right: 1px solid #d4d4d4;
+}
+.input-group-addon {
+	border: 0px solid #000;
+}
+input {
+	outline: none;
+}
+.header {
+	width: 100%;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+	position: relative;
+}
+.header div:before,  .header div:after {
+	position: absolute;
+	background: #ccc;
+	content: "";
+	height: 1px;
+	top: 50%;
+	width: 100px;
+}
+.header div:before {
+	left: 10px;
+}
+.header div:after {
+	right: 10px;
+}
+.col-xs-7 {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.col-xs-12 {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.col-xs-2 {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.form-control {
+	background-color: #f2f2f2;
+}
+.input-group-addon {
+	padding: 3px 12px;
+}
+ [v-cloak] {
+ display: none !important;
+}

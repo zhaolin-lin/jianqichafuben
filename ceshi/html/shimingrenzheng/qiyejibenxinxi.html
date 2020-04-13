@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>首页</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/shimingrenzheng/qiyejibenxinxi.css">
+    <link rel="stylesheet" type="text/css" href="../../css/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="../../css/public.css">
+
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../../js/bootstrap.js"></script>
+    <script src="../../js/vue.js"></script>
+    <script src="../../js/vue.min.js"></script>
+    <script src="../../js/axios.js"></script>
+    <script src="../../js/vue-resource.js"></script>
+    <script src="../../js/jsencrypt.js"></script>
+    <script src="../../js/hsjidh.js"></script>
+    <script src="../../js/axiosjsqing.js"></script>
+    <script src="../../js/jgifdj.js"></script>
+    <style type="text/css">
+        /* [v-cloak] {
+            display: none;
+        } */
+        html,
+        body {
+            height: 100%;
+        }
+
+        .zhuti_bt_sp {
+            display: block;
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.3);
+            margin-left: 10px;
+        }
+
+        .zhuti_bt_tx {
+            display: block;
+            margin-left: 10px;
+        }
+
+        .inage {
+            width: 80% !important;
+            height: 80% !important;
+            border-radius: 100px !important;
+        }
+
+        .zhuti_bt input {
+            width: 100%;
+            border: 0px !important;
+            outline: none;
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        .zhuti_button {
+            width: 100%;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .zhuti_button input {
+            padding: 10px 20px 10px 20px;
+            background: #FF7800;
+            color: #fff;
+            border: 1px solid #FF7800;
+            border-radius: 5px;
+        }
+
+        .zhuti_button1 {
+            width: 100%;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .zhuti_button1 input {
+            padding: 10px 20px 10px 20px;
+            background: #FF7800;
+            color: #fff;
+            border: 1px solid #FF7800;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .zhuti1_zhhuti {
+            width: 100%;
+            margin: 0 auto;
+            height: 50px;
+        }
+
+        .zhuti1_zhhuti1 {
+            width: 100%;
+            margin: 0 auto;
+            background: #fff;
+            margin-top: 10px;
+            padding: 20px 10px;
+        }
+
+        input[type=checkbox] {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #000;
+            border-radius: 50%;
+        }
+
+        .biankuang img {
+            width: 100%;
+            max-height: 100px;
+        }
+
+        .file-box {
+            display: inline-block;
+            position: relative;
+            padding: 3px 5px;
+            overflow: hidden;
+            color: #fff;
+            background-color: #ccc;
+        }
+
+        .file-btn {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            outline: none;
+            background-color: transparent;
+            filter: alpha(opacity=0);
+            -moz-opacity: 0;
+            -khtml-opacity: 0;
+            opacity: 0;
+        }
+
+        input,
+        textarea,
+        select,
+        a:focus {
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak style="height: 100%;">
+        <div v-if="yemianzhanshi == '1'">
+            <!-- 企业认证第一步开始 -->
+            <nav class="navbar navbar-default" role="navigation" style="background:#fff;width: 100%;z-index: 100000;"
+                id="daohanglan">
+                <div class="container-fluid">
+                    <div class="">
+                        <a class="navbar-brand col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                            style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left"
+                                style="color: rgb(0, 0, 0);" onclick="Mback()"></span></a>
+                        <a class="navbar-brand col-xs-6 col-sm-6 col-md-6 col-lg-10"
+                            style="color: #000;text-align: center;font-size: 20px;font-weight: blod;">企业基本信息</a>
+                        <a class="navbar-brand col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                            style="color: #000;float: right;text-align: right;"><span
+                                style="color: rgb(0, 0, 0);margin-left: -15px;font-size:14px;"></span></a>
+                    </div>
+                </div>
+            </nav>
+            <div class="zhuti">
+                <div class="zhuti_bt">
+                    <img src="../../img/xinxi.png" alt="">&nbsp;&nbsp; <span>请填写注册信息</span>
+                </div>
+                <div class="zhuti_bt">
+                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                        <span class="zhuti_bt_tx">头&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;像</span>
+                        <span class="zhuti_bt_sp">请上传招聘人头像，真实头像更容易获得人才信息</span>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"
+                        style="display: flex;align-items: center;justify-content: center; position: relative;">
+                        <img src="../../img/xinxi.png" alt="" class="inage">
+                        <input type="file" name="fileToUpload" id="fileToUpload" class="file-btn" accept="image/*"
+                            @change="touxiangs($event , 'inage')">
+                    </div>
+                </div>
+                <div class="zhuti_bt">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <span class="zhuti_bt_tx">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</span>
+                    </div>
+                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                        <input type="text" placeholder="请输入招聘人名称" v-model='recruit_name'>
+                    </div>
+                </div>
+                <div class="zhuti_bt">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <span class="zhuti_bt_tx">职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位</span>
+                    </div>
+                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                        <input type="text" placeholder="请输入招聘职位" v-model='position'>
+                    </div>
+                </div>
+                <div class="zhuti_bt">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <span class="zhuti_bt_tx">公司名称</span>
+                    </div>
+                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                        <input type="text" placeholder="请输入公司名称" v-model='company_name'>
+                    </div>
+                </div>
+                <div class="zhuti_bt">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <span class="zhuti_bt_tx">公司简称</span>
+                    </div>
+                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                        <input type="text" placeholder="请输入公司简称" v-model='company_jianchen'>
+                    </div>
+                </div>
+                <div class="zhuti_bt">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <span class="zhuti_bt_tx">工作邮箱</span>
+                    </div>
+                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                        <input type="text" placeholder="请输入接收人才简历的工作邮箱" v-model='email'>
+                    </div>
+                </div>
+                <div class="zhuti_button">
+                    <input type="button" value="进入认证" @click="renzheng">
+                </div>
+            </div>
+        </div><!-- 企业认证第一步结束 -->
+        <div style="height: 100%;background: #FAFAFA;" v-if="yemianzhanshi == '2'">
+            <!-- 企业认证第二步开始 -->
+            <nav class="navbar navbar-default" role="navigation" style="background:#fff;width: 100%;z-index: 100000;"
+                id="daohanglan">
+                <div class="container-fluid">
+                    <div class="">
+                        <a class="navbar-brand col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                            style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left"
+                                style="color: rgb(0, 0, 0);" onclick="Mback()"></span></a>
+                        <a class="navbar-brand col-xs-6 col-sm-6 col-md-6 col-lg-10"
+                            style="color: #000;text-align: center;font-size: 20px;font-weight: blod;">企业基本信息</a>
+                        <a class="navbar-brand col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                            style="color: #000;float: right;text-align: right;"><span
+                                style="color: rgb(0, 0, 0);margin-left: -15px;font-size:14px;"></span></a>
+                    </div>
+                </div>
+            </nav>
+            <div class="zhuti1">
+                <div class="zhuti1_zhhuti">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+                        style="background: #fff;	display: flex;align-items: center;	justify-content: center;height: 50px;position: relative;">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span style="display: block;width: 100%;border: 2px solid #DBE0E2;"></span>
+                        </div>
+                        <img src="../../img/xuanzhgong.png" alt=""
+                            style="width: 20px; position: absolute;top: 50%;left: 50%; transform: translateY(-50%,-50%);-webkit-transform:translate(-50%,-50%);-moz-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);-o-transform: translate(-50%,-50%);">
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+                        style="background: #fff;	display: flex;align-items: center;	justify-content: center;height: 50px;position: relative;">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span style="display: block;width: 100%;border: 2px solid #DBE0E2;"></span>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span style="display: block;width: 100%;border: 2px solid #DBE0E2;"></span>
+                        </div>
+                        <img src="../../img/weixuan.png" alt=""
+                            style="width: 20px; position: absolute;top: 50%;left: 50%; transform: translateY(-50%,-50%);-webkit-transform:translate(-50%,-50%);-moz-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);-o-transform: translate(-50%,-50%);">
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+                        style="background: #fff;		display: flex;align-items: center;	justify-content: center;height: 50px;position: relative;">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span style="display: block;width: 100%;border: 2px solid #DBE0E2;"></span>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+                        </div>
+                        <img src="../../img/weixuan.png" alt=""
+                            style="width: 20px; position: absolute;top: 50%;left: 50%; transform: translateY(-50%,-50%);-webkit-transform:translate(-50%,-50%);-moz-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);-o-transform: translate(-50%,-50%);">
+                    </div>
+                </div>
+                <div class="zhuti1_zhhuti1">
+                    <div class="zhuti_bt">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <span class="zhuti_bt_tx">企业名称</span>
+                        </div>
+                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                            <input type="text" v-model='company_name' disabled style="background: #fff;">
+                        </div>
+                    </div>
+                    <div class="zhuti_bt" style="overflow: hidden;" id="diquxuanze">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                <span class="zhuti_bt_tx">公司地址</span>
+                            </div>
+                            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9" style="text-align: right;">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                                    <div id="trigger4">地区选择-级联</div>
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="text-align: right;">
+                                    <span class="iconfont icon-jiantou1"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <input type="text" placeholder="详细地址" v-model='address'>
+                        </div>
+                    </div>
+                    <div class="zhuti_bt">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <span class="zhuti_bt_tx">法人姓名</span>
+                        </div>
+                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                            <input type="text" placeholder="请输入运营人名称" v-model='legal_man' @blur="yunyingren">
+                        </div>
+                    </div>
+                    <div class="zhuti_bt" style="overflow: hidden;">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                <span class="zhuti_bt_tx">运营人姓名</span>
+                            </div>
+                            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9" style="text-align: right;">
+                                <input type="checkbox" name="" id="">同法人
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <input type="text" placeholder="请填写运行人姓名" v-model='operator'>
+                        </div>
+                    </div>
+                    <div class="zhuti_bt">
+                        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                            <span class="zhuti_bt_tx">运营人身份证号</span>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                            <input type="text" placeholder="请输入运营人身份证号" v-model='id_num'>
+                        </div>
+                    </div>
+                    <div class="zhuti_bt">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <span class="zhuti_bt_tx">联系电话</span>
+                        </div>
+                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                            <input type="text" placeholder="请输入联系电话" v-model='oper_tell'>
+                        </div>
+                    </div>
+                    <div class="zhuti_bt">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <span class="zhuti_bt_tx">验证码</span>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <input type="text" placeholder="请输入公司名称" v-model='code'>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <input type="button" value="fasn" @click="fscode">
+                        </div>
+                    </div>
+                </div>
+                <div class="zhuti_button1">
+                    <input type="button" value="下一步" >
+                </div>
+            </div>
+        </div><!-- 企业认证第二步结束 -->
+        <div style="height: 100%;background: #FAFAFA;" v-if="yemianzhanshi == '3'">
+            <!-- 企业认证第三步开始 -->
+            <nav class="navbar navbar-default" role="navigation" style="background:#fff;width: 100%;z-index: 100000;"
+                id="daohanglan">
+                <div class="container-fluid">
+                    <div class="">
+                        <a class="navbar-brand col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                            style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left"
+                                style="color: rgb(0, 0, 0);" onclick="Mback()"></span></a>
+                        <a class="navbar-brand col-xs-6 col-sm-6 col-md-6 col-lg-10"
+                            style="color: #000;text-align: center;font-size: 20px;font-weight: blod;">企业基本信息</a>
+                        <a class="navbar-brand col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                            style="color: #000;float: right;text-align: right;"><span
+                                style="color: rgb(0, 0, 0);margin-left: -15px;font-size:14px;"></span></a>
+                    </div>
+                </div>
+            </nav>
+            <div class="zhuti1">
+                <div class="zhuti1_zhhuti">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+                        style="background: #fff;	display: flex;align-items: center;	justify-content: center;height: 50px;position: relative;">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span style="display: block;width: 100%;border: 2px solid #FF7800;"></span>
+                        </div>
+                        <img src="../../img/xuanzhgong.png" alt=""
+                            style="width: 20px; position: absolute;top: 50%;left: 50%; transform: translateY(-50%,-50%);-webkit-transform:translate(-50%,-50%);-moz-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);-o-transform: translate(-50%,-50%);">
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+                        style="background: #fff;	display: flex;align-items: center;	justify-content: center;height: 50px;position: relative;">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span style="display: block;width: 100%;border: 2px solid #FF7800;"></span>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span style="display: block;width: 100%;border: 2px solid #DBE0E2;"></span>
+                        </div>
+                        <img src="../../img/xuanzhgong.png" alt=""
+                            style="width: 20px; position: absolute;top: 50%;left: 50%; transform: translateY(-50%,-50%);-webkit-transform:translate(-50%,-50%);-moz-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);-o-transform: translate(-50%,-50%);">
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+                        style="background: #fff;		display: flex;align-items: center;	justify-content: center;height: 50px;position: relative;">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span style="display: block;width: 100%;border: 2px solid #DBE0E2;"></span>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+                        </div>
+                        <img src="../../img/weixuan.png" alt=""
+                            style="width: 20px; position: absolute;top: 50%;left: 50%; transform: translateY(-50%,-50%);-webkit-transform:translate(-50%,-50%);-moz-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);-o-transform: translate(-50%,-50%);">
+                    </div>
+                </div>
+                <div class="zhuti1_zhhuti1">
+                    <div>
+                        <div>
+                            <span style="color: red;display: block;line-height: 30px;">*上传公司材料</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 biankuang"
+                                style="padding: 0 15px;position: relative;">
+                                <img src="../../img/xhs.png" alt="" class="ziliao1">
+                                <input type="file" name="fileToUpload" id="fileToUpload" class="file-btn"
+                                    accept="image/*" capture="camera" @change="ziliao($event , 'ziliao1')">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <span style="color: red;display: block;line-height: 30px;">*上传公司材料</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 biankuang"
+                                style="padding: 0 15px;position: relative;">
+                                <img src="../../img/xhs.png" alt="" class="ziliao2">
+                                <input type="file" name="fileToUpload" id="fileToUpload" class="file-btn"
+                                    accept="image/*" capture="camera" @change="ziliao($event , 'ziliao2')">
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 biankuang"
+                                style="padding: 0 15px;position: relative;">
+                                <img src="../../img/xhs.png" alt="" class="ziliao3">
+                                <input type="file" name="fileToUpload" id="fileToUpload" class="file-btn"
+                                    accept="image/*" capture="camera" @change="ziliao($event , 'ziliao3')">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 biankuang"
+                                style="padding: 0 15px;position: relative;">
+                                <img src="../../img/xhs.png" alt="" class="ziliao4">
+                                <input type="file" name="fileToUpload" id="fileToUpload" class="file-btn"
+                                    accept="image/*" capture="camera" @change="ziliao($event , 'ziliao4')">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <span style="color: red;display: block;line-height: 30px;">*上传公司材料</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 biankuang"
+                                style="padding: 0 15px;position: relative;">
+                                <img src="../../img/xhs.png" alt="" class="ziliao5">
+                                <input type="file" name="fileToUpload" id="fileToUpload" class="file-btn"
+                                    accept="image/*" capture="camera" @change="ziliao($event , 'ziliao5')">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="zhuti_button1">
+                    <input type="button" value="下一步" @click="xiayibu('wancheng')">
+                </div>
+            </div>
+        </div><!-- 企业认证第三步结束 -->
+        <div style="height: 100%;background: #FAFAFA;" v-if="yemianzhanshi == '4'">
+            <!-- 企业认证第四步开始 -->
+            <nav class="navbar navbar-default" role="navigation" style="background:#fff;width: 100%;z-index: 100000;"
+                id="daohanglan">
+                <div class="container-fluid">
+                    <div class="">
+                        <a class="navbar-brand col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                            style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left"
+                                style="color: rgb(0, 0, 0);" onclick="Mback()"></span></a>
+                        <a class="navbar-brand col-xs-6 col-sm-6 col-md-6 col-lg-10"
+                            style="color: #000;text-align: center;font-size: 20px;font-weight: blod;">企业基本信息</a>
+                        <a class="navbar-brand col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                            style="color: #000;float: right;text-align: right;"><span
+                                style="color: rgb(0, 0, 0);margin-left: -15px;font-size:14px;"></span></a>
+                    </div>
+                </div>
+            </nav>
+            <div class="zhuti1" style="height: 100%;">
+                <div class="zhuti1_zhhuti">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+                        style="background: #fff;	display: flex;align-items: center;	justify-content: center;height: 50px;position: relative;">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span style="display: block;width: 100%;border: 2px solid #FF7800;"></span>
+                        </div>
+                        <img src="../../img/xuanzhgong.png" alt=""
+                            style="width: 20px; position: absolute;top: 50%;left: 50%; transform: translateY(-50%,-50%);-webkit-transform:translate(-50%,-50%);-moz-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);-o-transform: translate(-50%,-50%);">
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+                        style="background: #fff;	display: flex;align-items: center;	justify-content: center;height: 50px;position: relative;">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span style="display: block;width: 100%;border: 2px solid #FF7800;"></span>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span style="display: block;width: 100%;border: 2px solid #FF7800;"></span>
+                        </div>
+                        <img src="../../img/xuanzhgong.png" alt=""
+                            style="width: 20px; position: absolute;top: 50%;left: 50%; transform: translateY(-50%,-50%);-webkit-transform:translate(-50%,-50%);-moz-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);-o-transform: translate(-50%,-50%);">
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+                        style="background: #fff;		display: flex;align-items: center;	justify-content: center;height: 50px;position: relative;">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span style="display: block;width: 100%;border: 2px solid #DBE0E2;"></span>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+                        </div>
+                        <img src="../../img/weixuan.png" alt=""
+                            style="width: 20px; position: absolute;top: 50%;left: 50%; transform: translateY(-50%,-50%);-webkit-transform:translate(-50%,-50%);-moz-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);-o-transform: translate(-50%,-50%);">
+                    </div>
+                </div>
+                <div style="height: 88%;margin-top: 2%;position: relative;">
+                    <div
+                        style="width: 50%;text-align: center;position: absolute;top: 50%;left: 50%; transform: translateY(-50%,-50%);-webkit-transform:translate(-50%,-50%);-moz-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);-o-transform: translate(-50%,-50%);">
+                        <img src=" ../../img/dengdai.png" alt="" style="width: 50%;">
+                        <span>askid</span>
+                    </div>
+                </div>
+            </div>
+        </div><!-- 企业认证第四步结束 -->
+        <div style="height: 100%;background: #FAFAFA;" v-if="yemianzhanshi == '5'">
+            <!-- 企业认证第五步开始 -->
+            <nav class="navbar navbar-default" role="navigation" style="background:#fff;width: 100%;z-index: 100000;"
+                id="daohanglan">
+                <div class="container-fluid">
+                    <div class="">
+                        <a class="navbar-brand col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                            style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left"
+                                style="color: rgb(0, 0, 0);" onclick="Mback()"></span></a>
+                        <a class="navbar-brand col-xs-6 col-sm-6 col-md-6 col-lg-10"
+                            style="color: #000;text-align: center;font-size: 20px;font-weight: blod;">企业基本信息</a>
+                        <a class="navbar-brand col-xs-3 col-sm-3 col-md-3 col-lg-3"
+                            style="color: #000;float: right;text-align: right;"><span
+                                style="color: rgb(0, 0, 0);margin-left: -15px;font-size:14px;"></span></a>
+                    </div>
+                </div>
+            </nav>
+            <div class="zhuti1" style="height: 100%;">
+                <div class="zhuti1_zhhuti">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+                        style="background: #fff;	display: flex;align-items: center;	justify-content: center;height: 50px;position: relative;">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span style="display: block;width: 100%;border: 2px solid #FF7800;"></span>
+                        </div>
+                        <img src="../../img/xuanzhgong.png" alt=""
+                            style="width: 20px; position: absolute;top: 50%;left: 50%; transform: translateY(-50%,-50%);-webkit-transform:translate(-50%,-50%);-moz-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);-o-transform: translate(-50%,-50%);">
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+                        style="background: #fff;	display: flex;align-items: center;	justify-content: center;height: 50px;position: relative;">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span style="display: block;width: 100%;border: 2px solid #FF7800;"></span>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span style="display: block;width: 100%;border: 2px solid #FF7800;"></span>
+                        </div>
+                        <img src="../../img/xuanzhgong.png" alt=""
+                            style="width: 20px; position: absolute;top: 50%;left: 50%; transform: translateY(-50%,-50%);-webkit-transform:translate(-50%,-50%);-moz-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);-o-transform: translate(-50%,-50%);">
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+                        style="background: #fff;		display: flex;align-items: center;	justify-content: center;height: 50px;position: relative;">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span style="display: block;width: 100%;border: 2px solid #FF7800;"></span>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+                        </div>
+                        <img src="../../img/xuanzhgong.png" alt=""
+                            style="width: 20px; position: absolute;top: 50%;left: 50%; transform: translateY(-50%,-50%);-webkit-transform:translate(-50%,-50%);-moz-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);-o-transform: translate(-50%,-50%);">
+                    </div>
+                </div>
+                <div style="height: 88%;margin-top: 2%;position: relative;">
+                    <div
+                        style="width: 50%;text-align: center;position: absolute;top: 50%;left: 50%; transform: translateY(-50%,-50%);-webkit-transform:translate(-50%,-50%);-moz-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);-o-transform: translate(-50%,-50%);">
+                        <img src=" ../../img/dengdai.png" alt="" style="width: 50%;">
+                        <span>askid</span>
+                    </div>
+                </div>
+            </div>
+        </div><!-- 企业认证第五步结束 -->
+    </div>
+</body>
+<script>
+    window.onload = function () {
+        var diqushuzu = [];
+        var diquid = '';
+        // var dhlH = $('.til').outerHeight();
+        // var dhlH = Number(dhlH) + Number(5);
+        // var dhlH1 = Number(dhlH) - Number(2);
+        // $('.zhuti').css('marginTop', dhlH + 'px')
+        // $('.zhuti1').css('paddingTop', dhlH1 + 'px')
+        new Vue({
+            el: '#app',
+            data: {
+                id: "",
+                yemianzhanshi: "2",
+                touxiang: "",
+                company_name: "",
+                recruit_name: "",
+                position: "",
+                company_jianchen: "",
+                email: "",
+                address: '',
+                legal_man: "",
+                operator: "",
+                id_num: "",
+                oper_tell: "",
+                code: "",
+                type: "",
+                place: diquid,
+                status: "2",
+                Busi_lice: "",
+                lem_front_card: "",
+                lem_back_card: "",
+                lem_hold_card: "",
+                oper_hold_card: "",
+            },
+            mounted: function () {
+                this.huoqushuju();
+
+            },
+            methods: {
+                huoqushuju: function () {
+                    fjdf();
+                    var than = this;
+                    this.$http.post('../../../../index.php/api/qiye/qiye_jiben', {
+                        company_name: "",
+                        recruit_name: "",
+                        position: "",
+                        face: "",
+                        company_jianchen: "",
+                        email: "",
+
+                    }, {
+                        headers: {
+                            'Cookies': ashjd
+                        }
+                    })
+                        .then(function (res) {
+                            console.log(res)
+                            if (res.data.data.status == '1') {
+                                than.yemianzhanshi = '2'
+                                than.type = '1'
+                                than.huoquzhuantai();
+                            } else {
+                                than.yemianzhanshi = '1'
+                            }
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+                },
+                touxiangs: function (event, name) {
+                    var than = this;
+                    console.log(name)
+                    var objurl = this.getObjectURL(event.target.files[0]);
+                    $('.' + name).attr('src', objurl)
+                    than.touxiang = event.target.files[0];
+                },
+                renzheng: function () {
+                    fjdf();
+                    var than = this;
+                    if (than.touxiang == "" && than.company_name == "" && than.recruit_name == "" && than.position == "" && than.company_jianchen == "" && than.email == "") {
+                        //app自带弹框
+                        console.log('456')
+                        return;
+                    } else {
+                        var pattern = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+                        if (!pattern.test(than.email)) {
+                            //app自带弹框
+                            console.log('123')
+                            return;
+                        } else {
+                            var param = new FormData() // 创建form对象
+                            param.append('face', than.touxiang)
+                            param.append('company_name', than.company_name)
+                            param.append('recruit_name', than.recruit_name)
+                            param.append('position', than.position)
+                            param.append('company_jiancheng', than.company_jianchen)
+                            param.append('email', than.email)
+                            $.ajax({
+                                url: '../../../../index.php/api/qiye/qiye_jiben',
+                                data: param,
+                                type: "POST",
+                                async: false,
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                headers: {
+                                    'Cookies': ashjd
+                                },
+                                success: function (data) {
+                                    console.log(data)
+                                    if (data.code == '200') {
+                                        than.yemianzhanshi = '2'
+                                        than.id = data.data.id
+                                        than.type = '1';
+                                        than.huoquzhuantai();
+                                    }
+                                },
+                                error: function () {
+                                }
+                            })
+                        }
+                    }
+                },
+                fanhuiF: function () {
+
+                },
+                getObjectURL(file) {
+                    var url = null;
+                    // 下面函数执行的效果是一样的，只是需要针对不同的浏览器执行不同的 js 函数而已  
+                    if (window.createObjectURL != undefined) { // basic  
+                        url = window.createObjectURL(file);
+                    } else if (window.URL != undefined) { // mozilla(firefox)  
+                        url = window.URL.createObjectURL(file);
+                    } else if (window.webkitURL != undefined) { // webkit or chrome  
+                        url = window.webkitURL.createObjectURL(file);
+                    }
+                    return url;
+                },
+                xiayibu: function (index) {
+                    var than = this;
+                    fjdf();
+                    var than = this;
+                    var param = new FormData() // 创建form对象
+                    param.append('id', than.id)
+                    param.append('type', than.type)
+                    param.append('company_name', than.company_name)
+                    param.append('place', than.place)
+                    param.append('address', than.address)
+                    param.append('legal_man', than.legal_man)
+                    param.append('operator', than.operator)
+                    param.append('id_num', than.id_num)
+                    param.append('oper_tell', than.oper_tell)
+                    param.append('Busi_lice', than.Busi_lice)
+                    param.append('lem_front_card', than.lem_front_card)
+                    param.append('lem_back_card', than.lem_back_card)
+                    param.append('oper_hold_card', than.oper_hold_card)
+                    param.append('status', than.status)
+                    param.append('code', than.code)
+                    $.ajax({
+                        url: '../../../../index.php/api/qiye/real_comapny',
+                        data: param,
+                        type: "POST",
+                        async: false,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        headers: {
+                            'Cookies': ashjd
+                        },
+                        success: function (data) {
+                            console.log(data)
+                            if (data.code == '200') {
+                                than.yemianzhanshi = '4'
+                            }
+                        },
+                        error: function () {
+                        }
+                    })
+                },
+                huoquzhuantai: function () {
+                    fjdf();
+                    var than = this;
+                    this.$http.post('../../../../index.php/api/qiye/real_comapny', {
+                        type: than.type,
+
+                    }, {
+                        headers: {
+                            'Cookies': ashjd
+                        }
+                    })
+                        .then(function (res) {
+                            console.log(res)
+                            if (res.data.code == '200') {
+                                than.id = res.data.data.id
+                                than.company_name = res.data.data.company_name;
+
+                                if (res.data.data.status == '0') {
+                                    than.yemianzhanshi = '2'
+                                } else if (res.data.data.status == '1') {
+                                    than.yemianzhanshi = '4'
+                                } else if (res.data.data.status == '2') {
+                                    than.yemianzhanshi = '5'
+                                }
+                            }
+                            than.huoqudiqu();
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+                },
+                fscode: function () {
+                    var than = this;
+                    this.$http.post('../../../../index.php/api/denglu/send', {
+                        phone: than.oper_tell,
+                        type: '3'
+                    }, {
+                        headers: {
+                            'Cookies': ashjd
+                        }
+                    })
+                        .then(function (res) {
+                            console.log(res)
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+                },
+                ziliao: function (event, name) {
+                    var than = this;
+                    console.log(name)
+                    var objurl = this.getObjectURL(event.target.files[0]);
+                    $('.' + name).attr('src', objurl)
+                    if (name == 'ziliao1') {
+                        than.Busi_lice = event.target.files[0];
+                    } else if (name == 'ziliao2') {
+                        than.lem_front_card = event.target.files[0];
+                    } else if (name == 'ziliao3') {
+                        than.lem_back_card = event.target.files[0];
+                    } else if (name == 'ziliao4') {
+                        than.lem_hold_card = event.target.files[0];
+                    } else if (name == 'ziliao5') {
+                        than.oper_hold_card = event.target.files[0];
+                    }
+                },
+                huoqudiqu: function () {
+                    this.$http.post('../../../../index.php/api/shouye/gongcity', {
+
+                    }, {
+                        headers: {
+                            'Cookies': ashjd
+                        }
+                    })
+                        .then(function (res) {
+                            var b = [];
+                            var c = [];
+                            for (var i = 0; i < res.data.data.city.length; i++) {
+                                var a = {};
+                                a['id'] = res.data.data.city[i].id;
+                                a['value'] = res.data.data.city[i].name;
+                                a['childs'] = [];
+                                b.push(a)
+                                if (res.data.data.city[i].name[res.data.data.city[i].name.length - 1] != '市') {
+                                    for (var o = 0; o < res.data.data.city[i].zi.length; o++) {
+                                        var cc = {};
+                                        cc['id'] = res.data.data.city[i].zi[o].id;
+                                        cc['value'] = res.data.data.city[i].zi[o].name;
+                                        cc['childs'] = [];
+                                        b[i].childs.push(cc)
+                                        // console.log(res.data.data.city[i].zi[o])
+                                        for (var ps = 0; ps < res.data.data.city[i].zi[o].zi.length; ps++) {
+                                            var dd = {};
+                                            dd['id'] = res.data.data.city[i].zi[o].zi[ps].id;
+                                            dd['value'] = res.data.data.city[i].zi[o].zi[ps].name;
+                                            // console.log(dd)
+                                            b[i].childs[o].childs.push(dd)
+                                        }
+                                    }
+                                } else {
+                                    var cc = {};
+                                    cc['id'] = res.data.data.city[i].id;
+                                    cc['value'] = res.data.data.city[i].name;
+                                    cc['childs'] = [];
+                                    b[i].childs.push(cc)
+                                    for (var p = 0; p < res.data.data.city[i].zi.length; p++) {
+                                        var dd = {};
+                                        dd['id'] = res.data.data.city[i].zi[p].id;
+                                        dd['value'] = res.data.data.city[i].zi[p].name;
+                                        b[i].childs[0].childs.push(dd)
+                                    }
+                                }
+
+                            }
+                            diqushuzu = b;
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+                },
+                yunyingren:function(){
+                    var than = this;
+                    console.log(than.legal_man)
+                }
+            },
+        })
+        setTimeout(function () {
+            var mobileSelect4 = new MobileSelect({
+                trigger: '#trigger4',
+                title: '地区选择',
+                wheels: [
+                    {
+                        data: diqushuzu
+                    }
+                ],
+                transitionEnd: function (indexArr, data) {
+                    console.log(data.length);
+                },
+                callback: function (indexArr, data) {
+                    // console.log(data[data.length - 1].id);
+                    diquid = data[data.length - 1].id
+                }
+            });
+        }, 2000)
+    }
+</script>
+<link rel="stylesheet" type="text/css" href="../../css/mobileSelect.css">
+<script src="../../js/mobileSelect.js" type="text/javascript" defer="defer"></script>
+
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title></title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport"
+		content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+</head>
+<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+<script src="../../js/jquery.js"></script>
+<script src="../../js/vue.js"></script>
+<script src="../../js/bootstrap.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="../../js/axios.js"></script>
+<style type="text/css">
+	html,
+	body {
+		margin: 0;
+		height: 100%;
+	}
+
+	.navbar {
+		position: relative;
+		min-height: 50px;
+		margin-bottom: 0px;
+		border: 0px solid transparent;
+	}
+
+	.form-control {
+		width: 80%;
+	}
+
+	.form-control {
+		border: 0px solid #000;
+		border-right: 1px solid #d4d4d4;
+	}
+
+	.input-group-addon {
+		border: 0px solid #000;
+	}
+
+	input {
+		outline: none;
+	}
+
+	.header {
+		width: 100%;
+		height: 25px;
+		line-height: 25px;
+		text-align: center;
+		position: relative;
+	}
+
+	.header div:before,
+	.header div:after {
+		position: absolute;
+		background: #ccc;
+		content: "";
+		height: 1px;
+		top: 50%;
+		width: 100px;
+	}
+
+	.header div:before {
+		left: 10px;
+	}
+
+	.header div:after {
+		right: 10px;
+	}
+
+	.col-xs-3 {
+		padding-left: 0px;
+	}
+
+	.col-xs-12 {
+		padding-left: 0px;
+	}
+
+	.col-xs-8 {
+		padding-left: 0px;
+	}
+
+	.col-xs-6 {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+
+	.btn-default {
+		color: #000;
+		background-color: #fff;
+		border-color: #000;
+	}
+
+	.btn-default:hover {
+		color: #FD9700;
+		background-color: #fff;
+		border-color: #FD9700;
+	}
+
+	.btn-toolbar>.btn,
+	.btn-toolbar>.btn-group,
+	.btn-toolbar>.input-group {
+		margin-left: 0px;
+	}
+
+	.btn-toolbar {
+		margin-left: 0px;
+	}
+
+	.back1 {
+		background: #fff;
+	}
+
+	.back {
+		background: #f2f2f2;
+	}
+
+	[v-cloak] {
+		display: none !important;
+	}
+</style>
+
+<body style="background:#f2f2f2;height:100%;">
+	<div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
+	</div>
+	<nav class="navbar navbar-default" role="navigation"
+		style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+		<div class="container-fluid">
+			<div class="">
+				<a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
+					style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left"
+						style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
+				<a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10"
+					style="color: #fff;text-align: center;">企业资质证书</a>
+				<a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
+					style="color: #fff;float: right;text-align: right;"><span class="glyphicon glyphicon-remove"
+						style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
+			</div>
+		</div>
+	</nav>
+	<div id="app" v-cloak style="height: 100%;">
+		<!-- 正文开始 -->
+		<div style="height:100%;background:#fff;margin-top:5px;" v-if="users.length == '0'">
+			<img src="../../image/zanwushuju.png" v-if="xianshi == '1'"
+				style="position: absolute; width: 60%;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-o-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+			<img src="../../image/jiazai.gif" v-else
+				style="position: absolute; width: 30px;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-o-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+		</div>
+		<div style="width:96%;margin-left:2%;background:#fff;margin-top:5px;position:relative"
+			v-for="(user,index) in users" v-else>
+			<img v-if="user.isstow == '0' || user.isstow == '' " src="../../image/shoucang3.png"
+				style="position: absolute;top:8px;left: 320px;z-index: 1000;width: 27px" :id="'tupian'+index"
+				@click="sendGetByObj1(user.id,index,user.qy)">
+			<img v-else src="../../image/shoucang2.png"
+				style="position: absolute;top:8px;left: 320px;z-index: 1000;width: 27px" :id="'tupian'+index"
+				@click="sendGetByObj1(user.id,index)">
+			<div style="background:#fff" class="jianjie" :id="user.id" @click="xiangqing(user.id)">
+
+				<canvas width="25" height="25" style="position:absolute;" :id="'canvas'+ index"></canvas>
+				<ul style="margin-left: 23px;padding: 10px 0 10px 0;">
+					<li style="font-size: 18px">企业资质资格</li>
+					<li style="line-height: 25px;">资质类别：<span>{{ user.zzlb }}</span></li>
+					<li style="height: 25px;line-height: 25px;">资质名称：<span>{{ user.zzmc }}</span></li>
+					<li style="height: 25px;line-height: 25px;">资质证书号：<span>{{ user.zzzsh }}</span></li>
+					<li style="height: 25px;line-height: 25px;">发证日期：<span>{{ times[index] }}</span></li>
+					<li style="height: 25px;line-height: 25px;">
+						证书有效期:<span>{{ times[index] }}——{{ times1[index] }}</span></li>
+					<li style="height: 25px;line-height: 25px;">发证机关:<span>{{ user.fzjg }}</span></li>
+					<li style="height: 25px;line-height: 25px;">证书详情:<span>〉</span></li>
+				</ul>
+			</div>
+		</div>
+		<!-- 正文结束 -->
+	</div>
+
+</body>
+<script>
+	//var search = "";
+	//var qyid = "";
+	var pid = "";
+	window.onload = function () {
+		var widthLIN = localStorage.getItem("key");
+		document.getElementById('widthLI').style.height = widthLIN + 'px';
+		document.getElementById('daohanglan').style.top = widthLIN + 'px';
+		var dhlH = document.getElementById('daohanglan').offsetHeight;
+		document.getElementById('app').style.marginTop = Number(widthLIN) + Number(dhlH) + Number('15') + 'px';
+		var pidid = "";
+		var aid = new Array();
+		var qyid = "";
+		var name, value;
+		var str = location.href; //取得整个地址栏
+		var num = str.indexOf("?")
+		str = str.substr(num + 1); //取得所有参数   stringvar.substr(start [, length ]
+		var arr = str.split("&"); //各个参数放到数组里
+		for (var i = 0; i < arr.length; i++) {
+			num = arr[i].indexOf("=");
+			if (num > 0) {
+				name = arr[i].substring(0, num);
+				value = arr[i].substr(num + 1);
+				this[name] = value;
+				aid.push(value)
+			}
+		}
+		var time = [];
+		var timess = [];
+		var timess1 = [];
+		new Vue({
+			el: '#app',
+			data: {
+				users: [],
+				times: [],
+				times1: [],
+				tupianismy: "",
+				xianshi: "0",
+			},
+			mounted: function () {
+				this.sendGetByObj();
+			},
+			methods: {
+				sendGetByObj: function () {
+					var than = this;
+					pid = aid[1]
+					// //2.get通过params选项
+					this.$http.get('../../../index.php/index/qy/bl', {
+						params: {
+							sw: "zzlx",
+							act: "app",
+							aid: aid[0],
+							aaid: aid[1],
+						}
+					})
+						.then(function (response) {
+							than.xianshi = '0';
+							console.log(response.data);
+							than.users = response.data.content.list;
+
+							shijianceshi = response.data.content.list;
+							Date.prototype.toLocaleString = function () {
+								return this.getFullYear() + "." + (this.getMonth() + 1) + "." + this.getDate();
+							};
+							for (var i = 0; i < shijianceshi.length; i++) {
+								var time = shijianceshi[i].fzrq
+								var unixTimestamp = new Date(time * 1000);
+								commonTime = unixTimestamp.toLocaleString();
+								timess.push(commonTime)
+							}
+
+							than.times = timess;
+							for (var i = 0; i < shijianceshi.length; i++) {
+								var time = shijianceshi[i].zsyxq
+								var unixTimestamp = new Date(time * 1000);
+								commonTime = unixTimestamp.toLocaleString();
+								timess1.push(commonTime)
+							}
+
+							than.times1 = timess1;
+
+							than.xianshi = '1';
+							// setTimeout(function(){
+							// 	var canvasLen = document.getElementsByTagName('canvas');
+							// 	for (var i = 0 ;i < usersLen.length; i++) {
+							// 		var canvas = "canvas"+i
+							// 		var bg = document.getElementById(canvas);
+							// 		var ctx = bg.getContext('2d');
+							// 		ctx.beginPath();
+							// 		ctx.moveTo(25, 0);
+							// 		ctx.lineTo(0, 0);
+							// 		ctx.lineTo(0, 25);
+							// 		var grd = ctx.createLinearGradient(0, 0, 200, 0);
+							// 		grd.addColorStop(0, "#FD9700");
+							// 		grd.addColorStop(1, "#FD9700");
+							// 		ctx.fillStyle = grd;
+							// 		ctx.fill();
+							// 	}
+							// },100)
+						})
+						.catch(function (error) {
+							console.log(error);
+						});
+				},
+				sendGetByObj1: function (id, index, title1) {
+					var than = this;
+					var users22 = than.users;
+					// //2.get通过params选项
+					this.$http.get('../../../index.php/index/stow/insert', {
+						params: {
+							type: "qyzz",
+							act: "app",
+							aid: id,
+							pid: aid[0],
+							title: title1,
+						}
+					})
+						.then(function (response) {
+							console.log(users22[index].isstow)
+							users22[index].isstow = response.data.isstow
+							var tanchu = response.data.msg;
+							than.users = users22;
+							var panduan = localStorage.getItem("key1");
+							if (panduan == '1') {
+								window.control.LogShow(tanchu)
+
+							} else {
+								window.webkit.messageHandlers.showMessage.postMessage(tanchu)
+							}
+						})
+						.catch(function (error) {
+							console.log(error);
+						});
+				},
+				xiangqing: function (index) {
+					console.log(index)
+					window.location.href = "zhengshuxiangqing.html?aid=" + index;
+				}
+			}
+
+		});
+	}
+	function Mclose() {
+		var widthLIN1 = localStorage.getItem("key1");
+		if (widthLIN1 == "2") {
+			window.webkit.messageHandlers.Mclose.postMessage("123");
+		} else {
+			window.control.mClose();
+		}
+
+	}
+	function Mback() {
+		window.history.go(-1);
+	}
+</script>
+
+</html>

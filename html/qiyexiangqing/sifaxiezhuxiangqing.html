@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" /> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+</head>
+<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+<script src="../../js/jquery.js"></script>
+<script src="../../js/vue.js"></script>
+<script src="../../js/bootstrap.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="../../js/axios.js"></script>
+<style type="text/css">
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+        }
+        .navbar {
+            position: relative;
+            min-height: 50px;
+            margin-bottom: 0px;
+            border: 0px solid transparent;
+        }
+        .form-control {
+            width: 80%;
+        }
+        .form-control{
+            border: 0px solid #000;
+            border-right: 1px solid #d4d4d4;
+        }
+        .input-group-addon{
+            border: 0px solid #000;
+        }
+         input{
+            outline: none;
+         }
+           .header {
+            width: 100%;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header div:before,
+        .header div:after {
+            position: absolute;
+            background: #ccc;
+            content: "";
+            height: 1px;
+            top: 50%;
+            width: 100px;
+        }
+
+        .header div:before {
+            left: 10px;
+        }
+
+        .header div:after {
+            right: 10px;
+        }
+        .col-xs-3{
+            padding-left: 0px;
+        }
+        .col-xs-12{
+            padding-left: 0px;
+        }
+        .col-xs-8{
+            padding-left: 0px;
+        }
+        [v-cloak] {
+            display: none !important;
+        }
+</style>
+<body style="background:#f2f2f2;height:100%;">
+<div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
+    </div>
+<nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+    <div class="container-fluid">
+        <div class="">
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
+            <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10" style="color: #fff;text-align: center;">司法协助信息详情</a>
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;float: right;text-align: right;" ><span class="glyphicon glyphicon-remove" style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
+        </div>
+    </div>
+</nav>
+    <!-- 正文开始 -->
+<div id="app" v-cloak>
+    <div style="width:96%;margin-left:2%;height:100%;background:#fff;margin-top:5px;"v-for="user in users">
+        <div style="background:#fff" class="jianjie" >
+            <ul style="margin-left: 23px;padding: 10px 0 10px 0;">
+                <li style="color: #FD9700;font-size: 16px">冻结情况</li>
+                <li>执行法院：<span>{{ user.zzfy }}</span></li>
+                <li>执行事项：<span>{{ user.zxsx }}</span></li>
+                <li>执行裁定书文号：<span>{{ user.cdwsh }}</span></li>
+                <li>执行通知书文号：<span>{{ user.tzswh }}</span></li>
+                <li>被执行人:<span>{{ user.bzxr }}</span></li>
+                <li>被执行人是有股权、其他投资权益的数额:<span>{{ user.shue }}万</span></li>
+                <li>被执行人证件类型:<span>{{ user.zzzl }}</span></li>
+                <li>被执行人证件号码:<span>{{ user.zzhm }}</span></li>
+                <li>冻结日期期限:<span>{{ times }}-{{times1}}</span></li>
+                <li>公示日期:<span>{{ times2 }}</span></li>
+            </ul>
+        </div>
+    </div>
+    <div style="width:96%;margin-left:2%;height:100%;background:#fff;margin-top:5px;"v-for="user in users">
+        <div style="background:#fff" class="jianjie" >
+            <ul style="margin-left: 23px;padding: 10px 0 10px 0;">
+                <li style="color: #FD9700;font-size: 16px">股权冻结失效信息</li>
+                <li>失效原因：<span>{{ user.sxyy }}</span></li>
+                <li>失效时间：<span>{{ times3 }}</span></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    <!-- 正文结束 -->
+</body>
+<script>
+    var jianjie = "";
+window.onload=function(){
+     var widthLIN = localStorage.getItem("key"); 
+    document.getElementById('widthLI').style.height = widthLIN + 'px';
+    document.getElementById('daohanglan').style.top = widthLIN + 'px';
+    var dhlH = document.getElementById('daohanglan').offsetHeight;
+    document.getElementById('app').style.marginTop = Number(widthLIN) + Number(dhlH) + 'px';
+var time = [];
+var timess = [];
+var timess1 = [];
+var timess2 = [];
+var timess3 = [];
+var qyid = "";
+var name,value;
+   var str=location.href; //取得整个地址栏
+   var num=str.indexOf("?")
+   str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
+
+   var arr=str.split("&"); //各个参数放到数组里
+   for(var i=0;i < arr.length;i++){
+        num=arr[i].indexOf("=");
+        if(num>0){
+             name=arr[i].substring(0,num);
+             value=arr[i].substr(num+1);
+             this[name]=value;
+             aid = value;
+        }
+   }
+             new Vue({
+                 el:'#app',
+                 data:{
+                    users:"",
+                    times:"",
+                    times1:"",
+                    times2:"",
+                    times3:"",
+                 },
+                mounted:function(){
+                    this.sendGetByObj();
+                },
+                 methods:{
+                     sendGetByObj:function(){
+                          var than = this;
+                         // //2.get通过params选项
+                         this.$http.get('../../../plus/info.php',
+                         {
+                             params:{
+                                dopost: "sfxz",
+                                act: "app",
+                                id: aid
+                             }
+                         })
+                           .then(function (response) {
+                            console.log(response.data.content);
+                             than.users = response.data.content; 
+                              shijianceshi = response.data.content;
+                             Date.prototype.toLocaleString = function() {
+                                return this.getFullYear() + "." + (this.getMonth() + 1) + "." + this.getDate();
+                                 };
+
+                                 var time = shijianceshi[0].qsrq
+                                     var unixTimestamp = new Date( time*1000 ) ;
+                                    commonTime = unixTimestamp.toLocaleString();
+                                 var time = shijianceshi[0].jsrq
+                                     var unixTimestamp = new Date( time*1000 ) ;
+                                    commonTime1 = unixTimestamp.toLocaleString();
+                                 var time = shijianceshi[0].gsrq
+                                     var unixTimestamp = new Date( time*1000 ) ;
+                                    commonTime2 = unixTimestamp.toLocaleString();
+                                 var time = shijianceshi[0].sxsj
+                                     var unixTimestamp = new Date( time*1000 ) ;
+                                    commonTime3 = unixTimestamp.toLocaleString();
+                              than.times = commonTime;
+                              than.times1 = commonTime1;                       
+                              than.times2 = commonTime2;                       
+                              than.times3 = commonTime3;                       
+                           })
+                           .catch(function (error) {
+                             console.log(error);
+                         });
+                     }
+                 }
+                 
+             });
+         }
+function Mclose(){
+      var widthLIN1 = localStorage.getItem("key1"); 
+      if (widthLIN1 == "2") {
+         window.webkit.messageHandlers.Mclose.postMessage("123");
+     }else{
+        window.control.mClose();
+     }
+      
+}
+function Mback(){
+    window.history.go(-1);
+}
+</script>
+</html>

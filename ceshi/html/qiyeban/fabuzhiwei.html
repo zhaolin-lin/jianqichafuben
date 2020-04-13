@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>发布职位</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport"
+		content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../../css/qiyeban/fabuzhiwei.css">
+	<link rel="stylesheet" type="text/css" href="../../css/iconfont.css">
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script src="../../js/bootstrap.js"></script>
+	<script src="../../js/vue.js"></script>
+	<script src="../../js/vue.min.js"></script>
+	<script src="../../js/axios.js"></script>
+	<script src="../../js/vue-resource.js"></script>
+	<script src="../../js/jsencrypt.js"></script>
+    <script src="../../js/hsjidh.js"></script>
+    <script src="../../js/axiosjsqing.js"></script>
+    <script src="../../js/jgifdj.js"></script>
+	<style type="text/css">
+		.tan2{
+			max-height: 50%;
+			overflow-y: scroll;
+		}
+		[v-cloak]{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+<div id="fabuzhiwei" v-cloak>
+	<div class="til">
+		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 til_point" @click="fanhuiF"><img src="../../img/left_point.png"></div>
+		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 til_text" v-if="xianshi == 'fabu'">发布职位</div>
+		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 til_text" v-if="xianshi == 'bianji'">编辑职位</div>
+	</div>
+	<div class="bodys">
+		<div class="nav"  v-if="xianshi == 'fabu'">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 nav_left" @click="xingzhiF('quanzhi')">
+				<div :class="xingzhi == 'quanzhi' ? 'nav_left_text col' : 'nav_left_text'">全职兼职</div>
+				<div :class="xingzhi == 'quanzhi' ? 'line' : ''"></div>
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 nav_right"  @click="xingzhiF('zigejianzhi')">
+				<div :class="xingzhi == 'zigejianzhi' ? 'nav_left_text col' : 'nav_left_text'">资格兼职</div>
+				<div :class="xingzhi == 'zigejianzhi' ? 'line' : ''"></div>
+			</div>
+		</div>
+		<div v-if="xingzhi == 'quanzhi'">
+			<div class="xiangmuname">
+				<div class="xm_name">职位名称</div>
+				<div class="xm_text" style="color:#000;" @click="dianji1()">{{namename}} <span class=" iconfont icon-jiantou1"></span></div>
+			</div>
+			<div class="xiangmuname">
+				<div class="xm_name">职位类别</div>
+				<div class="xm_text" style="color:#000;" @click="dianji2()">{{leibeiname}} <span class=" iconfont icon-jiantou1"></span></div>
+			</div>
+			<div class="xiangmuname">
+				<div class="xm_name">工作地区</div>
+				<div class="xm_text" style="color:#000;" @click="diquF1">{{dishiname}}<span class=" iconfont icon-jiantou1"></span></div>
+			</div>
+			<div class="qiyedizhi">
+				<div class="dizhi_name">详细地址</div>
+				<div class="dizhi_text" style="width: 60%;">
+					<form><input type="" name="" placeholder="请填写详细地址" class="inp dizhiinp" style="width: 100%;"  v-model = "xiangxidizhi"></form>
+				</div>
+			</div>
+			<div class="xiangmuname">
+				<div class="xm_name">薪资待遇</div>
+				<div class="xm_text" style="color:#000;" @click="dianji('salary')">{{salaryname}} <span  class=" iconfont icon-jiantou1"></span></div>
+			</div>
+			<div class="xiangmuname">
+				<div class="xm_name">学历要求</div>
+				<div class="xm_text" style="color:#000;" @click="dianji('education')">{{educationname}} <span  class=" iconfont icon-jiantou1"></span></div>
+			</div>
+			<div class="xiangmuname">
+				<div class="xm_name">工作经验</div>
+				<div class="xm_text" style="color:#000;" @click="dianji('experience')">{{experiencename}} <span class=" iconfont icon-jiantou1"></span></div>
+			</div>
+			<div class="qiyedizhi">
+				<div class="dizhi_name">招聘人数</div>
+				<div class="dizhi_text">
+					<form><input type="" name="" placeholder="请填写招聘人数" class="inp" v-model = "zhaopinrenshu"></form>
+				</div>
+			</div>
+			<div class="xiangmuname">
+				<div class="xm_name">职位性质</div>
+				<div class="xm_text" style="color:#000;" @click="dianji('gongzuo')">{{gongzuoname}} <span  class=" iconfont icon-jiantou1"></span></div>
+			</div>
+			<div class="zhiweixiangqing">
+				<div class="zwxq">职位详情</div>
+				<div class="zwxq_kuang"><textarea v-model = "quanzhiShuoming" class="quanzhi_huoming"></textarea></div>
+			</div>
+			<div class="lianxi">
+				<div class="fangshi">
+					<div style="overflow: hidden;margin-top: 15px;padding-left: 10px;padding-right:10px;width: 100%;">
+						<div style="float: left;">姓名</div>
+						<form style="float: right;"><input type="" name="" value="" class="nameinp" v-model = "nameinp"></form>
+					</div>
+					<div style="overflow: hidden;margin-top: 10px;padding-left: 10px;padding-right:10px;width: 100%;">
+						<div style="float: left;">联系方式</div>
+						<form style="float: right;"><input type="" name="" value="" class="telinp" v-model = "tel"></form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div v-if="xingzhi == 'zigejianzhi'">
+			<div class="xiangmuname">
+				<div class="xm_name">证书类型</div>
+				<div class="xm_text" style="color:#000;"  @click="dianji11">{{zslxName1}} <span class="iconfont icon-jiantou1"></span></div>
+			</div>
+			<div class="xiangmuname">
+				<div class="xm_name">证书专业</div>
+				<div class="xm_text" style="color:#000;" @click="dianji22">{{zszysName1}} <span class="iconfont icon-jiantou1"></span></div>
+			</div>
+			<div class="xiangmuname">
+				<div class="xm_name">用证地区</div>
+				<div class="xm_text" style="color:#000;" @click="diquF1">{{dishi1name}} <span class="iconfont icon-jiantou1"></span></div>
+			</div>
+			<div class="qiyedizhi">
+				<div class="dizhi_name">详细地址</div>
+				<div class="dizhi_text" style="width: 60%;">
+					<form><input type="" name="" placeholder="请填写详细地址" class="inp dizhiinp" v-model = "xiangxidizhi" style="width: 100%;"></form>
+				</div>
+			</div>
+			<div class="xiangmuname">
+				<div class="xm_name">学历要求</div>
+				<div class="xm_text" style="color:#000;" @click="dianji0('education')">{{education1name}} <span class="iconfont icon-jiantou1"></span></div>
+			</div>
+			<div class="xiangmuname">
+				<div class="xm_name">注册情况</div>
+				<div class="xm_text" style="color:#000;" @click="dianji0('zhuceq')">{{zhuceq1name}} <span class="iconfont icon-jiantou1"></span></div>
+			</div>
+			<div class="xiangmuname">
+				<div class="xm_name">职称</div>
+				<div class="xm_text" style="color:#000;" @click="dianji0('zhicheng')">{{zhicheng1name}} <span class="iconfont icon-jiantou1"></span></div>
+			</div>
+			<div class="xiangmuname">
+				<div class="xm_name">证书用途</div>
+				<div class="xm_text" style="color:#000;" @click="dianji0('yongtu')">{{yongtu1name}} <span class="iconfont icon-jiantou1"></span></div>
+			</div>
+			<div class="xiangmuname">
+				<div class="xm_name">职位薪资</div>
+				<div class="xm_text" style="color:#000;" @click="dianji0('salary')">{{salary1name}} <span class="iconfont icon-jiantou1"></span></div>
+			</div>
+			<div class="xiangmuname">
+				<div class="xm_name">业绩要求</div>
+				<div class="xm_text" style="color:#000;" @click="dianji0('xuyao')">{{xuyao1name}} <span class="iconfont icon-jiantou1"></span></div>
+			</div>
+			<div class="zhiweixiangqing">
+				<div class="zwxq">详细说明</div>
+				<div class="zwxq_kuang"><textarea class="zige_shuoming" v-model = "quanzhiShuoming"></textarea></div>
+			</div>
+			<div class="lianxi">
+				<div class="fangshi">
+					<div style="overflow: hidden;margin-top: 15px;padding-left: 10px;padding-right:10px;width: 100%;">
+						<div style="float: left;">姓名</div>
+						<form style="float: right;"><input type="" name="" value="" class="nameinp" v-model = "nameinp"></form>
+					</div>
+					<div style="overflow: hidden;margin-top: 10px;padding-left: 10px;padding-right:10px;width: 100%;">
+						<div style="float: left;">联系方式</div>
+						<form style="float: right;"><input type="" name="" value="" class="telinp" v-model = "tel"></form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="fabu"><span @click="fabu">发布职位</span></div>
+
+		<div class="tan1"  v-if="xingzhi == 'quanzhi'">
+			<div class="tan1"  @click="tan1"></div>
+			<div class="tan2" style="z-index: 999999;overflow-y: scroll;">
+				<span v-if="aaa == '1'" v-for="(names,index) in name" @click="tiaojiaoXZ1(names.name,index,names.id)" style="height: 35px;width: 100%;line-height: 35px;text-align: center;display: block;">{{names.name}}</span>
+				<span v-if="aaa == '2'" v-for="(leibeis,index) in leibei" @click="tiaojiaoXZ2(leibeis.name,leibeis.id)" style="height: 35px;width: 100%;line-height: 35px;text-align: center;display: block;">{{leibeis.name}}</span>
+				<div v-if="aaa == '3'" v-for="(users,index) in userZhi" @click="tiaojiaoXZ(users.name,users.id)" class="tan2_text">{{users.name}}</div>
+				<div  v-if="aaa == '4'" style="width: 100%;height: 100%;overflow-y: hidden;" class="diqu">
+					<div style="float: left;width: 33.33%;overflow-y: scroll;height: 100%;">
+						<div v-for="(shengs,index) in sheng" style="width: 100%;height: 35px;display: flex;align-items: center;justify-content: center;" @click="xuanshi(shengs.name,shengs.id,index)"  :class="'class' + index" class="sheng">
+							{{shengs.name}}
+						</div>
+					</div>
+					<div style="float: left;width: 33.33%;overflow-y: scroll;height: 100%;">
+						<div v-for="(shis,index) in shi" style="width: 100%;height: 35px;display: flex;align-items: center;justify-content: center;" @click="shiF(shis.name,shis.id,index)" :id="'id' + index" class="shi">{{shis.name}}</div>					
+					</div>
+					<div  style="float: left;width: 33.33%;overflow-y: scroll;height: 100%;">
+						<div v-for="(qus,index) in qu" style="width: 100%;height: 35px;display: flex;align-items: center;justify-content: center;" @click="quF(qus.name,qus.id,index)" :id="'id' + index" class="qu">{{qus.name}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="tan1"  v-if="xingzhi == 'zigejianzhi'">
+			<div class="tan1" @click="tan1"></div>
+			<div class="tan2" style="z-index: 999999;overflow-y: scroll;">
+				<span v-if="bbb == '1'" v-for="(zslx,index) in zhengshuleixing" @click="zslxF(zslx.name,index,zslx.id)" style="height: 35px;width: 100%;line-height: 35px;text-align: center;display: block;">{{zslx.name}}</span>
+				<span v-if="bbb == '2'" v-for="(zszys,index) in zszy" @click="zslxF1(zszys.name,zszys.id)" style="height: 35px;width: 100%;line-height: 35px;text-align: center;display: block;">{{zszys.name}}</span>
+				<div v-if="bbb == '3'"  v-for="(zigeZhis,index) in zigeZhi" class="tan2_text" @click="zigeF(zigeZhis.name,zigeZhis.id)">{{zigeZhis.name}}</div>
+<!-- 省市地区 -->
+				<div  v-if="bbb == '4'" style="width: 100%;overflow: hidden;" class="diqu">
+					<div style="float: left;width: 33.33%;overflow-y: scroll;height: 100%;">
+						<div v-for="(shengs,index) in sheng" style="width: 100%;height: 35px;display: flex;align-items: center;justify-content: center;" @click="xuanshi(shengs.name,shengs.id,index)"  :class="'class' + index" class="sheng">
+							{{shengs.name}}
+						</div>
+					</div>
+					<div style="float: left;width: 33.33%;overflow-y: scroll;height: 100%;">
+						<div v-for="(shis,index) in shi" style="width: 100%;height: 35px;display: flex;align-items: center;justify-content: center;" @click="shiF(shis.name,shis.id,index)" :id="'id' + index" class="shi">{{shis.name}}</div>					
+					</div>
+					<div  style="float: left;width: 33.33%;overflow-y: scroll;height: 100%;">
+						<div v-for="(qus,index) in qu" style="width: 100%;height: 35px;display: flex;align-items: center;justify-content: center;" @click="quF(qus.name,qus.id,index)" :id="'id' + index" class="qu">{{qus.name}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="tishi" @click="tishiF">
+			<span class="tishi_text">请填写完整信息</span>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="../../js/fabuzhiwei.js"></script>
+</html>

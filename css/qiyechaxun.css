@@ -1,0 +1,256 @@
+ul ol li{
+	margin: 0;
+	padding: 0;
+}
+.xuanze{
+	position: fixed;
+	bottom:0px;
+	left: 0px;
+	background-color: rgba(0 ,0 , 0 ,0.2);
+	width: 100%;
+	height: 100%;
+	z-index: 10000;
+	overflow:auto;
+}
+.xuanze1{
+	position: fixed;
+	bottom:0px;
+	left: 0px;
+	background-color: rgb(255 ,255 ,255);
+	width: 100%;
+	height: 60%;
+	z-index: 99999;
+	
+}
+.xuanze_1{
+	width: 100%;
+	height: 30px;
+	margin-top: -6px;
+	text-align: center;
+	display: flex;
+}
+.xuanze_1 div{
+	height: 0px;
+}
+.xuanze_1 div button{
+	margin: 20px 0px;
+    background: rgb(253, 151, 0);
+    border-radius: 10px;
+    width: 90%;
+    height: 30px;
+    border: 1px solid rgb(253, 151, 0);
+    outline: none;
+    color: rgb(255, 255, 255);
+}
+.libiao ul li {
+	width: 100%;
+	text-align: center;
+	line-height: 40px;
+	height: 40px;
+	border-bottom: 1px solid #f2f2f2;
+}
+.libiao{
+	margin-top: 20px;
+	width: 100%;
+	height: 90%;
+	overflow:auto;
+
+}
+.center-in-center{
+	width: 230px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	border-radius: 10px;
+	font-size: 18px;
+	background: #fff;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	-moz-box-shadow:2px 2px 5px #333333;
+	-webkit-box-shadow:2px 2px 5px #333333;
+	box-shadow:2px 2px 5px #333333;
+}
+.xuanzes{
+	position: fixed;
+	bottom:0px;
+	left: 0px;
+	background-color: rgba(0 ,0 , 0 ,0.2);
+	width: 100%;
+	height: 100%;
+	z-index: 10000;
+	overflow:auto;
+}
+.xuanze1s{
+	position: fixed;
+	bottom:0px;
+	left: 0px;
+	background-color: rgb(255 ,255 ,255);
+	width: 100%;
+	height: 60%;
+	z-index: 99999;
+	
+}
+.xuanze_1s{
+	width: 100%;
+	height: 30px;
+	margin-top: -6px;
+	text-align: center;
+	display: flex;
+}
+.xuanze_1s div{
+	height: 0px;
+}
+.xuanze_1s div button{
+	margin: 20px 0px;
+    background: rgb(253, 151, 0);
+    border-radius: 10px;
+    width: 90%;
+    height: 30px;
+    border: 1px solid rgb(253, 151, 0);
+    outline: none;
+    color: rgb(255, 255, 255);
+}
+.libiaos ul li {
+	width: 100%;
+	text-align: center;
+	line-height: 40px;
+	height: 40px;
+	border-bottom: 1px solid #f2f2f2;
+}
+.libiaos{
+	margin-top: 20px;
+	width: 100%;
+	height: 90%;
+	overflow:auto;
+}
+.xuanzes_1{
+	position: fixed;
+	bottom:0px;
+	left: 0px;
+	background-color: rgba(0 ,0 , 0 ,0.2);
+	width: 100%;
+	height: 100%;
+	z-index: 10000;
+	overflow:auto;
+}
+.xuanze1s_1{
+	position: fixed;
+	bottom:0px;
+	left: 0px;
+	background-color: rgb(255 ,255 ,255);
+	width: 100%;
+	height: 60%;
+	z-index: 99999;
+	
+}
+.xuanze_1s_1{
+	width: 100%;
+	height: 30px;
+	margin-top: -6px;
+	text-align: center;
+	display: flex;
+}
+.xuanze_1s_1 div{
+	height: 0px;
+}
+.xuanze_1s_1 div button{
+	margin: 20px 0px;
+    background: rgb(253, 151, 0);
+    border-radius: 10px;
+    width: 90%;
+    height: 30px;
+    border: 1px solid rgb(253, 151, 0);
+    outline: none;
+    color: rgb(255, 255, 255);
+}
+.libiaos_1 ul li {
+	width: 100%;
+	text-align: center;
+	line-height: 40px;
+	height: 40px;
+	border-bottom: 1px solid #f2f2f2;
+}
+.libiaos_1{
+	margin-top: 20px;
+	width: 100%;
+	height: 90%;
+	overflow:auto;
+
+}
+
+/*////////////////////////////*/
+.xuanzes_1s{
+	position: fixed;
+	bottom:0px;
+	left: 0px;
+	background-color: rgba(0 ,0 , 0 ,0.2);
+	width: 100%;
+	height: 100%;
+	z-index: 10000;
+	overflow:auto;
+}
+.xuanze1s_1s{
+	position: fixed;
+	bottom:0px;
+	left: 0px;
+	background-color: rgb(255 ,255 ,255);
+	width: 100%;
+	height: 60%;
+	z-index: 99999;
+	
+}
+.xuanze_1s_1s{
+	width: 100%;
+	height: 30px;
+	margin-top: -6px;
+	text-align: center;
+	display: flex;
+}
+.xuanze_1s_1s div{
+	height: 0px;
+}
+.xuanze_1s_1s div button{
+	margin: 20px 0px;
+    background: rgb(253, 151, 0);
+    border-radius: 10px;
+    width: 90%;
+    height: 30px;
+    border: 1px solid rgb(253, 151, 0);
+    outline: none;
+    color: rgb(255, 255, 255);
+}
+.libiaos_1s ul li {
+	width: 100%;
+	text-align: center;
+	line-height: 40px;
+	height: 40px;
+	border-bottom: 1px solid #f2f2f2;
+}
+.libiaos_1s{
+	margin-top: 20px;
+	width: 100%;
+	height: 90%;
+	overflow:auto;
+	/* sahdjk */
+}
+
+#return_top{
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    right: 25px;
+    bottom: 10px;
+	display: none;
+	border-radius: 41px;
+    border: 1px solid #000;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFFFFF;
+    
+}

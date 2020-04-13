@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>找工作</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/zhaogongzuo.css">
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script src="js/swiper.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/vue-resource.js"></script>
+    <script src="js/jsencrypt.js"></script>
+    <script src="js/hsjidh.js"></script>
+    <script src="js/axiosjsqing.js"></script>
+    <script src="js/jgifdj.js"></script>
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+<!-- 顶部 -->
+<div id="zhaogongzuo" style="width: 100%;height: 100%;overflow:hidden;">
+<div class="top">
+	<div class="dizhi"  @click="xuanzediqu">
+		<div class="dizhi_text" style="text-align: center;">{{shi}}</div>
+		<div class="dizhi_img"><img src="img/ditu.png"></div>
+	</div>
+	<div class="sousuo" @click="sousuoF">
+		<input type="text" name="" class="top_inp" placeholder="搜索职位" disabled>
+	</div>
+</div>
+<div class="gz_bodys">
+	<div class="bodys_nav">
+		<p @click="tuijian" :class="type == 1 ? 'bodys_nav_p tuijian bodys_nav_p_xz':'bodys_nav_p tuijian'">推荐</p>
+		<p style="margin-left:5%;" @click="zuixin" :class="type == 2 ? 'bodys_nav_p tuijian bodys_nav_p_xz':'bodys_nav_p tuijian'">最新</p>
+		<div class="gaoji" style="display: none">
+			<p class="gaoji_dizhi">桥西区</p>
+			<p class="gaoji_shaixuan">高级筛选</p>
+		</div>
+	</div>
+	<div class="bodys_nr">
+		<div class="zhiwei11" v-for="(users,index) in user">
+			<div class="zhiwei tuiujian_zhiwei">
+				<div class="zhiwei_name">
+					<div class="zhiwei_name1">{{users.name}}</div>
+					<div class="zhiwei_money">{{users.salary}}</div>
+				</div>
+				<div class="zhiwei_xinxi1">
+					<div style="float: left;font-size: 1.2rem;width: 75%;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;color:#888">
+						<span>{{users.place}}</span>
+						<span>|</span>
+						<span>{{users.experience}}</span>
+						<span>|</span>
+						<span>{{users.education}}</span>
+						<span>|</span>
+						<span>{{users.type}}</span>
+					</div>
+					<div style="float: right;font-size: 1.1rem;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{{users.time}}</div>
+				</div>
+				<div class="gongsi1">
+					<div class="gongsi_img"><img :src="'http://192.168.2.100'+users.face"></div>
+					<div class="gongsi_xinxi">
+						<p class="gongsi_name">{{users.company_name}}<span>{{users.financing}}</span></p>
+						<p class="gongsi_zhaopin">
+							<span>{{users.uname}}</span>
+							<span>|</span>
+							<span>{{users.position}}</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 底部 -->
+<div class="bot" style="background-color: #fff;" id="bot">
+	<div class="bot1" @click="index">
+		<div class="bot1_img">
+			<img src="img/shouye1.png">
+		</div>
+		<div class="bot1_text index">首页</div>
+	</div>
+	<div class="bot1" @click="zhaogongzuo">
+		<div class="bot1_img">
+			<img src="img/zhaogongzuo2.png">
+		</div>
+		<div class="bot1_text yanse zhaogongzuo">找工作</div>
+	</div>
+	<div class="bot1" @click="zhaorencai">
+		<div class="bot1_img">
+			<img src="img/zhaorencai1.png">
+		</div>
+		<div class="bot1_text zhaorencai">招人才</div>
+	</div>
+	<div class="bot1" @click="wode">
+		<div class="bot1_img">
+			<img src="img/wode1.png">
+		</div>
+		<div class="bot1_text wode">我的</div>
+	</div>
+</div>
+</div>
+</body>
+<script src="js/zhaogongzuo.js"></script>
+</html>

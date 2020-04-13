@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/rencaixiangqing.css">
+	<link rel="stylesheet" type="text/css" href="css/iconfont.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/vue-resource.js"></script>
+	<script src="js/vconsole.min.js"></script>
+    <script src="js/jsencrypt.js"></script>
+    <script src="js/hsjidh.js"></script>
+    <script src="js/axiosjsqing.js"></script>
+    <script src="js/jgifdj.js"></script>
+	<title>人才详情</title>
+</head>
+<style>
+	html,
+	body,
+	ul,
+	li {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		height: 100%;
+		font-size: 12px;
+	}
+	*{
+		padding:0;
+	}
+	#app{
+		width: 100%;
+		height: 100%;
+	}
+	.wrap {
+		overflow: hidden;
+		height: 40px;
+		position: fixed;
+		background: #FD9700;
+		width: 100%;
+		z-index: 10000;
+		-moz-box-shadow:0px 5px 5px #ccc; 
+		-webkit-box-shadow:0px 5px 5px #ccc; 
+		box-shadow:0px 5px 5px #ccc;
+	}
+
+	.cont {
+		height: 40px;
+		overflow-x: auto;
+		overflow-y: hidden;
+		position: relative;
+		background-color: #fff;
+	}
+
+	.state {
+		left: 0px;
+		top: 0px;
+		position: absolute;
+		height: 40px;
+		background: #fff;
+		overflow-x: auto;
+		white-space: nowrap;
+		display: flex;
+	}
+
+	.state li {
+		display: inline-block;
+		font-size: 1.2rem;
+		text-decoration: none;
+		color: #000;
+		padding: 1px 5px;
+		display: flex;
+		align-items: center;
+	}
+
+	.diyige {
+		position: absolute;
+		top: 30px;
+		left: 0;
+		overflow: scroll;
+		padding-bottom: 300px;
+	}
+
+	.corle {
+		display: none
+	}
+	#wan{
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.tishi{
+		width: 100%;
+		height: 100%;
+		font-size: 1.4rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: transparent;
+	}
+	.tishi span{
+		padding: 10px 15px;
+		background-color: #fff;
+		color:#ff7800;
+		border:1px solid #ff7800;
+		border-radius: 5px;
+	}
+</style>
+
+<body>
+	<div id="rencaixiangqing">
+		<div class="til">
+			<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 til_point"><img src="img/left_point.png"></div>
+			<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 til_text">人才详情</div>
+		</div>
+		<!-- 导航条 -->
+		<div class="bodys">
+			<div class="wrap" id="ceshi" style="display: none">
+				<div class="cont">
+					<ul class="state" id="ul1">
+						<li style="text-align: center;" id="li1"> <span style="width: 100%;display: block;"
+								@click="xuanze('yi')" id="yis">个人信息</span>
+						</li>
+						<li style="text-align: center;" id="li2" v-if="user.yixiang != undefined"> <span style="width: 100%;display: block;"
+								@click="xuanze('er')" id="ers">求职意向</span>
+						</li>
+						<li style="text-align: center;" id="li3" v-if="user.pingjia != undefined"> <span style="width: 100%;display: block;"
+								@click="xuanze('san')" id="sans">自我评价</span>
+						</li>
+						<li style="text-align: center;" id="li4" v-if="user.jingyan != undefined"> <span style="width: 100%;display: block;"
+								@click="xuanze('si')" id="sis">工作经历</span>
+						</li>
+						<li style="text-align: center;" id="li5" v-if="user.xiangmu != undefined"> <span style="width: 100%;display: block;"
+								@click="xuanze('wu')" id="wus">项目经历</span>
+						</li>
+						<li style="text-align: center;" id="li6" v-if="user.jiaoyu != undefined"> <span style="width: 100%;display: block;"
+								@click="xuanze('liu')" id="lius">教育经历</span>
+						</li>
+						<li style="text-align: center;" id="li7" v-if="user.peixun != undefined"> <span style="width: 100%;display: block;"
+								@click="xuanze('qi')" id="qis">培训经历</span>
+						</li>
+						<li style="text-align: center;" id="li8"  v-if="user.zhengshu != undefined"> <span style="width: 100%;display: block;"
+								@click="xuanze('ba')" id="bas">证书</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 人才信息部分 -->
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 diyige" id="wan">
+				<!-- 基本信息 -->
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 yi dv1" id="yi">
+					<div class="qiuzhiyizhi rencai_xinxi">
+						<div class="rencai_qiangqing">
+							<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 rencai_img">
+								<img :src="'../../' + user.jiben.face">
+							</div>
+							<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 rencai_right">
+								<div class="rencai_name">{{user.jiben.name}}</div>
+								<div class="rencai_aa">
+									<span>{{user.jiben.sex}}</span>
+									<span>{{user.jiben.age}}</span>
+									<span>{{user.jiben.experience}}</span>
+									<span>{{user.jiben.live_city}}</span>
+								</div>
+							</div>
+						</div>
+						<div class="rencai_tel">手机号码：{{user.jiben.phone}}</div>
+						<div class="rencai_emia">邮箱地址：{{user.jiben.email}}</div>
+					</div>
+				</div>
+				<!-- 求职意向 -->
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 er dv1" id="er">
+					<div class="qiuzhiyizhi" v-if="user.yixiang != undefined">
+						<div class="qz_til">求职意向</div>
+						<div class="qz_qingkuang">
+							<span v-if="user.yixiang.xingzhi != undefined">工作性质：{{user.yixiang.xingzhi}}</span>
+							<span v-if="user.yixiang.city != undefined">工作地点：{{user.yixiang.city}}</span>
+							<span v-if="user.yixiang.xinzi != undefined">预期薪资：{{user.yixiang.xinzi}}</span>
+							<span v-if="user.yixiang.hangye != undefined">职位类别：{{user.yixiang.hangye}}</span>
+							<span v-if="user.yixiang.zhiye != undefined">职位名称：{{user.yixiang.zhiye}}</span>
+							<span v-if="user.yixiang.zhuangtai != undefined">目前状态：{{user.yixiang.zhuangtai}}</span>
+							<span v-if="user.yixiang.zhuangtai != undefined">证书用途：{{user.yixiang.zhuangtai}}</span>
+							<span v-if="user.yixiang.text != undefined">详细说明</span>
+							<span  style="text-indent: 25px;line-height: 25px;">{{user.yixiang.text}}</span>
+						</div>
+					</div>
+				</div>
+				<!-- 自我评价 -->
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 san dv1" id="san">
+					<div class="qiuzhiyizhi" v-if="user.pingjia != undefined">
+						<div class="qz_til">自我评价</div>
+						<div class="qz_qingkuang">
+							<span style="text-indent: 25px;line-height: 25px;padding-bottom: 20px;">{{user.pingjia.text}}</span>
+						</div>
+					</div>
+				</div>
+				<!-- 工作经历 -->
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 si dv1" id="si">
+					<div class="qiuzhiyizhi" v-if="user.jingyan != undefined">
+						<div class="qz_til">工作经历</div>
+						<div class="gongzuojingli" v-for="(jingyans,index) in user.jingyan">
+							<span v-if="jingyans.company != undefined">公司名称：{{jingyans.company}}</span>
+							<span v-if="jingyans.start_time != undefined">开始时间：{{jingyans.start_time}}</span>
+							<span v-if="jingyans.end_time != undefined">结束时间：{{jingyans.end_time}}</span>
+							<span v-if="jingyans.zhiwei != undefined">职位类别：{{jingyans.zhiwei}}</span>
+							<span v-if="jingyans.hangye != undefined">行业类型：{{jingyans.hangye}}</span>
+							<span v-if="jingyans.zhiwei_ming != undefined">职位名称：{{jingyans.zhiwei_ming}}</span>
+							<span v-if="jingyans.xinzi != undefined">职位薪资(税前)：{{jingyans.xinzi}}</span>
+							<span v-if="jingyans.text != undefined">工作描述</span>
+							<span  style="text-indent: 25px;line-height: 25px;">{{jingyans.text}}</span>
+						</div>
+					</div>
+				</div>
+				<!-- 项目经历 -->
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 wu dv1" id="wu">
+					<div class="qiuzhiyizhi" v-if="user.xiangmu != undefined">
+						<div class="qz_til">项目经历</div>
+						<div class="gongzuojingli" v-for="(xiangmus,index) in user.xiangmu">
+							<span>项目名称：{{xiangmus.name}}</span>
+							<span>开始时间：{{xiangmus.start_time}}</span>
+							<span>结束时间：{{xiangmus.end_time}}</span>
+							<span v-if="xiangmus.zhiwu != undefined ">担任职务：{{xiangmus.zhiwu}}</span>
+							<span v-if="xiangmus.company != undefined">建设单位：{{xiangmus.company}}</span>
+							<span v-if="xiangmus.number != undefined">项目编号：{{xiangmus.number}}</span>
+							<span v-if="xiangmus.address != undefined">项目地址：{{xiangmus.address}}</span>
+							<span v-if="xiangmus.duty != undefined">项目描述</span>
+							<span  style="text-indent: 25px;line-height: 25px;">{{xiangmus.duty}}</span>
+							<span v-if="xiangmus.text != undefined">个人职责</span>
+							<span  style="text-indent: 25px;line-height: 25px;">{{xiangmus.text}}</span>
+						</div>
+					</div>
+				</div>
+				<!-- 教育经历 -->
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 liu dv1" id="liu">
+					<div class="qiuzhiyizhi" v-if="user.jiaoyu != undefined">
+						<div class="qz_til">教育经历</div>
+						<div class="gongzuojingli" v-for="(jiaoyus,index) in user.jiaoyu">
+							<span>学校名称：{{jiaoyus.school}}</span>
+							<span>专业名称：{{jiaoyus.major}}</span>
+							<span>学历/学位：{{jiaoyus.education}}</span>
+							<span>开始时间：{{jiaoyus.start_time}}</span>
+							<span>结束时间：{{jiaoyus.end_time}}</span>
+						</div>
+					</div>
+				</div>
+				<!-- 培训经历 -->
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 qi dv1" id="qi">
+					<div class="qiuzhiyizhi" v-if="user.peixun != undefined">
+						<div class="qz_til">培训经历</div>
+						<div class="gongzuojingli" v-for="(peixuns,index) in user.peixun">
+							<span v-if="peixuns.train != undefined">培训机构：{{peixuns.train}}</span>
+							<span v-if="peixuns.course != undefined">专业名称：{{peixuns.course}}</span>
+							<span v-if="peixuns.start_time != undefined">开始时间：{{peixuns.start_time}}</span>
+							<span v-if="peixuns.end_time != undefined">结束时间：{{peixuns.end_time}}</span>
+						</div>
+					</div>
+				</div>
+				<!-- 证书 -->
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ba dv1" id="ba">
+					<div class="qiuzhiyizhi" v-if="user.zhengshu != undefined">
+						<div class="qz_til">证书</div>
+						<div class="gongzuojingli" v-for="(zhengshus,index) in user.zhengshu">
+							<span v-if="zhengshus.name != undefined">证书名称：{{zhengshus.name}}</span>
+							<span v-if="zhengshus.zhuanye != undefined">证书专业：{{zhengshus.zhuanye}}</span>
+							<span v-if="zhengshus.leixing != undefined">职称：{{zhengshus.leixing}}</span>
+							<span v-if="zhengshus.register != undefined">注册情况：{{zhengshus.register}}</span>
+							<span v-if="zhengshus.seat != undefined">证书所在地：{{zhengshus.seat}}</span>
+							<span v-if="zhengshus.seats != undefined">社保所在地：{{zhengshus.seats}}</span>
+							<span v-if="zhengshus.time != undefined">获得时间：{{zhengshus.time}}</span>
+							<span v-if="zhengshus.endtime != undefined">有效期限：{{zhengshus.endtime}}</span>
+							<span v-if="zhengshus.status != undefined">证书状态：{{zhengshus.status}}</span>
+							<span v-if="zhengshus.register_danwei != undefined">注册单位：{{zhengshus.register_danwei}}</span>
+							<span v-if="zhengshus.seal != undefined">执业印章号：{{zhengshus.seal}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bot">
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 qingchu" @click="xiazaiF"><span class="xianzai1">下载简历</span></div>
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 qingchu" @click="biaozhuF"><span class="biaozhu1">请标注</span></div>
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 qingchu" @click="yaoqingF">
+				<span>邀请面试</span>
+			</div>
+			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 queren"><span>立即联系</span></div>
+		</div>
+		<div class="tan1">
+			<div class="tan1" @click="tan1"></div>
+			<div class="tan2" style="background-color: transparent;">
+				<div class="qingbiaozhu" v-if="tank == 'biaozhu'" style="background-color: #fff">
+					<div class="biaoz" @click="zhuangtaiF('2')">可面试</div>
+					<div class="biaoz" @click="zhuangtaiF('3')">约面试</div>
+					<div class="biaoz" @click="zhuangtaiF('4')">未接通</div>
+					<div class="biaoz" @click="zhuangtaiF('5')">不合适</div>
+				</div>
+				<div class="yaomianshi" v-if="tank == 'mianshi'" style="background-color: #fff">
+					<div class="ms_yaoqing">
+						<div class="start"><img src="img/start.png"></div>
+						<div class="ms_ren">面试人</div>
+						<div class="ms_name" style="color:#888">
+							<input type="text" name="" class="msInp" v-model = "name" disabled>
+						</div>
+					</div>
+					<div class="ms_yaoqing">
+						<div class="start"><img src="img/start.png"></div>
+						<div class="ms_ren">面试职位</div>
+						<div class="ms_name">
+							<input type="text" name="" class="msInp" v-model = "positions" disabled>
+						</div>
+					</div>
+					<div class="ms_yaoqing">
+						<div class="start"><img src="img/start.png"></div>
+						<div class="ms_ren">面试时间</div>
+						<div class="ms_name1" style="width: 70%;">
+							<input type="datetime-local" name="" class="msInp1" v-model = "time" pattern="yyyy-MM-dd HH:mm:ss" placeholder="请选择时间">
+							<span class="iconfont icon-jiantou1 jiantou" style="font-size: 1.2rem;text-align: right;"></span>
+						</div>
+					</div>
+					<div class="ms_yaoqing">
+						<div class="start"><img src="img/start.png"></div>
+						<div class="ms_ren">面试地点</div>
+						<div class="ms_name">
+							<input type="text" name="" class="msInp msdidian" v-model = "address" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">
+						</div>
+					</div>
+					<div class="ms_yaoqing">
+						<div class="start"><img src="img/start.png"></div>
+						<div class="ms_ren">联系人</div>
+						<div class="ms_name">
+							<input type="text" name="" class="msInp" v-model = "hr_name">
+						</div>
+					</div>
+					<div class="ms_yaoqing">
+						<div class="start"><img src="img/start.png"></div>
+						<div class="ms_ren">联系电话</div>
+						<div class="ms_name">
+							<input type="text" name="" class="msInp" v-model = "hr_tel">
+						</div>
+					</div>
+					<div class="ms_yaoqing">
+						<div class="start"></div>
+						<div class="ms_ren">备注</div>
+						<div class="ms_name">
+							<input type="text" name="" class="msInp" v-model = "remarks" placeholder="请备注">
+						</div>
+					</div>
+					<div class="ms_yaoqing">
+						<div class="start"></div>
+						<div class="ms_ren">通知方式</div>
+						<div class="ms_name" style="color:#888">
+							<input type="text" name="" class="msInp" v-model = "notice" disabled>
+						</div>
+					</div>
+					<div class="fasong">
+						<div class="btn_fasong" @click="fasongyaoqingF">发送面试邀请</div>
+					</div>
+				</div>
+				<div class="tishi" v-if="tank == 'tishi'" @click="tan1"><span>请填写完整信息</span></div>
+			</div>
+		</div>
+	</div>		
+</body>
+<script>
+	$('.rencai_img').height($('.rencai_img').width());
+	$('.tishi').height($('body').height());
+	$('.biaozhu1').width($('.xianzai1').width());
+
+	var url = decodeURI(location.search); //获取url中"?"符后的字串
+    console.log(url)
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for(var i = 0; i < strs.length; i ++) {
+            theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+        }
+    }
+    var types = theRequest.type;
+    var ids = theRequest.id;
+    var mids = theRequest.mid;
+
+
+	var heightlist = new Array();
+	var daodaid = new Array();
+	var wan1 = document.getElementById('wan');
+	var wan2 = wan1.getElementsByClassName('dv1');
+	for (var i = 0; i < wan2.length; i++) {
+		var Height = document.querySelector('.' + wan2[i].id).offsetTop;
+		heightlist.push(Height)
+		daodaid.push(wan2[i].id)
+	}
+	new Vue({
+		el: '#rencaixiangqing',
+		data: {
+			heightlist: heightlist,
+			daodaid: daodaid,
+			name:'',
+			positions:'aaaa',
+			time:'',
+			address:'',
+			hr_name:'',
+			hr_tel:'',
+			remarks:'',  //备注
+			notice:'邮箱',  //通知方式
+			jtype:types,   //0 兼职全职 1 资格兼职
+			user:'',
+			tank:'biaozhu',
+			type:'',   //标注的四个状态 
+			gongsiid:ids,   //企业id
+			jianliid:'',   //简历id
+			mid:mids,
+			resume:''   //1普通人才 2建筑人才 3兼职人才
+		},
+		mounted: function () {
+			var than = this;
+				this.huoqushuju();
+		},
+		created() {
+			window.addEventListener('scroll', this.onScroll)
+		},
+		methods: {
+			huoqushuju: function () {
+				fjdf();
+                var than = this;
+                this.$http.post('../../../../index.php/api/wode/personal_center', {
+                       // id:than.mid
+                       id:'37'
+                },{
+                	headers:{
+                		'Cookies':ashjd
+                	}
+                })
+                    .then(function (res) {
+                        console.log(res.data.data);
+                        than.user = res.data.data;
+                        than.jianliid = res.data.data.jiben.id;
+                        than.name = res.data.data.jiben.name;
+                        than.resume = res.data.data.jiben.resume;
+                        than.positions = res.data.data.yixiang.zhiye;
+                        than.address = res.data.data.qiye.address;
+                        than.hr_name = res.data.data.qiye.recruit_name;
+                        than.hr_tel = res.data.data.qiye.phone;
+                        console.log(res.data.data.yixiang.zhiye)
+                    }, function () {
+                        console.log('请求失败处理');
+                    });
+
+            },
+            biaozhushuju:function(){
+            	fjdf();
+                var than = this;
+                if(than.type == '3'){
+                	bzshuju = {
+                		company_id:than.gongsiid,
+                        id:than.jianliid,
+                        jtype:than.jtype,
+                        type:than.type,
+                		name:than.name,    //面试人
+                		position:than.positions,   //职位
+                		time:than.time,   //时间
+                		address:than.address,  //地址
+                		hr_name:than.hr_name,  //人事姓名
+                		hr_tel:than.hr_tel,   //人事电话
+                		remarks:than.remarks,  //备注
+                		notice:than.notice    //通知方式
+                	}
+                }else{
+                	bzshuju = {
+                		company_id:than.gongsiid,
+                        id:than.jianliid,
+                        jtype:than.jtype,
+                        type:than.type
+                	}
+                }
+                this.$http.post('../../../../index.php/api/qiye/biaozhu', bzshuju,{
+                	headers:{
+                		'Cookies':ashjd
+                	}
+                })
+                    .then(function (res) {
+                        console.log(res.data.data);
+                    }, function () {
+                        console.log('请求失败处理');
+                    });
+            },
+            biaozhuF: function () {
+            	var than = this;
+            	than.tank = 'biaozhu';
+            	$('.tan1').css({'display':'block'})
+            	$('.tan2').css({'display':'block'})
+            	$('body').css({'overflow':'hidden'})
+            },
+            yaoqingF:function(){
+            	var than = this;
+            	than.tank = 'mianshi';
+            	$('.tan1').css({'display':'block'})
+            	$('.tan2').css({'display':'block'})
+            	$('body').css({'overflow':'hidden'})
+            },
+            xiazaiF:function(){
+            	fjdf();
+                var than = this;
+                this.$http.post('../../../../index.php/api/shouye/word', {
+                       id:than.jianliid,  //简历id
+                       company_id:than.gongsiid,   //企业id
+                       type:than.resume   //类型  1普通人才 2建筑人才 3兼职人才
+                },{
+                	headers:{
+                		'Cookies':ashjd
+                	}
+                })
+                    .then(function (res) {
+                        console.log(res.data.data);
+                    }, function () {
+                        console.log('请求失败处理');
+                    });
+            },
+            zhuangtaiF:function(a){
+            	var than = this;
+            	than.type = a;
+            	if(a == '3'){
+            		than.tank = 'mianshi';
+            	}else{
+            		this.biaozhushuju();
+		        	$('.tan1').css({'display':'none'})
+		        	$('.tan2').css({'display':'none'})
+		        	$('body').css({'overflow':'scroll'})
+            	}
+            },
+            fasongyaoqingF:function(){
+            	var than = this;
+            	than.type = '3';
+            	if(than.time == ''){
+            		than.tank = 'tishi';
+            	}else{
+            		var times = than.time.replace(/T/g, " ");
+					var c = new Date(times)
+					than.time = Math.round(c / 1000);
+	            	this.biaozhushuju();
+	            	$('.tan1').css({'display':'none'})
+	            	$('.tan2').css({'display':'none'})
+	            	$('body').css({'overflow':'scroll'})
+            	}
+            },
+			xuanze: function (e) {
+				var id = e;
+				var oUl = document.getElementById('ul1');
+				var oLi = oUl.getElementsByTagName('li');
+				for (var i = 0; i < oLi.length; i++) {
+					var p = i + 1
+					document.getElementById('li' + p).style.color = '#888';
+					oLi[i].index = i;
+					oLi[i].onclick = function () {
+						var s = this.index + 1
+						document.getElementById('li' + s).style.color = '#888'
+					};
+				}
+				var innerHeight = document.querySelector('#' + id).offsetTop;
+				var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+				if (innerHeight > scrollTop) {
+					var b = scrollTop
+					var setI = setInterval(() => {
+						b = Number(b) + Number(20);
+						window.scrollTo(0, b);
+						if (Number(b) + Number(50) >= innerHeight) {
+							clearInterval(setI)
+						}
+					}, 10);
+				} else if (innerHeight < scrollTop) {
+					var b = scrollTop
+					var setI = setInterval(() => {
+						b = b - 20;
+						window.scrollTo(0, b);
+						if (Number(b) + Number(40) <= innerHeight) {
+							clearInterval(setI)
+						}
+					}, 10);
+				}
+			},
+			onScroll: function () {
+				var heightlist = this.heightlist;
+				var daodaid = this.daodaid;
+				var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+				scrollTop = scrollTop + 50;
+				if (scrollTop >= heightlist[1]) {
+					document.getElementById('ceshi').style.display = 'block';
+					for (var i = 0; i < heightlist.length; i++) {
+						var s = i + 1;
+						// document.getElementById('li' + s).style.color = '#888';
+						$('#li' + s).css({'color':'#888'});
+						if (heightlist[i - 1] < scrollTop && scrollTop < heightlist[i]) {
+							// document.getElementById('li' + i).style.color = '#FF8F00';
+							$('#li' + i).css({'color':'#ff7800'});
+						}else if(scrollTop > heightlist[heightlist.length - 1]){
+
+							// document.getElementById('li' + heightlist.length).style.color = '#FF8F00'
+							$('#li' + heightlist.length).css({'color':'#FF8F00'});
+						}
+					}
+				}else{
+					// document.getElementById('ceshi').style.display = 'none';
+					$('#ceshi').css({'display':'none'})
+				}
+			},
+			yaoqing:function(){
+				$('body').css({'overflow':'hidden'})
+				$('.tan1').css({'display':'block'});
+				$('.tan2').css({'display':'block'});
+			},
+			tan1:function(){
+				$('.tan1').css({'display':'none'});
+				$('.tan2').css({'display':'none'});
+				$('body').css({'overflow-y':'scroll'})
+			}
+		}
+	})
+
+</script>
+<!-- <script type="text/javascript" src="js/rencaixiangqing.js"></script> -->
+</html>

@@ -1,0 +1,251 @@
+*{
+	margin:0;
+	padding:0;
+	text-decoration: none;
+	list-style: none;
+}
+html,body{
+	width: 100%;
+	height: 100%;
+	font-size: 12px;
+	overflow:hidden;
+}
+#rencaisousuo{
+	width: 100%;
+	height: 100%;
+}
+.til{
+	width: 100%;
+	height: 40px;
+	border-bottom: 1px solid #eee;
+	overflow:hidden;
+}
+.til_point{
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.til_point img{
+	width: 60%;
+	height: 60%;
+}
+.til_text{
+	height: 100%;
+	font-size: 1.5rem;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	letter-spacing: 3px;
+}
+
+.heads{
+	width: 100%;
+	height: 30px;
+	overflow:hidden;
+}
+.heads_dizhi{
+	height: 100%;
+	overflow:hidden;
+	padding:0;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	padding-top:5px;
+	padding-bottom:5px;
+	float: left;
+}
+.dizhi_text{
+	font-size: 1.3rem;
+	float: left;
+	padding-left:12px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding-right: 3px;
+}
+.dizhi_img{
+	width: 13px;
+    float: left;
+    margin-top:3px;
+}
+.dizhi_img img{
+	width: 100%;
+	height: 100%;
+}
+.heads_inp{
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding:0;
+}
+.heads_inp form{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+.top_inp{
+	width:92%;
+	height: 28px;
+	border-radius: 14px;
+	border:0;
+	background:rgb(244,244,244);
+	text-align: center;
+	outline: none;
+	line-height: 24px;
+	font-size: 1.3rem;
+}
+input::-webkit-input-placeholder{
+ 	background: url('../img/sousuo.png') no-repeat;
+ 	background-size: 7% 76%;
+ 	background-position: 30% 50%; 
+}
+
+.bodys{
+	width: 100%;
+	overflow-y: scroll;
+}
+.bodys_head{
+	width: 100%;
+	overflow: hidden;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.didian{
+	width: 25%;
+	float: left;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.didian_text{
+	font-size: 1.4rem;
+	color:#888;
+	float: left;
+	padding-right: 7px;
+}
+.didian_img{
+	width: 13px;
+	height:10px;
+	float: left;
+	margin-top: -3px;
+}
+.didian_img img{
+	width: 100%;
+	height: 100%;
+}
+.gaoji{
+	font-size: 1.4rem;
+	color:#000;
+	float: left;
+	width: 70%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.bodys_zhiwei{
+	width: 100%;
+	background:rgb(244,244,244);
+}
+.zhiwei1{
+	width:100%;
+	margin-bottom: 4px;
+	background-color: #fff;
+	overflow:hidden;
+	display: flex;
+	align-items: center;
+	padding:10px;
+}
+.zhiwei1_img{
+	width: 60px;
+	height: 60px;
+	float:left;
+	border-radius: 50%;	
+	overflow:hidden;
+}
+.zhiwei1_img img{
+	width: 100%;
+	height: 100%;
+}
+.zhiwei1_cen{
+	width: 57%;
+	float:left;
+	padding-left:10px;
+	padding-top: 5px;
+}
+.zhiwei1_diqu{
+	width: 100%;
+	font-size: 1.2rem;
+	padding-top: 5px;
+	color:#888;
+	display: flex;
+	align-items: center;
+}
+.zhiwei1_diqu span{
+	padding-right:8px;
+}
+.zhiwei1_xx{
+	width: 100%;
+	font-size: 1.2rem;
+	padding-top: 5px;
+	color:#888;
+	display: flex;
+	align-items: center;
+}
+.zhiwei1_xx span{
+	padding-right:5px;
+}
+.zhiwei1_right{
+	width: 20%;
+	float: left;
+}
+.zhiwei1_money{
+	width: 100%;
+	color:#ff7800;
+	font-size: 1.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+.zhiwei1_time{
+	width: 100%;
+	font-size: 1.3rem;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.tan1{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top:0;
+	background-color: rgba(0,0,0,0.3);
+	display: none;
+}
+.tan2{
+	width: 100%;
+	height: 60%;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	background-color: #fff;
+	display: none;
+}

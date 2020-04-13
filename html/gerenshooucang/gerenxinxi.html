@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8" /> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+</head>
+<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+<script src="../../js/jquery.js"></script>
+<script src="../../js/vue.js"></script>
+<script src="../../js/bootstrap.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="../../js/axios.js"></script>
+<style type="text/css">
+	    html,
+        body {
+            margin: 0;
+        }
+        .shijian {
+            float: right;
+            margin-top: 2px;
+        }
+        .navbar {
+            margin-bottom: 0px;
+        }
+        .btn-toolbar {
+            margin-left: 0px !important; 
+        }
+        .btn-group {
+            margin:7px;
+        }
+        .btn-default {
+            color: #000;
+            background-color: #fff;
+            border-color: #000;
+        }
+        .btn-default:hover {
+            color: #FD9700;
+            background-color: #fff;
+            border-color: #FD9700;
+}
+        [v-cloak] {
+            display: none !important;
+        }
+        .navbar {
+            border: 0px solid transparent;
+        }
+.muokuan21{
+    float: right;
+}
+</style>
+<body style="background:#f2f2f2;height:100%;">
+ <div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
+    </div>
+<nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+    <div class="container-fluid">
+        <div class="">
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
+            <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10" style="color: #fff;text-align: center;">个人信息</a>
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;float: right;text-align: right;" ><span class="glyphicon glyphicon-remove" style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
+        </div>
+    </div>
+</nav> 
+
+<div  id="app" v-cloak>
+<!-- 内容开始 -->
+  <div class="muokuan">
+        <img src="../../image/gerenxinxibeijing.png" alt=""style="height: 203px;margin-top: 11px;width: 100%;">
+        <div class="muokuanl" style="font-size: 20px;position: fixed;top: 103px;left: 28px;color: #fff;;"><span id="Nameid">{{users.name}}</span><span style="margin-left:15px;font-size:14px" id="sex"v-if="users.sex == '0'">男</span><span style="margin-left:15px;font-size:14px" id="sex"v-if="users.sex == '1'">女</span></div>
+        <div style="position: fixed;top: 185px;left: 28px;">
+        
+        <div class="muokuan2">
+            <p v-if="users.idcard == '1'">证件类型：<span style="color:#000" id="certificate" >身份证</span></p>
+            <p v-else>证件类型：<span style="color:#000" id="certificate" >其他</span></p>
+            <p>证件号：<span style="color:#000" id="IDnumber">{{users.cardname}}</span></p>
+        </div>
+        </div>
+        <div class="muokuan2 muokuan21" style="position: fixed;top: 246px;left: 85%;">
+            <img src="../../image/shoucang2.png" style="width: 30px;height: 30px;"v-if="isstow == '1'"  @click="shoucang">
+            <img src="../../image/shoucang3.png" style="width: 30px;height: 30px;"v-else @click="shoucang">
+        </div>
+    </div>
+<!-- 内容结束 -->
+</div>
+</body>
+<script type="text/javascript">
+window.onload=function(){
+    var widthLIN = localStorage.getItem("key"); 
+    document.getElementById('widthLI').style.height = widthLIN + 'px';
+    document.getElementById('daohanglan').style.top = widthLIN + 'px';
+    var dhlH = document.getElementById('daohanglan').offsetHeight;
+    document.getElementById('app').style.marginTop = Number(widthLIN) + Number(dhlH) + 'px';
+    var search = [];
+                 var name,value;
+   var str=location.href; //取得整个地址栏
+   var num=str.indexOf("?")
+   str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
+
+   var arr=str.split("&"); //各个参数放到数组里
+   for(var i=0;i < arr.length;i++){
+        num=arr[i].indexOf("=");
+        if(num>0){
+             name=arr[i].substring(0,num);
+             value=arr[i].substr(num+1);
+             this[name]=value;
+             //search = value;
+               var search1 = decodeURI(value);
+               search.push(search1)
+        }
+   }
+    new Vue({
+                 el:'#app',
+                 data:{
+                    users:[],
+                    asd:"",
+                    isstow:"",
+                    // typpe:[]
+                 },
+                mounted:function(){
+                    this.sendGetByObj();
+                },
+                 methods:{
+                     sendGetByObj:function(){
+                       this.users = [];
+                        var than = this;
+                         // //2.get通过params选项
+                         this.$http.get('../../../index.php/Index/rys/xqs',{
+                             params:{
+                                act: 'app',
+                                aid:search[0],
+                             }
+                         })
+                           .then(function (response) {
+                            console.log(response);
+                            than.users = response.data.content.data
+                            than.isstow = response.data.content.isstow;
+                           })
+                           .catch(function (error) {
+                             console.log(error);
+                         });
+                     },
+                     shoucang:function(){
+                        var than = this;
+                        var userss = than.users;
+                        var isstows = than.isstow
+                        this.$http.get('../../../index.php/index/stow/insert',{
+                            params:{
+                                act: 'app',
+                                aid:search[0],
+                                type:"grxx",
+                                pid:search[0],
+                                title:userss.name,
+                            }
+                        })
+                        .then(function (response) {
+                            isstows = response.data.isstow
+                            var tanchu = response.data.msg;
+                            than.isstow = isstows;
+                            var panduan = localStorage.getItem("key1");
+                            if (panduan =='1') {
+                                window.control.LogShow(tanchu)
+                            }else{
+                                window.webkit.messageHandlers.showMessage.postMessage(tanchu)
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                         });
+                    }
+                 }
+             });
+}
+function Mclose(){
+      var widthLIN1 = localStorage.getItem("key1"); 
+      if (widthLIN1 == "2") {
+         window.webkit.messageHandlers.Mclose.postMessage("123");
+     }else{
+        window.control.mClose();
+     }
+      
+}
+function Mback(){
+    window.history.go(-1);
+}
+</script>
+</html>

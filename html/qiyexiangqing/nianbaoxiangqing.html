@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" /> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+</head>
+<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+<script src="../../js/jquery.js"></script>
+<script src="../../js/vue.js"></script>
+<script src="../../js/bootstrap.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="../../js/axios.js"></script>
+<style type="text/css">
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+        }
+        .navbar {
+            position: relative;
+            min-height: 50px;
+            margin-bottom: 0px;
+            border: 0px solid transparent;
+        }
+        .form-control {
+            width: 80%;
+        }
+        .form-control{
+            border: 0px solid #000;
+            border-right: 1px solid #d4d4d4;
+        }
+        .input-group-addon{
+            border: 0px solid #000;
+        }
+         input{
+            outline: none;
+         }
+           .header {
+            width: 100%;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header div:before,
+        .header div:after {
+            position: absolute;
+            background: #ccc;
+            content: "";
+            height: 1px;
+            top: 50%;
+            width: 100px;
+        }
+
+        .header div:before {
+            left: 10px;
+        }
+
+        .header div:after {
+            right: 10px;
+        }
+        .col-xs-3{
+            padding-left: 0px;
+        }
+        .col-xs-12{
+            padding-left: 0px;
+        }
+        .col-xs-8{
+            padding-left: 0px;
+        }
+        [v-cloak] {
+            display: none !important;
+        }
+</style>
+<body style="background:#f2f2f2;height:100%;">
+<div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
+    </div>
+<nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+    <div class="container-fluid">
+        <div class="">
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
+            <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10" style="color: #fff;text-align: center;">年报详情</a>
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;float: right;text-align: right;" ><span class="glyphicon glyphicon-remove" style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
+        </div>
+    </div>
+</nav>
+    <!-- 正文开始 -->
+<div id="app" v-cloak>
+    <div style="width: 96%;margin-left: 2%;text-align: center;margin-top: 14px;font-size: 18px;">
+        <div>{{users.name}}</div>
+        <div><span v-if="users.year == '0'"></span><span v-else>{{users.year}}</span></div>
+    </div>
+        <div style="background:#fff" class="jianjie">
+            <ul style="padding-top: 10px;padding-bottom: 10px">
+                <li style="background: #FD9700;color: #fff;height: 25px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;width: 19%;text-align: center;line-height: 25px;">基本信息</li>
+                <li style="margin-left: 18px;color: #999999">统一社会信用代码/注册号：<span style="color: #000">{{ users.sn }}</span></li>
+                <li style="margin-left: 18px;color: #999999">从业人员：<span style="color: #000">{{ users.cyrs }}</span>&nbsp;&nbsp;&nbsp;其中女生从业人数:<span style="color: #000">{{users.women}}</span></li>
+                <li style="margin-left: 18px;color: #999999">企业通讯电话：<span style="color: #000">{{ users.tel }}</span></li>
+                <li style="margin-left: 18px;color: #999999">企业电子邮箱:<span style="color: #000">{{ users.email }}</span></li>
+                <li style="margin-left: 18px;color: #999999">企业通讯地址:<span style="color: #000">{{ users.address }}</span></li>
+                <li style="margin-left: 18px;color: #999999">邮政编码:<span style="color: #000">{{ users.postm }}</span></li>
+                <li style="margin-left: 18px;color: #999999">企业经营状态:<span style="color: #000">{{ users.zt }}</span></li>
+                <li style="margin-left: 18px;color: #999999">企业控股情况:<span style="color: #000">{{ users.kgqk }}</span></li>
+                <li style="margin-left: 18px;color: #999999">是否有投资信息或购买其他公司股权:<span v-if="users.is_guquan === '0'" style="color: #000">否</span><span style="color: #000" v-else >{{users.is_guquan}}</span></li>
+                <li style="margin-left: 18px;color: #999999">是否有网站或网店:<span v-if="users.is_web === '0'" style="color: #000">否</span><span style="color: #000" v-else >{{users.is_web}}</span></li>
+                <li style="margin-left: 18px;color: #999999">是否有对外提供担保信息:<span v-if="users.is_db === '0'" style="color: #000">否</span><span style="color: #000" v-else >{{users.is_db}}</span></li>
+                <li style="margin-left: 18px;color: #999999">企业主营业务活动:<span style="color: rgb(0, 0, 0);width: 66%;margin-left: 121px;margin-top: -20px;display: block;">{{ users.ywhd }}</span></li>
+            </ul>
+        </div>
+        <div style="background:#fff" class="jianjie">
+            <ul style="padding-top: 10px;padding-bottom: 10px">
+                <li style="background: #FD9700;color: #fff;height: 25px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;width: 33%;text-align: center;line-height: 25px;">企业资产状况信息</li>
+                <li style="margin-left: 18px;color: #999999">资产总额：<span style="color: #000">{{ users.zcze }}</span></li>
+                <li style="margin-left: 18px;color: #999999">所有者权益合计：<span style="color: #000">{{ users.qyhj }}</span></li>
+                <li style="margin-left: 18px;color: #999999">企业总收入：<span style="color: #000">{{ users.yyzsr }}</span></li>
+                <li style="margin-left: 18px;color: #999999">利润总额:<span style="color: #000">{{ users.lrze }}</span></li>
+                <li style="margin-left: 18px;color: #999999">企业总收入中主营业务收入:<span style="color: #000">{{ users.zyyw }}</span></li>
+                <li style="margin-left: 18px;color: #999999">净利润:<span style="color: #000">{{ users.jlr }}</span></li>
+                <li style="margin-left: 18px;color: #999999">纳税总额:<span style="color: #000">{{ users.nsze }}</span></li>
+                <li style="margin-left: 18px;color: #999999">负债总额:<span style="color: #000">{{ users.fzze }}</span></li>
+                <li style="color: red;margin-right: 10px;text-align: right;">******表示企业选择不公开</li>
+            </ul>
+        </div>
+        <div style="background:#fff" class="jianjie">
+            <ul style="padding-top: 10px;padding-bottom: 10px">
+                <li style="background: #FD9700;color: #fff;height: 25px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;width: 33%;text-align: center;line-height: 25px;">对外提供保证担保信息</li>
+                <li style="margin-left: 18px;color: #999999">债权人：<span style="color: #000">{{  users.dbxx.zqr }}</span></li>
+                <li style="margin-left: 18px;color: #999999">债务人：<span style="color: #000">{{ users.dbxx.zwr }}</span></li>
+                <li style="margin-left: 18px;color: #999999">主债权种类：<span style="color: #000">{{ users.dbxx.zzqzl }}</span></li>
+                <li style="margin-left: 18px;color: #999999">主债权数额:<span style="color: #000">{{ users.dbxx.zzqse }}万</span></li>
+                <li style="margin-left: 18px;color: #999999">履行债务期限:<span style="color: #000">{{ users.dbxx.zzqqx }}年</span></li>
+                <li style="margin-left: 18px;color: #999999">保证的期间:<span style="color: #000">{{ users.dbxx.bzqj }}</span></li>
+                <li style="margin-left: 18px;color: #999999">保证的方式:<span style="color: #000">{{ users.dbxx.bzfs }}</span></li>
+                <li style="color: #FD9700;margin-right: 10px;text-align: right;" onclick="duiwaidanbao()">更多》</li>
+            </ul>
+        </div>
+        <div style="background:#fff" class="jianjie">
+            <ul style="padding-top: 10px;padding-bottom: 10px">
+                <li style="background: #FD9700;color: #fff;height: 25px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;width: 19%;text-align: center;line-height: 25px;">社保信息</li>
+                <li style="margin-left: 18px;color: #999999">城镇职工基本养老保险：<span style="color: #000">{{ users.ylbx }}</span></li>
+                <li style="margin-left: 18px;color: #999999">失业保险：<span style="color: #000">{{ users.syebx }}</span></li>
+                <li style="margin-left: 18px;color: #999999">职工基本医疗保险：<span style="color: #000">{{ users.jbylbx }}</span></li>
+                <li style="margin-left: 18px;color: #999999">工伤保险:<span style="color: #000">{{ users.gsbx }}</span></li>
+                <li style="margin-left: 18px;color: #999999">生育保险:<span style="color: #000">{{ users.sybx }}</span></li>
+                <li style="margin-left: 18px;color: #999999">单位缴费基数:<span style="color: #000">{{parseInt(Number(users.ylbxjs) + Number(users.jsybxjs) + Number(users.sybxjs))}}</span></li>
+                <li style="margin-left: 18px;color: #999999">单位参加城镇职工基本养老保险缴费基数:<span style="color: #000">{{ users.ylbxjs }}</span></li>
+                <li style="margin-left: 18px;color: #999999">单位参加失业保险缴费基数:<span style="color: #000">{{ users.jsybxjs }}</span></li>
+                <li style="margin-left: 18px;color: #999999">单位参加生育保险缴费基数:<span style="color: #000">{{ users.sybxjs }}</span></li>
+                <li style="margin-left: 18px;color: #999999">本期实际缴费金额:<span style="color: #000">{{parseInt(Number(users.jylbxbq) + Number(users.sybxbq) + Number(users.ylbxbq)+ Number(users.gsbxbq)+ Number(users.jsybxbq))}}</span></li>
+                <li style="margin-left: 18px;color: #999999">参加城镇职工基本养老保险本期实际缴费基数:<span style="color: #000">{{ users.jylbxbq}}</span></li>
+                <li style="margin-left: 18px;color: #999999">参加失业保险本期实际缴费基数:<span style="color: #000">{{ users.sybxbq }}</span></li>
+                <li style="margin-left: 18px;color: #999999">参加职工基本医疗保险本期实际缴费基数:<span style="color: #000">{{ users.ylbxbq }}</span></li>
+                <li style="margin-left: 18px;color: #999999">参加工伤保险本期实际缴费基数:<span style="color: #000">{{ users.gsbxbq }}</span></li>
+                <li style="margin-left: 18px;color: #999999">参加生育保险本期实际缴费基数:<span style="color: #000">{{ users.jsybxbq }}</span></li>
+                <li style="margin-left: 18px;color: #999999">单位累计欠缴金额:<span style="color: #000">{{parseInt(Number(users.ylbxqf) + Number(users.sybxqf) + Number(users.jylbxqf)+ Number(users.gsbxqf)+ Number(users.jsybxqf))}}</span></li>
+                <li style="margin-left: 18px;color: #999999">单位参加城镇职工基本养老保险累计欠缴金额:<span style="color: #000">{{ users.ylbxqf }}</span></li>
+                <li style="margin-left: 18px;color: #999999">单位参加失业保险累计欠缴金额:<span style="color: #000">{{ users.sybxqf }}</span></li>
+                <li style="margin-left: 18px;color: #999999">单位参加职工基本医疗保险累计欠缴金额:<span style="color: #000">{{ users.jylbxqf }}</span></li>
+                <li style="margin-left: 18px;color: #999999">单位参加工伤保险累计欠缴金额:<span style="color: #000">{{ users.gsbxqf }}</span></li>
+                <li style="margin-left: 18px;color: #999999">单位参加生育保险累计欠缴金额:<span style="color: #000">{{ users.jsybxqf }}</span></li>
+            </ul>
+        </div>
+        <div style="background:#fff" class="jianjie">
+            <ul style="padding-top: 10px;padding-bottom: 10px">
+                <li style="background: #FD9700;color: #fff;height: 25px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;width: 19%;text-align: center;line-height: 25px;">修改信息</li>
+                <li style="margin-left: 18px;color: #999999">修改事项：<span style="color: #000">{{ users.bgjl.xgsx }}</span></li>
+                <li style="margin-left: 18px;color: #999999">修改前：<span style="color: #000">{{ users.bgjl.xgq }}</span></li>
+                <li style="margin-left: 18px;color: #999999">修改后：<span style="color: #000">{{ users.bgjl.xgh }}</span></li>
+                <!-- <li style="margin-left: 18px;color: #999999">修改日期:<span style="color: #000">{{ times }}</span></li> -->
+                <li style="color: #FD9700;margin-right: 10px;text-align: right;" onclick="xiugaixinxi()">更多》</li>
+            </ul>
+        </div>
+    <!-- 正文结束 -->
+</div>
+</body>
+<script>
+    var usersID = [];
+    var usersID1 = [];
+    var usersID2 = [];
+    var ceshi = [];
+window.onload=function(){
+  var widthLIN = localStorage.getItem("key"); 
+    document.getElementById('widthLI').style.height = widthLIN + 'px';
+    document.getElementById('daohanglan').style.top = widthLIN + 'px';
+    var dhlH = document.getElementById('daohanglan').offsetHeight;
+    document.getElementById('app').style.marginTop = Number(widthLIN) + Number(dhlH) + 'px';
+
+    var time = [];
+    var timess = [];
+    var name,value;
+    var str=location.href;
+    var num=str.indexOf("?")
+    str=str.substr(num+1);
+    var arr=str.split("&"); 
+    for(var i=0;i < arr.length;i++){
+        num=arr[i].indexOf("=");
+        if(num>0){
+             name=arr[i].substring(0,num);
+             value=arr[i].substr(num+1);
+             this[name]=value;
+            ceshi.push(value)
+        }
+   }
+             new Vue({
+                 el:'#app',
+                 data:{
+                    users:"",
+                    users1ID:"",
+                    users2ID:"",
+                    times:"",
+                 },
+                mounted:function(){
+                    this.sendGetByObj();
+                },
+                 methods:{
+                     sendGetByObj:function(){
+                          var than = this;
+                         // //2.get通过params选项
+                         this.$http.get('../../../index.php/index/qy/views',{
+                             params:{
+                                id: ceshi[0],
+                                act: "app",
+                                dopost: "qynbs",
+                             }
+                         })
+                           
+                           .then(function (response) {
+                            console.log(response.data.content);
+                                than.users = response.data.content;
+                            //    var shijianceshi =  response.data.content.data.bgjl[0].xgrq;
+                            //  Date.prototype.toLocaleString = function() {
+                            //     return this.getFullYear() + "." + (this.getMonth() + 1) + "." + this.getDate();
+                            //      };
+                            //      // var time = shijianceshi.xgrq;
+                            //          var unixTimestamp = new Date( shijianceshi*1000 ) ;
+                            //         commonTime = unixTimestamp.toLocaleString();
+                                
+                            //   than.times = commonTime;
+                           })
+                           .catch(function (error) {
+                             console.log(error);
+                         });
+                     }
+                 }
+                 
+             });
+         }
+         function duiwaidanbao(){
+             window.location.href = "duiwaitigong.html?aid="+ceshi[0];
+         }
+         function xiugaixinxi(){
+             window.location.href = "xiugaixinxi.html?aid="+ceshi[0];
+         }
+function Mclose(){
+      var widthLIN1 = localStorage.getItem("key1"); 
+      if (widthLIN1 == "2") {
+         window.webkit.messageHandlers.Mclose.postMessage("123");
+     }else{
+        window.control.mClose();
+     }
+      
+}
+function Mback(){
+    window.history.go(-1);
+}
+</script>
+</html>

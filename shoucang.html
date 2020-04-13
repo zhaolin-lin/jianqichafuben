@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>收藏</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+</head>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/shouye/shoucang.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <script src="js/axios.js"></script><script src="js/shoucang1.js"></script>
+    <body style="background:#f2f2f2; " >
+<div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
+    </div>
+<nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+    <div class="container-fluid">
+        <div class="">
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
+            <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10" style="color: #fff;text-align: center;">收藏</a>
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;float: right;text-align: right;" ><span class="glyphicon glyphicon-remove" style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
+        </div>
+    </div>
+</nav>
+<div class="btn-toolbar col-xs-12 col-sm-12" role="toolbar" style="background: #fff;padding: 12px;" id="apps1">
+    <div class="btn-group col-xs-3 col-sm-3" style="">
+        <button type="button" class="btn btn-default col-xs-10" style="color: #FD9700;background-color: #fff;border-color: #FD9700;"onclick="shoucang()"><span>企业信息</span></button>
+    </div>
+    <div class="btn-group col-xs-3 col-sm-3" style="">
+        <button type="button" class="btn btn-default col-xs-10" onclick="shoucang1()" style="">项目信息</button>
+    </div>
+    <div class="btn-group col-xs-3 col-sm-3" style=""> 
+        <button type="button" class="btn btn-default col-xs-10" onclick="shoucang2()" style="">人员信息</button>
+    </div>
+    <div class="btn-group col-xs-3 col-sm-3" style="">
+        <button type="button" class="btn btn-default col-xs-10" onclick="shoucang3()" style="">裁判书</button>
+    </div>
+</div>
+<div  id="app" v-cloak style="height: 100%">
+<div style="margin-top: 5px;width: 94%;margin-left: 3%;background: #fff;border-radius: 10px" class="col-xs-12">
+   <span  style="line-height: 35px;font-size: 12px" @click="sendGetByObj('qyxx')" class="col-xs-3" >企业信息</span>
+   <span  style="line-height: 35px;font-size: 12px" @click="sendGetByObj('qyzz')" class="col-xs-3" >企业资质</span>
+   <span  style="line-height: 35px;font-size: 12px" @click="sendGetByObj('blxx')" class="col-xs-3" >企业不良信息</span>
+   <span  style="line-height: 35px;font-size: 12px" @click="sendGetByObj('hmdjl')" class="col-xs-3" >企业黑名单</span>
+</div>
+<!-- 内容开始 -->
+<div class="col-xs-12 col-sm-12" style="overflow: auto;height: 67%; text-align: center;" v-if="users == undefined">
+    <img src="image/shoucangnone.png" style="position: absolute; width: 60%;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-o-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+</div>
+<div class="col-xs-12 col-sm-12" style="overflow: auto;height: 67%;" v-else>
+    <div class="aui-bar aui-bar-btn shuliang"  style="margin-top: 5px;"v-for="(user,index) in users">
+        <ul id="J_List" >
+            <li class="newLi" :id="index" style="background:#fff; padding:5px; height:70px;border-radius: 8px;" @click="tiaozhuan(user.pid , user.type , user.aid)">
+                <div class="Name" style="font-size:14px;text-align:left;padding-bottom:10px;">{{user.title}}</div>
+                <div style="border:1px solid #000;float:left;width:80px;font-size:10px;text-align:center">{{user.type}}</div>
+                <div class="shijian">{{ times[index] }}</div>
+            </li>
+        </ul>  
+    </div>
+</div>
+</div>
+<!-- 内容结束 -->
+<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+    <div class="col-xs-12" style="min-height: 50px;">
+        <div class="col-xs-4" style="text-align: center;">
+            <img src="image/shouye.png" width="28px;"onclick="index()">
+            <br>
+            <span style="display: inline-block;font-size: 13px;margin-left: -8px;color: #000">首页</span>
+        </div>
+         <div class="col-xs-4" style="text-align: center;" >
+            <img src="image/shoucang1.png" width="28px;">
+            <br>
+            <span style="display: inline-block;font-size: 13px;margin-left: -8px;color: #FD9700">收藏</span>
+        </div>
+         <div class="col-xs-4" style="text-align: center;">
+            <img src="image/guanzhu.png" width="28px;"onclick="guanzhu()">
+            <br>
+            <span style="display: inline-block;font-size: 13px;margin-left: -8px;color: #000">关注</span>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

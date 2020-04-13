@@ -1,0 +1,225 @@
+*{
+	margin:0;
+	padding:0;
+	text-decoration: none;
+	list-style: none;
+}
+html,body{
+	width: 100%;
+	height: 100%;
+	overflow-y: scroll;
+}
+v-cloak{
+	display: none;
+}
+.top{
+	width: 100%;
+	height: 40px;
+	overflow:hidden;
+	position: fixed;
+	left: 0;
+	top:0;
+	background-color: #fff;
+	z-index: 999;
+}
+.dizhi{
+	width: 20%;
+	height: 100%;
+	float: left;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+}
+.dizhi_text{
+	width: 82%;
+	font-size: 1.1rem;
+	float: left;
+	padding-left:4px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.dizhi_img{
+	width: 18%;
+    float: left;
+}
+.dizhi_img img{
+	width: 100%;
+	height: 100%;
+}
+.sousuo{
+	width:80%;
+	height: 100%;
+	float: left;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow:hidden;
+}
+.top_inp{
+	width:95%;
+	height: 24px;
+	border-radius: 12px;
+	border:0;
+	background:rgb(244,244,244);
+	text-align: center;
+	outline: none;
+	line-height: 24px;
+	font-size: 1.3rem;
+	float: left;
+	padding-left: 6px;
+}
+input::-webkit-input-placeholder{
+ 	background: url('../img/sousuo.png') no-repeat;
+ 	background-size: 7% 76%;
+ 	background-position: 30% 50%; 
+}
+.gz_bodys{
+	width: 100%;
+	height: 100%;
+	background-color: #fff;
+	position: absolute;
+	left: 0;
+	top:0;
+	padding-top: 40px;
+	padding-bottom: 52px;
+	overflow-y: scroll;
+}
+.bodys_nav {
+    width: 100%;
+    height: 32px;
+    overflow: hidden;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.bodys_nr{
+	overflow-y: scroll;
+	padding-bottom: 10px;
+	background-color: #fff;
+}
+.zhiwei11{
+	width: 100%;
+	padding-top: 10px;
+	padding-bottom: 3px;
+	border-bottom: 1px solid #ccc;
+}
+.zhiwei{
+	width: 100%;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+.zhiwei_name {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+}
+.zhiwei_name1 {
+    float: left;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+.zhiwei_money {
+    float: right;
+    color: #ff7800;
+    font-size: 1.3rem;
+}
+.zhiwei_xinxi1{
+	width: 100%;
+    overflow: hidden;
+    padding-top:3px;
+    padding-bottom: 3px;
+}
+
+.gongsi1{
+	width: 100%;
+    overflow: hidden;
+    padding-top: 4px;
+    padding-bottom: 3px;
+}
+.gongsi_img{
+	width: 25%;
+	float: left;
+}
+.gongsi_img img{
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+.gongsi_xinxi{
+	width: 70%;
+	float: left;
+}
+.gongsi_name {
+    width: 100%;
+    font-size: 1.3rem;
+    line-height: 23px;
+}
+.gongsi_name span {
+    font-size: 1rem;
+    background-color: #ff7800;
+    padding: 0px 2px;
+    color: #fff;
+    border-radius: 6px;
+    margin-left: 5px;
+}
+
+
+
+
+
+
+
+
+.gaoji{
+	float: right;
+	overflow:hidden;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+.gaoji_dizhi{
+	float: left;
+	font-size: 1.3rem;
+}
+.gaoji_shaixuan{
+	float: left;
+	font-size: 1.3rem;
+	padding-left: 10px;
+}
+
+
+.bot{
+	width: 100%;
+	height: 52px;
+	overflow: hidden;
+	position: fixed;
+	left:0;
+	bottom: 0;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	background-color: #fff;
+}
+.bot1{
+	width: 25%;
+	height: 100%;
+	float: left;
+}
+.bot1_img{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.bot1_img img{
+	width: 25px;
+	height: 27px;
+}
+.bot1_text{
+	width: 100%;
+	font-size: 1.2rem;
+	text-align: center;
+}
+.yanse{
+	color:#ff7800;
+}

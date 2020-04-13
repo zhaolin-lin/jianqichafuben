@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>个人中心</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/wode.css">
+	<script src="js/vue.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/vue-resource.js"></script>
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script src="js/swiper.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/zhaogongzuo.js"></script>
+	<script src="js/minganci.js"></script>
+    <script src="js/jsencrypt.js"></script>
+    <script src="js/hsjidh.js"></script>
+    <script src="js/axiosjsqing.js"></script>
+    <script src="js/jgifdj.js"></script>
+	<style type="text/css">
+		.wode_img{
+			overflow: hidden;
+			border:0;
+		}
+		.wode_img img{
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+<body>
+<div id="wode" v-cloak>
+<div class="wode_body">
+	<div class="wode_top" @click="wodejianli">
+		<div class="wode_til">个人中心</div>
+		<div class="wode_xinxi">
+			<div class="wode_img"><img :src="'https://www.jianqitongmeng.com'+users.face"></div>
+			<div class="wode_text">
+				<div class="wode_name">{{users.uname}}</div>
+				<div class="wode_zhiwei">
+					<div class="zhiweiname">{{users.vocation}}</div>
+					<div class="geren">个人中心</div>
+					<div class="geren_point"><img src="img/point1.png"></div>
+				</div>
+				<div class="wode_qk">
+					<span>{{users.sex}}</span>
+					<span>{{users.age}}岁</span>
+					<span>{{users.education}}</span>
+					<span>{{users.type}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="wode_qiuzhi" style="display: none">
+		<div class="qiuzhiyixiang"> 
+			<div class="qiuzhi_yixiang">
+				<div class="yixiang_text">求职意向</div>
+				<div class="yixiang_point"><img src="img/point1.png"></div>
+			</div>
+			<div class="qiuzhi_zhiwei">{{users.industry}}</div>
+			<div class="qiuzhi_time">{{users.states}}</div>
+		</div>
+	</div>
+	<div  class="toudiz">
+		<div class="toudi">
+			<div class="qiuzhi_yixiang" @click="wodetoudi">
+				<div class="yixiang_text toudi_til">我的投递</div>
+				<div class="yixiang_point"><img src="img/point1.png"></div>
+			</div>
+			<div class="wodetoudi" @click="wodetoudi">
+				<div class="toudi_img"><img src="img/wodetoudi.png"></div>
+				<div class="toudi_text">我的投递</div>
+			</div>
+			<div class="wodetoudi" @click="beichakan">
+				<div class="toudi_img"><img src="img/beichakan.png"></div>
+				<div class="toudi_text">被查看</div>
+			</div>
+			<div class="wodetoudi" @click="yaomianshi">
+				<div class="toudi_img"><img src="img/yaomianshi.png"></div>
+				<div class="toudi_text">邀面试</div>
+			</div>
+			<div class="wodetoudi" @click="buheshi">
+				<div class="toudi_img"><img src="img/buheshi.png"></div>
+				<div class="toudi_text">不合适</div>
+			</div>
+		</div>
+	</div>
+	<div class="wode_cen">
+		<div class="shiming">
+			<div class="shiming_logo"><img src="img/shiming.png"></div>
+			<div class="shiming_text">实名认证</div>
+			<div class="shiming_point"><img src="img/point2.png"></div>
+		</div>
+		<div class="shiming" style="border-bottom: 1px solid #eee;">
+			<div class="shiming_logo"><img src="img/chongzhi.png"></div>
+			<div class="shiming_text chongzhi_text">
+				<div class="chongzhizhongxin">充值中心</div>
+				<div class="yue">账户余额：20分钟</div>
+			</div>
+			<div class="shiming_point"><img src="img/point2.png"></div>
+		</div>
+		<div class="shiming" style="border-bottom: 1px solid #eee;">
+			<div class="shiming_logo"><img src="img/zhaorencai.png"></div>
+			<div class="shiming_text">我要招人才</div>
+			<div class="shiming_point"><img src="img/point2.png"></div>
+		</div>
+		<div class="shiming">
+			<div class="shiming_logo"><img src="img/zhanghao.png"></div>
+			<div class="shiming_text">账号设置</div>
+			<div class="shiming_point"><img src="img/point2.png"></div>
+		</div>
+	</div>
+	<div class="tuichu">退出登录</div>
+</div>
+<!-- 底部 -->
+<div class="bot">
+	<div class="bot1" @click="index">
+		<div class="bot1_img">
+			<img src="img/shouye1.png">
+		</div>
+		<div class="bot1_text index">首页</div>
+	</div>
+	<div class="bot1"@click="zhaogongzuo">
+		<div class="bot1_img">
+			<img src="img/zhaogongzuo1.png">
+		</div>
+		<div class="bot1_text zhaogongzuo">找工作</div>
+	</div>
+	<div class="bot1" @click="zhaorencai">
+		<div class="bot1_img">
+			<img src="img/zhaorencai1.png">
+		</div>
+		<div class="bot1_text zhaorencai">招人才</div>
+	</div>
+	<div class="bot1" @click="wode">
+		<div class="bot1_img">
+			<img src="img/wode2.png">
+		</div>
+		<div class="bot1_text yanse wode">我的</div>
+	</div>
+</div>
+</div>
+</body>
+<script src="js/wode.js"></script>
+</html>

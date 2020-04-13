@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8" /> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+</head>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<script src="js/jquery.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="js/axios.js"></script>
+<style type="text/css">
+	    html,
+        body {
+            margin: 0;
+            height: 100%;
+            overflow:hidden;
+        }
+        .shijian {
+            float: right;
+            margin-top: 2px;
+        }
+        .navbar {
+            margin-bottom: 0px;
+        }
+        .btn-toolbar {
+            margin-left: 0px !important; 
+        }
+        .btn-group {
+            margin:7px;
+        }
+        .btn-default {
+            color: #000;
+            background-color: #fff;
+            border-color: #000;
+        }
+        .btn-default:hover {
+            color: #FD9700;
+            background-color: #fff;
+            border-color: #FD9700;
+}
+.btn-group {
+            margin: 0px !important;
+        }
+        .btn-toolbar > .btn, .btn-toolbar > .btn-group, .btn-toolbar > .input-group {
+            margin-left: 0px !important;
+        }
+        [v-cloak] {
+            display: none !important;
+        }
+        .col-xs-3{
+    padding-right: 0px;
+    padding-left: 0px;
+    text-align: center;
+}
+.btn-group > .btn, .btn-group-vertical > .btn {
+    position: relative;
+    float: none !important; 
+}
+.btn{
+    padding:6px 0px;
+}
+.navbar {
+            border: 0px solid transparent;
+        }
+</style>
+<body style="background:#f2f2f2;height:100%;">
+<div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
+    </div>
+<nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+    <div class="container-fluid">
+        <div class="">
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
+            <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10" style="color: #fff;text-align: center;">收藏</a>
+            <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;float: right;text-align: right;" ><span class="glyphicon glyphicon-remove" style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
+        </div>
+    </div>
+</nav>
+<div class="btn-toolbar col-xs-12 col-sm-12" role="toolbar" style="background: #fff;padding: 12px;" id="apps1">
+    <div class="btn-group col-xs-3 col-sm-3" style="">
+        <button type="button" class="btn btn-default col-xs-10" style=""onclick="shoucang()">企业信息</span></button>
+    </div>
+    <div class="btn-group col-xs-3 col-sm-3" style="">
+        <button type="button" class="btn btn-default col-xs-10" onclick="shoucang1()" style="">项目信息</button>
+    </div>
+    <div class="btn-group col-xs-3 col-sm-3" style=""> 
+        <button type="button" class="btn btn-default col-xs-10" onclick="shoucang2()" style="color: #FD9700;background-color: #fff;border-color: #FD9700;">人员信息</button>
+    </div>
+    <div class="btn-group col-xs-3 col-sm-3" style="">
+        <button type="button" class="btn btn-default col-xs-10" onclick="shoucang3()" style="">裁判书</button>
+    </div>
+</div>
+<div  id="app" v-cloak style="height: 100%">
+<div style="margin-top: 5px;width: 94%;margin-left: 3%;background: #fff;border-radius: 10px" class="col-xs-12">
+   <span  style="line-height: 35px;font-size: 12px" @click="sendGetByObj('grxx')" class="col-xs-3" >个人信息</span>
+   <span  style="line-height: 35px;font-size: 12px" @click="sendGetByObj('grzs  ')" class="col-xs-3" >个人证书</span>
+   <span  style="line-height: 35px;font-size: 12px" @click="sendGetByObj('grhmd')" class="col-xs-3" >个人黑名单</span>
+   <span  style="line-height: 35px;font-size: 12px" @click="sendGetByObj('grblxw')" class="col-xs-3" >个人不良行为</span>
+   <span  style="line-height: 35px;font-size: 12px" @click="sendGetByObj('bgjl')" class="col-xs-3" >个人变更记录</span>
+</div>
+<!-- 内容开始 -->
+<div class="col-xs-12 col-sm-12" style="overflow: auto;height: 67%; text-align: center;" v-if="users == undefined">
+    <img src="image/shoucangnone.png" style="position: absolute; width: 60%;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-o-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+</div>
+<div class="col-xs-12 col-sm-12" style="overflow: auto;height: 67%;"v-else>
+      <div class="aui-bar aui-bar-btn"style="margin-top: 5px;width: 94%;margin-left: 3%;" >
+        <ul id="J_List" v-for="(user,index) in users" >
+            <li class="newLi" style="background:#fff; padding:5px; height:70px;border-radius: 8px;"onclick="gerenxiangqing(this)":id="index">
+                <div class="Name" style="font-size:14px;text-align:left;padding-bottom:10px;" :id="'mingzi'+index">{{user.title}}</div>
+                <div style="border:1px solid #000;float:left;width:80px;font-size:10px;text-align:center" :id="'leibei'+index">{{user.type}}</div>
+                <div class="shijian">{{ times[index] }}</div>
+                <div class="shijian" style="display: none" :id="'id'+index">{{user.aid}}</div>
+            </li>
+        </ul>
+    </div>
+    </div>
+</div>
+<!-- 内容结束 -->
+<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+    <div class="col-xs-12" style="min-height: 50px;">
+        <div class="col-xs-4" style="text-align: center;">
+        	<img src="image/shouye.png" width="28px;"onclick="index()">
+        	<br>
+        	<span style="display: inline-block;font-size: 13px;margin-left: -8px;color: #000">首页</span>
+        </div>
+         <div class="col-xs-4" style="text-align: center;" >
+        	<img src="image/shoucang1.png" width="28px;">
+        	<br>
+        	<span style="display: inline-block;font-size: 13px;margin-left: -8px;color: #FD9700">收藏</span>
+        </div>
+         <div class="col-xs-4" style="text-align: center;">
+        	<img src="image/guanzhu.png" width="28px;"onclick="guanzhu()">
+        	<br>
+        	<span style="display: inline-block;font-size: 13px;margin-left: -8px;color: #000">关注</span>
+        </div>
+    </div>
+</nav>
+</body>
+<script type="text/javascript">
+function index(){
+	window.location.href = "index1.html";
+}
+function guanzhu(){
+	window.location.href = "guanzhu.html";
+}
+function shoucang1(){
+    window.location.href = "shoucang1.html";
+}
+function shoucang2(){
+    window.location.href = "shoucang2.html";
+}
+function shoucang3(){
+    window.location.href = "shoucang3.html";
+}
+function shoucang(){
+    window.location.href = "shoucang.html";
+}
+window.onload=function(){
+    var widthLIN = localStorage.getItem("key"); 
+    document.getElementById('widthLI').style.height = widthLIN + 'px';
+    document.getElementById('daohanglan').style.top = widthLIN + 'px';
+    var dhlH = document.getElementById('daohanglan').offsetHeight;
+    document.getElementById('app').style.marginTop = Number(widthLIN) + Number(dhlH) + 'px';
+    document.getElementById('apps1').style.marginTop = Number(widthLIN) + Number(dhlH) + 'px';
+    var time = [];
+    var timess = [];
+    new Vue({
+        el:'#app',
+        data:{
+            users:[],
+            times:[],
+        },
+        mounted:function(){
+            this.sendGetByObj();
+        },
+        methods:{
+            sendGetByObj:function(index){
+                if (index == undefined) {
+                    index = 'ry'
+                }
+                console.log(index)
+                var than = this;
+                this.$http.get('../index.php/index/stow',{
+                    params:{
+                        act: 'app',
+                        type: index,
+                    }
+                })
+                .then(function (response) {
+                    console.log(response.data.content.data)
+                    than.users = response.data.content.data;
+                    var shijianceshi = response.data.content.data
+                    Date.prototype.toLocaleString = function() {
+                        return this.getFullYear() + "." + (this.getMonth() + 1) + "." + this.getDate();
+                    };
+                    for (var i = 0; i < shijianceshi.length; i++) {
+                        var time = shijianceshi[i].addtime
+                        var unixTimestamp = new Date( time*1000 ) ;
+                        commonTime = unixTimestamp.toLocaleString();
+                        timess.push(commonTime)
+                    }
+                    than.times = timess;  
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+        }
+    });
+}
+function Mclose(){
+      var widthLIN1 = localStorage.getItem("key1"); 
+      if (widthLIN1 == "2") {
+         window.webkit.messageHandlers.Mclose.postMessage("123");
+     }else{
+        window.control.mClose();
+     }
+      
+}
+function Mback(){
+    window.history.go(-1);
+}
+</script>
+</html>

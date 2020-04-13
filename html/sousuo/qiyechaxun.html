@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title></title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport"
+		content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../../css/qiyechaxun.css">
+	<link rel="stylesheet" type="text/css" href="../../css/sousuo/qiyechaxun.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="../../js/vue.js"></script>
+	<script src="../../js/bootstrap.js"></script>
+	<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+	<script src="../../js/axios.js"></script>
+	<script src="../../js/sousuo/qiyechaxun.js"></script>
+</head>
+
+<body style="background:#fff;height:100%;">
+	<div id="widthLI" style="background: #fff;position: fixed;width: 100%;z-index: 100000;top:0px">
+	</div>
+	<nav class="navbar navbar-default" role="navigation"
+		style="background:#fff;position: fixed;;width: 100%;z-index: 100000;border-bottom: 1px solid #f2f2f2;"
+		id="daohanglan">
+		<div class="container-fluid">
+			<div class="">
+				<a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
+					style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left"
+						style="color: rgb(0, 0, 0);" onclick="Mback()"></span></a>
+				<a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10"
+					style="color: #000;text-align: center;">企业查询</a>
+				<a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
+					style="color: #fff;float: right;text-align: right;"><span class="glyphicon glyphicon-remove"
+						style="color: rgb(0, 0, 0);margin-left: -15px" onclick="Mclose()"></span></a>
+			</div>
+		</div>
+	</nav>
+
+	<!-- 内容开始 -->
+
+	<div style="background: #fff;position: absolute;top:50px;width: 100%" id="app" v-cloak>
+		<div style="height: 170px;">
+			<div style="height: 80px;overflow: hidden;display: flex;align-items: center;justify-content: center;padding: 0px ;"
+				class="col-xs-12">
+				<div style="line-height: 35px;padding: 0px;" class="col-xs-11"><input type="serch" name=""
+						placeholder="输入企业名称"
+						style="border-radius: 10px;border:1px solid #F2F2F2;text-align: center;background: #F2F2F2;"
+						class="col-xs-12" v-model='str' id="inputi" @keyup.enter="sendGetByObj"></div>
+			</div>
+			<div style="height: 50px;overflow: hidden;display: flex;align-items: center;justify-content: center;"
+				class="col-xs-12">
+				<button
+					style="margin: 20px 0 20px 0;background: #FE7800;border-radius: 10px;width: 30%;height: 40px;border:1px solid #FE7800;outline:none;color: #fff"
+					@click='sendGetByObj'>开始查询</button>
+			</div>
+			<div style="height: 40px;overflow: hidden;display: flex;align-items: center;justify-content: center;border-bottom: 1px solid #cacaca;border-top: 1px solid #cacaca;padding: 0px;background: #fff;z-index:1000"
+				class="col-xs-12" id="xuanxiang">
+				<div class="col-xs-4" style="text-align: center;padding: 0px;">
+					<span style="font-size: 16px;font-weight: bold;">选择地区</span><span
+						class="glyphicon glyphicon-chevron-up" style="color: rgb(0, 0, 0);"></span>
+				</div>
+				<div class="col-xs-4" style="text-align: center;padding: 0px;">
+					<span style="font-size: 16px;font-weight: bold;">企业类型</span><span
+						class="glyphicon glyphicon-chevron-up" style="color: rgb(0, 0, 0);"></span>
+				</div>
+				<div class="col-xs-4" style="text-align: center;padding: 0px;">
+					<span style="font-size: 16px;font-weight: bold;">资质类别</span><span
+						class="glyphicon glyphicon-chevron-up" style="color: rgb(0, 0, 0);"></span>
+				</div>
+			</div>
+		</div>
+		<div style="position: relative; z-index: 1000;background: #000;">
+			123
+		</div>
+		<div style="overflow: auto;background: #f2f2f2;">
+			<div class="jiazaizhong" id="jiazaizhong">
+				<img src="../../image/jiazai.gif" width="30px;">
+			</div>
+			<div class="nones" v-if="users == undefined">
+				<img src="../../image/undraw_signal_searching_bhpc.png" style="width: 80%;margin-left: 10%;">
+			</div>
+			<div style="background:#f0f0f0" class="quanbu111" v-else>
+				<div v-for="user in users" style="background: #fff;margin-bottom:10px;height: 155px;padding-top: 10px;padding-bottom: 10px;">
+					<div class="col-xs-12" style="padding: 0 15px;"  @click="Company(user.aid)">
+						<span style="display: inline-block;width: 50px; line-height: 50px;height: 50px;background: #000;border-radius: 5px;">123</span>
+						<span style="display: inline-block;height: 50px;line-height: 50px;margin-left: 10px;font-weight: bold;"  v-html="user.qymc" > {{user.qymc}}</span>
+					</div>
+					<div class="col-xs-12" style="padding: 0px; line-height: 30px;">
+						<div class="col-xs-4" style="text-align: center;padding: 0px;color: #ABAAAA;">
+							法定代表人
+						</div>
+						<div class="col-xs-4" style="text-align: center;padding: 0px;color: #ABAAAA;">
+							注册资本
+						</div>
+						<div class="col-xs-4" style="text-align: center;padding: 0px;color: #ABAAAA;">
+							成立日期
+						</div>
+					</div>
+					<div class="col-xs-12" style="padding: 0px; line-height: 30px;">
+						<div class="col-xs-4" style="text-align: center;padding: 0px;color: #000;">
+							{{user.qyfr}}
+						</div>
+						<div class="col-xs-4" style="text-align: center;padding: 0px;color: #000;">
+							{{user.qyfr}}<!-- 无接口数据 -->
+						</div>
+						<div class="col-xs-4" style="text-align: center;padding: 0px;color: #000;">
+							{{user.qyfr}}<!-- 无接口数据 -->
+						</div>
+					</div>
+					<div class="col-xs-12" style="padding: 0px; line-height: 30px;">
+						<div class="col-xs-4" style="text-align: center;padding: 0px;color: #000;"  @click="zizhi(user.aid)">
+							企业资质<span style="color:red">{{user.zizhi}}</span>项
+						</div>
+						<div class="col-xs-4" style="text-align: center;padding: 0px;color: #000;"  @click="xiangmu(user.aid)">
+							企业业绩<span style="color:red">{{user.xiangmu}}</span>项
+						</div>
+						<div class="col-xs-4" style="text-align: center;padding: 0px;color: #000;"  @click="zhucerenyuan(user.aid)">
+							注册人员<span style="color:red">{{user.rynum}}</span>人
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 返回顶部 -->
+		<a href="javascript:;" id="return_top" title="回到顶部" @click="fanhuidingbu"><span  class ="glyphicon glyphicon-arrow-up" style ="color:rgb(0,0,0);"></span></a>
+		<!-- ====== -->
+	</div>
+</body>
+
+</html>
+<script src="../../js/qiyechaxun.js"></script>
+<script src="../../js/zonghechaxunanniu.js"></script>
+<script type="text/javascript">
+	var lastname = localStorage.getItem("key1123");
+    // console.log(lastname)
+    // var jishu = '0';
+    // var xuanzhong = "";
+    // var shiid = "";
+    // var xianshi = "0";
+    // var widthLIN = localStorage.getItem("key");
+    // document.getElementById('widthLI').style.height = widthLIN + 'px';
+    // document.getElementById('daohanglan').style.top = widthLIN + 'px';
+    // var dhlH = document.getElementById('daohanglan').offsetHeight;
+    // document.getElementById('app').style.top = Number(widthLIN) + Number(dhlH) + 'px';
+</script>

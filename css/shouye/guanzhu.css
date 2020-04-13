@@ -1,0 +1,14 @@
+html,  body {
+	margin: 0;
+	height: 100%;
+}
+ [v-cloak] {
+ display: none !important;
+}
+.navbar {
+	border: 0px solid transparent;
+}
+.col-xs-12,  .col-sm-12 {
+	padding-left: 0px;
+	padding-right: 0px;
+}

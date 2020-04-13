@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+
+<head>
+    <title>首页</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="0">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/shouye/index1.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <script src="js/axios.js"></script>
+    <script src="js/zonghechaxunanniu.js"></script>
+    <!-- <script src="js/shouye/fanhui.js"></script> -->
+    <style>
+        .xuanzhong {
+            display: inline-block;
+            font-size: 13px;
+            margin-left: -8px;
+            color: #FD9700
+        }
+
+        .weixuanzhong {
+            display: inline-block;
+            font-size: 13px;
+            margin-left: -8px;
+            color: #000
+        }
+
+        .btn-toolbar {
+            margin-left: 0px;
+        }
+
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .anniuzu {
+            text-align: center;
+        }
+
+        .anniuzu .span {
+            padding: 8px 10px 8px 10px;
+            border: 1px solid #FD9700;
+            border-radius: 5px;
+            font-size: 3.6vw;
+            color: #FD9700;
+        }
+
+        .anniuzu .span1 {
+            padding: 8px 10px 8px 10px;
+            border: 1px solid #000;
+            border-radius: 5px;
+            font-size: 3.6vw;
+            color: #000;
+        }
+
+        .col-xs-3,
+        .col-sm-3 {
+            padding: 0px;
+        }
+
+        .nav span {
+            line-height: 35px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .shijian {
+            float: right;
+            margin-top: 2px;
+        }
+
+        .shouye {
+            background-image: url(image/indexbeijing.png);
+            width: 100%;
+            height: 100%;
+            background-repeat: no-repeat;
+            -moz-background-size: 100% 100%;
+            background-size: 100% 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body id="body">
+    <div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
+    </div>
+    <nav class="navbar navbar-default" role="navigation"
+        style="background:#FD9700;position: fixed;width: 100%;z-index: 100000;" id="daohanglan">
+        <div class="container-fluid">
+            <div class="">
+                <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
+                    style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left"
+                        style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
+                <a class="navbar-brand col-xs-9 col-sm-9 col-md-9 col-lg-10"
+                    style="color: #fff;text-align: center;">情报官</a>
+                <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
+                    style="color: #fff;float: right;text-align: right;"><span class="glyphicon glyphicon-remove"
+                        style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
+            </div>
+        </div>
+    </nav>
+    <div id="app" style="height: 100%;">
+
+        <div v-if="huoqu1 == '1'" style="height: 100%;" class="shouye">
+            <!-- 首页 -->
+            <div class="col-xs-9 col-xss-offset-1"
+                style="height:auto;border:2px solid #ffffff;padding-bottom: 30px;margin-top: 25%">
+                <div style="text-align:center;color:#fff;margin-top:30px;">
+                    <span style="font-size:23px;padding-right: 0px;padding-left: 0px;"
+                        class="col-xs-12">建筑企业情报收集系统</span>
+                    <span class="col-xs-12">——您的查询好帮手——</span>
+                </div>
+            </div>
+            <div class="col-xs-2 col-xs-offset-3" style="width:50%;">
+                <div style="text-align:center;color:#fff;margin-top:25px;">
+                    <span style="font-size:5vw;">建筑企业信息查询</span>
+                </div>
+            </div>
+            <div class="col-xs-11" style="margin-top:15px;margin-left: 4%;">
+                <div class="col-xs-3" @click="qiye" style="text-align: center;">
+                    <span :class="zuanzhongs == '1'? 'chayixuan':'chaweixuan' ">查企业</span>
+                </div>
+                <div class="col-xs-3" @click="renyuan" style="text-align: center;">
+                    <span :class="zuanzhongs == '2'? 'chayixuan':'chaweixuan' ">查人员</span>
+                </div>
+                <div class="col-xs-3" @click="xiangmu" style="text-align: center;">
+                    <span :class="zuanzhongs == '3'? 'chayixuan':'chaweixuan' ">查项目</span>
+                </div>
+                <div class="col-xs-3" @click="panjue" style="text-align: center;">
+                    <span :class="zuanzhongs == '4'? 'chayixuan':'chaweixuan' ">判决书</span>
+                </div>
+            </div>
+            <div class="col-xs-11" style="margin-left: 4%;">
+                <div style="text-align:center;color:#fff;margin-top:15px;">
+                    <input type="text" name="chaxun" value="" class="chaxun" placeholder="企业查询、人员、项目、诚信" id="input">
+                    <div class="sousuo" id="sousuo" @click="sousuo">
+                        <img src="image/sousuo2.png" alt="" style="width: 30px;">
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div v-if="huoqu1 == '2'" style="height: 100%;background: #f2f2f2;">
+            <!-- 收藏 -->
+            <div class="btn-toolbar col-xs-12 col-sm-12" role="toolbar" style="background: #fff;padding: 12px;">
+                <div class="col-xs-3 col-sm-3 anniuzu" @click="qiyes"><span
+                        :class="zuanzhong == '1'? 'span':'span1' ">企业信息</span></div>
+                <div class="col-xs-3 col-sm-3 anniuzu" @click="xiangmus"><span
+                        :class="zuanzhong == '2'? 'span':'span1' ">项目信息</span></div>
+                <div class="col-xs-3 col-sm-3 anniuzu" @click="renyuans"><span
+                        :class="zuanzhong == '3'? 'span':'span1' ">人员信息</span></div>
+                <div class="col-xs-3 col-sm-3 anniuzu" @click="caijues"><span
+                        :class="zuanzhong == '4'? 'span':'span1' ">裁&ensp;判&ensp;书</span></div>
+            </div>
+            <div style="margin-top: 5px;width: 94%;margin-left: 3%;background: #fff;border-radius: 10px"
+                class="col-xs-12 nav" v-if="zuanzhong == '1'">
+                <span @click="huoquxinxi('qyxx')" class="col-xs-3">企业信息</span>
+                <span @click="huoquxinxi('qyzz')" class="col-xs-3">企业资质</span>
+                <span @click="huoquxinxi('blxx')" class="col-xs-3">企业不良信息</span>
+                <span @click="huoquxinxi('hmdjl')" class="col-xs-3">企业黑名单</span>
+            </div>
+            <div style="margin-top: 5px;width: 94%;margin-left: 3%;background: #fff;border-radius: 10px"
+                class="col-xs-12 nav" v-else-if="zuanzhong == '2'">
+                <span @click="huoquxinxi('xmxx')" class="col-xs-3">项目信息</span>
+                <span @click="huoquxinxi('htba')" class="col-xs-3">合同备案</span>
+                <span @click="huoquxinxi('sgtsc')" class="col-xs-3">施工图审查</span>
+                <span @click="huoquxinxi('jgys')" class="col-xs-3">竣工验收备案</span>
+                <span @click="huoquxinxi('sgxk')" class="col-xs-3">施工许可</span>
+            </div>
+            <div style="margin-top: 5px;width: 94%;margin-left: 3%;background: #fff;border-radius: 10px"
+                class="col-xs-12 nav" v-else-if="zuanzhong == '3'">
+                <span @click="huoquxinxi('grxx')" class="col-xs-3">个人信息</span>
+                <span @click="huoquxinxi('grzs')" class="col-xs-3">个人证书</span>
+                <span @click="huoquxinxi('grhmd')" class="col-xs-3">个人黑名单</span>
+                <span @click="huoquxinxi('grblxw')" class="col-xs-3">个人不良行为</span>
+                <span @click="huoquxinxi('bgjl')" class="col-xs-3">个人变更记录</span>
+            </div>
+            <div style="margin-top: 5px;width: 94%;margin-left: 3%;background: #fff;border-radius: 10px"
+                class="col-xs-12 nav" v-else-if="zuanzhong == '4'">
+                <span @click="huoquxinxi('2')" class="col-xs-3">民事案</span>
+                <span @click="huoquxinxi('3')" class="col-xs-3">赔偿案</span>
+                <span @click="huoquxinxi('4')" class="col-xs-3">行政案</span>
+                <span @click="huoquxinxi('5')" class="col-xs-3">执行案</span>
+            </div>
+            <div v-if="zuanzhong == '1'" style="height: 100%;">
+                <!-- 企业收藏列表 -->
+                <div class="col-xs-12 col-sm-12" style="overflow: auto;height: 67%; text-align: center;"
+                    v-if="users == undefined">
+                    <img src="image/shoucangnone.png"
+                        style="position: absolute; width: 60%;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-o-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+                </div>
+                <div class="col-xs-12 col-sm-12" style="overflow: auto;height: 67%;" v-else>
+                    <div class="aui-bar aui-bar-btn shuliang" style="margin-top: 5px;" v-for="(user,index) in users">
+                        <ul id="J_List">
+                            <li class="newLi" :id="index"
+                                style="background:#fff; padding:5px; height:70px;border-radius: 8px;"
+                                @click="tiaozhuan(user.pid , user.type , user.aid)">
+                                <div class="Name" style="font-size:14px;text-align:left;padding-bottom:10px;">
+                                    {{user.title}}
+                                </div>
+                                <div
+                                    style="border:1px solid #000;float:left;width:80px;font-size:10px;text-align:center">
+                                    {{user.type}}</div>
+                                <div class="shijian">{{ times[index] }}</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div v-else-if="zuanzhong == '2'" style="height: 100%;">
+                <!-- 项目收藏列表 -->
+                <div class="col-xs-12 col-sm-12" style="overflow: auto;height: 67%; text-align: center;"
+                    v-if="users == undefined">
+                    <img src="image/shoucangnone.png"
+                        style="position: absolute; width: 60%;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-o-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+                </div>
+                <div class="col-xs-12 col-sm-12" style="overflow: auto;height: 67%;" v-else>
+                    <div class="aui-bar aui-bar-btn" style="margin-top: 5px;" v-for="(user,index) in users">
+                        <ul :id="index">
+                            <li class="newLi" style="background:#fff; padding:5px; height:82px;border-radius: 8px;"
+                                @click="tiaozhuan(user.pid , user.type , user.aid)">
+                                <div class="Name"
+                                    style="font-size:14px;text-align:left;padding-bottom:10px;height: 50px;">
+                                    {{user.title}}</div>
+                                <div style="border:1px solid #000;float:left;width:80px;font-size:10px;text-align:center"
+                                    :id="'mingc'+index">{{user.type}}</div>
+                                <div class="shijian">{{ times[index] }}</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div v-else-if="zuanzhong == '3'" style="height: 100%;">
+                <!-- 人员收藏列表 -->
+                <div class="col-xs-12 col-sm-12" style="overflow: auto;height: 67%; text-align: center;"
+                    v-if="users == undefined"> <img src="image/shoucangnone.png"
+                        style="position: absolute; width: 60%;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-o-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+                </div>
+                <div class="col-xs-12 col-sm-12" style="overflow: auto;height: 67%;" v-else>
+                    <div class="aui-bar aui-bar-btn" style="margin-top: 5px;width: 94%;margin-left: 3%;">
+                        <ul id="J_List" v-for="(user,index) in users">
+                            <li class="newLi" style="background:#fff; padding:5px; height:70px;border-radius: 8px;"
+                                @click="tiaozhuan(user.pid , user.type , user.aid)" :id="index">
+                                <div class="Name" style="font-size:14px;text-align:left;padding-bottom:10px;"
+                                    :id="'mingzi'+index">{{user.title}}</div>
+                                <div style="border:1px solid #000;float:left;width:80px;font-size:10px;text-align:center"
+                                    :id="'leibei'+index">{{user.type}}</div>
+                                <div class="shijian">{{ times[index] }}</div>
+                                <div class="shijian" style="display: none" :id="'id'+index">{{user.aid}}</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div v-else-if="zuanzhong == '4'" style="height: 100%;">
+                <!-- 判决书收藏列表 -->
+                <div class="col-xs-12 col-sm-12" style="overflow: auto;height: 67%; text-align: center;"
+                    v-if="users == undefined"> <img src="image/shoucangnone.png"
+                        style="position: absolute; width: 60%;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-o-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+                </div>
+                <div class="col-xs-12 col-sm-12" style="overflow: auto;height: 67%;" v-else>
+                    <div class="aui-bar aui-bar-btn" style="margin-top: 5px;width: 94%;margin-left: 3%; ">
+                        <ul id="J_List" v-for="(user,index) in users" onclick="dianji()">
+                            <li class="newLi" style="background:#fff; padding:5px; height:70px;border-radius: 8px;"
+                                @click="tiaozhuan(user.pid , user.type , user.aid)">
+                                <div class="Name" style="font-size:14px;text-align:left;padding-bottom:10px;">
+                                    {{user.title}}
+                                </div>
+                                <div
+                                    style="border:1px solid #000;float:left;width:80px;font-size:10px;text-align:center">
+                                    {{user.type }}</div>
+                                <div class="shijian">{{ times[index] }}</div>
+                                <div style="display: none;" id="aid">{{user.aid}}</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="huoqu1 == '3'" style="height: 100%; background: #f2f2f2;">
+            <!-- 关注 -->
+            <div class="col-xs-12 col-sm-12">
+                <div class="aui-bar aui-bar-btn" style="margin-top: 5px;width: 96%;margin-left: 2%;"
+                    v-for="(guanzhu,index) in guanzhus">
+                    <ul>
+                        <li class="newLi" style="background:#fff; padding:5px; height:70px;border-radius: 8px;"> <img
+                                src="image/gongsitubiao.png" width="60px" style="float: left;">
+                            <div class="Name"
+                                style="font-size:14px;text-align:left;padding-bottom:10px;float: left; height: 70px;line-height: 63px;margin-left: 10px;width: 230px; overflow: hidden; text-overflow:ellipsis; white-space: nowrap;">
+                                {{guanzhu.title}}</div>
+                            <div style="float: right;position: relative;display: none"> <span
+                                    style="width: 20px;height: 20px;border-radius: 20px;background-color: red;position: absolute;right: 10px;top: 20px;text-align: center;line-height: 21px;color: #fff">5</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div class="btn-group" style="position: fixed;right: 30px;bottom: 60px;" onclick="chaxunanniu(this)"
+                    id="dianji1">
+                    <button type="button" class="btn btn-default"
+                        style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 60px;height: 38px">查询</button>
+                </div>
+                <div class="btn-group" style="position: fixed; right: 214px;bottom: 56px;display: none" id="zizhianniu"
+                    onclick="zizhianniu()">
+                    <button type="button" class="btn btn-default"
+                        style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 45px;height: 45px;border-radius: 45px; padding: 0px;">资质</button>
+                </div>
+                <div class="btn-group" style="position: fixed; right: 183px;bottom: 144px;display: none"
+                    id="panjueshuanniu" onclick="panjueshuanniu()">
+                    <button type="button" class="btn btn-default"
+                        style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 45px;height: 45px;border-radius: 45px; padding: 0px;">判决书</button>
+                </div>
+                <div class="btn-group" style="position: fixed; right: 123px;bottom: 206px;display: none"
+                    id="xiangmuanniu" onclick="xiangmuanniu()">
+                    <button type="button" class="btn btn-default"
+                        style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 45px;height: 45px;border-radius: 45px; padding: 0px;">项目</button>
+                </div>
+                <div class="btn-group" style="position: fixed; right: 34px;bottom: 231px;display: none"
+                    id="renyuananniu" onclick="renyuananniu()">
+                    <button type="button" class="btn btn-default"
+                        style="background: #FD9700;border: 1px solid #FD9700;color: #fff;width: 45px;height: 45px;border-radius: 45px; padding: 0px;">人员</button>
+                </div>
+            </div>
+        </div>
+        <!--  -->
+        <div class="col-xs-10 col-xs-offset-1" style="text-align:center;display: none">
+            <textarea rows="2" cols="30" id="textarea1">
+
+            </textarea>
+        </div>
+        <div class="col-xs-10 col-xs-offset-1" style="text-align:center;display: none">
+            <textarea rows="2" cols="30" id="textarea">
+
+            </textarea>
+        </div>
+        <div class="col-xs-10 col-xs-offset-1" style="text-align:center;display: none;">
+            <textarea rows="2" cols="30" id="textarea2">
+
+            </textarea>
+        </div>
+        <div class="col-xs-10 col-xs-offset-1" style="text-align:center;display: none">
+            <textarea rows="2" cols="30" id="textarea3">
+
+            </textarea>
+        </div>
+        <!--  -->
+
+
+
+        <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+            <div class="col-xs-12" style="min-height: 50px;">
+                <div class="col-xs-4" style="text-align: center;" @click="shouye">
+                    <img src="image/shouye1.png" width="28px;" v-if="huoqu1 == '1'">
+                    <img src="image/shouye.png" width="28px;" v-else>
+                    <br>
+                    <span :class="huoqu1 == '1'? 'xuanzhong':'weixuanzhong' ">首页</span>
+                </div>
+                <div class="col-xs-4" style="text-align: center;" @click="shoucang">
+                    <img src="image/shoucang1.png" width="28px;" v-if="huoqu1 == '2'">
+                    <img src="image/shoucang.png" width="28px;" v-else>
+                    <br>
+                    <span :class="huoqu1 == '2'? 'xuanzhong':'weixuanzhong' ">收藏</span>
+                </div>
+                <div class="col-xs-4" style="text-align: center;" @click="guanzhu">
+                    <img src="image/guanzhu1.png" width="28px;" v-if="huoqu1 == '3'">
+                    <img src="image/guanzhu.png" width="28px;" v-else>
+                    <br>
+                    <span :class="huoqu1 == '3'? 'xuanzhong':'weixuanzhong' ">关注</span>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+</body>
+<script>
+    var arr;
+
+    window.onload = function () {
+        var widthLIN = [];
+        var str = location.href;
+
+        var num = str.indexOf("?")
+        str = str.substr(num + 1); //取得所有参数
+        arr = str.split("&"); //各个参数放到数组里
+        document.getElementById('textarea2').innerHTML = arr.length;
+        for (var i = 0; i < arr.length; i++) {
+            num = arr[i].indexOf("=");
+            if (num > 0) {
+                name = arr[i].substring(0, num);
+                value = arr[i].substr(num + 1);
+                this[name] = value;
+                widthLIN.push(value)
+            }
+        }
+
+        //window.control.LogShow(widthLIN)
+
+        var ccc = localStorage.getItem("key");
+        if (isNaN(ccc) || ccc == null) {
+            var diviceHeight = window.devicePixelRatio;
+            heightLIN = widthLIN[0] / diviceHeight;
+            localStorage.setItem("key", heightLIN);
+            localStorage.setItem("key1", arr.length);
+        } else {
+
+        }
+        var dianjisss = localStorage.getItem("dianji");
+        var yemianss = localStorage.getItem("yemian");
+        var widthLIN = localStorage.getItem("key");
+        document.getElementById('widthLI').style.height = widthLIN + 'px';
+        document.getElementById('daohanglan').style.top = widthLIN + 'px';
+        var dhlH = document.getElementById('daohanglan').offsetHeight;
+        document.getElementById('app').style.marginTop = Number(widthLIN) + Number(dhlH) + 'px';
+
+        if (arr.length == "2") {
+            window.webkit.messageHandlers.getUserId.postMessage("123");
+        } else {
+            var userID = window.control.getUserId();
+        }
+        var time = [];
+        var timess = [];
+        new Vue({
+            el: '#app',
+            data: {
+                huoqu1: yemianss,
+                zuanzhongs: "1",
+                zuanzhong: dianjisss,
+                users: "",
+                times: "",
+                guanzhus: "",
+                mingcheng:"",
+            },
+            mounted: function () {
+                if (yemianss == '1') {
+                    this.$nextTick(function () {
+                        setInterval(this.sendGetByObj, 500);
+                    })
+                }else{
+                    this.huoquxinxi();
+                }
+
+
+            },
+            methods: {
+                shouye: function () {
+                    this.huoqu1 = '1'
+                    // localStorage.setItem("dianji", '1');
+                    localStorage.setItem("yemian", '1');
+                    this.mingcheng = "";
+                },
+                shoucang: function () {
+                    this.huoqu1 = '2'
+                    this.huoquxinxi();
+                    localStorage.setItem("dianji", '1');
+                    localStorage.setItem("yemian", '1');
+                    this.mingcheng = "收藏";
+                },
+                guanzhu: function () {
+                    this.huoqu1 = '3'
+                    this.guanzhusss();
+                    localStorage.setItem("yemian", '1');
+                    this.mingcheng = "关注";
+                },
+                sendGetByObj: function () {
+                    if (arr.length == "2") {
+                        var userID = document.getElementById('textarea').innerHTML;
+
+                    } else {
+                        var userID = window.control.getUserId();
+                    }
+
+                    this.$http.get('../index.php/index/token/check', {
+                        params: {
+                            apitoken: userID,
+                        }
+                    })
+                        .then(function (res) {
+                            console.log(res);
+
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+                },
+                qiye: function () {
+                    this.zuanzhongs = "1"
+                },
+                renyuan: function () {
+                    this.zuanzhongs = "2"
+                },
+                xiangmu: function () {
+                    this.zuanzhongs = "3"
+                },
+                panjue: function () {
+                    this.zuanzhongs = "4"
+                },
+                sousuo: function () {
+                    var than = this;
+                    var gsmc = document.getElementById("input").value;
+                    var conStr = gsmc.replace(/\s+/g, "");
+                    var zuanzhongs = than.zuanzhongs;
+                    if (zuanzhongs == '1') {
+                        localStorage.setItem("key1123", '');
+                        localStorage.setItem("yemian", '1');
+                        var gsmc = document.getElementById("input").value;
+                        window.location.href = "html/sousuo/qiyechaxun.html?aid=" + gsmc;
+                    } else if (zuanzhongs == '2') {
+                        localStorage.setItem("keyrenyuan", '');
+                        localStorage.setItem("yemian", '1');
+                        var gsmc = document.getElementById("input").value;
+                        window.location.href = "html/sousuo/renyuanchaxun.html?aid=" + gsmc;
+                    } else if (zuanzhongs == '3') {
+                        localStorage.setItem("key1123", '');
+                        localStorage.setItem("yemian", '1');
+                        var gsmc = document.getElementById("input").value;
+                        window.location.href = "html/sousuo/xiangmuchaxun.html?aid=" + gsmc;
+                    } else if (zuanzhongs == '4') {
+                        localStorage.setItem("key1123", '');
+                        localStorage.setItem("yemian", '1');
+                        var gsmc = document.getElementById("input").value;
+                        window.location.href = "html/sousuo/panjueshu.html?aid=" + gsmc;
+                    }
+                },
+                qiyes: function () {
+                    var than = this;
+                    than.zuanzhong = "1";
+                    localStorage.setItem("dianji", '1');
+                    than.huoquxinxi();
+
+                },
+                xiangmus: function () {
+                    var than = this;
+                    than.zuanzhong = "2";
+                    localStorage.setItem("dianji", '2');
+                    than.huoquxinxi();
+                },
+                renyuans: function () {
+                    var than = this;
+                    than.zuanzhong = "3";
+                    localStorage.setItem("dianji", '3');
+                    than.huoquxinxi();
+                },
+                caijues: function () {
+                    var than = this;
+                    than.zuanzhong = "4";
+                    localStorage.setItem("dianji", '4');
+                    than.huoquxinxi();
+                },
+                huoquxinxi: function (e) {
+                    var than = this;
+
+                    var zuanzhong = than.zuanzhong;
+                    if (zuanzhong == '1') {
+                        if (e == undefined) {
+                            e = 'qy'
+                        }
+                        console.log(e)
+                        this.users = [];
+                        var than = this;
+                        this.$http.get('../index.php/index/stow', {
+                            params: {
+                                act: 'app',
+                                type: e,
+                            }
+                        })
+                            .then(function (res) {
+                                console.log(res.data.content.data)
+                                than.users = res.data.content.data;
+                                var shijianceshi = res.data.content.data
+                                Date.prototype.toLocaleString = function () {
+                                    return this.getFullYear() + "." + (this.getMonth() + 1) + "." + this.getDate();
+                                };
+                                for (var i = 0; i < shijianceshi.length; i++) {
+                                    var time = shijianceshi[i].addtime
+                                    var unixTimestamp = new Date(time * 1000);
+                                    commonTime = unixTimestamp.toLocaleString();
+                                    timess.push(commonTime)
+                                }
+                                than.times = timess;
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    } else if (zuanzhong == '2') {
+                        if (e == undefined) {
+                            e = 'xm'
+                        }
+                        console.log(e)
+                        this.users = [];
+                        var than = this;
+                        this.$http.get('../index.php/index/stow', {
+                            params: {
+                                act: 'app',
+                                type: e,
+                            }
+                        })
+                            .then(function (res) {
+                                console.log(res.data.content.data)
+                                than.users = res.data.content.data;
+                                var shijianceshi = res.data.content.data
+                                Date.prototype.toLocaleString = function () {
+                                    return this.getFullYear() + "." + (this.getMonth() + 1) + "." + this.getDate();
+                                };
+                                for (var i = 0; i < shijianceshi.length; i++) {
+                                    var time = shijianceshi[i].addtime
+                                    var unixTimestamp = new Date(time * 1000);
+                                    commonTime = unixTimestamp.toLocaleString();
+                                    timess.push(commonTime)
+                                }
+                                than.times = timess;
+
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    } else if (zuanzhong == '3') {
+                        if (e == undefined) {
+                            e = 'ry'
+                        }
+                        console.log(e)
+                        this.users = [];
+                        var than = this;
+                        this.$http.get('../index.php/index/stow', {
+                            params: {
+                                act: 'app',
+                                type: e,
+                            }
+                        })
+                            .then(function (res) {
+                                console.log(res.data.content.data)
+                                than.users = res.data.content.data;
+                                var shijianceshi = res.data.content.data
+                                Date.prototype.toLocaleString = function () {
+                                    return this.getFullYear() + "." + (this.getMonth() + 1) + "." + this.getDate();
+                                };
+                                for (var i = 0; i < shijianceshi.length; i++) {
+                                    var time = shijianceshi[i].addtime
+                                    var unixTimestamp = new Date(time * 1000);
+                                    commonTime = unixTimestamp.toLocaleString();
+                                    timess.push(commonTime)
+                                }
+                                than.times = timess;
+
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    } else if (zuanzhong == '4') {
+                        if (e == undefined) {
+                            e = 'caipan'
+                        }
+                        console.log(e)
+                        this.users = [];
+                        var than = this;
+                        this.$http.get('../index.php/index/stow', {
+                            params: {
+                                act: 'app',
+                                type: e,
+                            }
+                        })
+                            .then(function (res) {
+                                console.log(res.data.content.data)
+                                than.users = res.data.content.data;
+                                var shijianceshi = res.data.content.data
+                                Date.prototype.toLocaleString = function () {
+                                    return this.getFullYear() + "." + (this.getMonth() + 1) + "." + this.getDate();
+                                };
+                                for (var i = 0; i < shijianceshi.length; i++) {
+                                    var time = shijianceshi[i].addtime
+                                    var unixTimestamp = new Date(time * 1000);
+                                    commonTime = unixTimestamp.toLocaleString();
+                                    timess.push(commonTime)
+                                }
+                                than.times = timess;
+
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    }
+                },
+
+                tiaozhuan: function (id, tuanz, aaid) {
+                    console.log(id + tuanz + aaid);
+                    if (tuanz == '企业信息') {
+                        console.log('1')
+                        localStorage.setItem("yemian", '2');
+                        localStorage.setItem("dianji", '1');
+                        window.location.href = 'html/qiyexiangqing/qiyeIndex.html?id=' + id;
+                    } else if (tuanz == '企业资质') {
+                        console.log('2')
+                        localStorage.setItem("yemian", '2');
+                        localStorage.setItem("dianji", '1');
+                        window.location.href = 'html/qiyexiangqing/qiyezizhizhengshu.html?id=' + id + '&aaid=' + aaid;
+                    } else if (tuanz == '企业不良信息') {
+                        console.log('3')
+                        localStorage.setItem("yemian", '2');
+                        localStorage.setItem("dianji", '1');
+                        window.location.href = 'html/qiyexiangqing/buliangxinxi.html?id=' + id
+                    } else if (tuanz == '企业黑名单') {
+                        console.log('4')
+                        localStorage.setItem("yemian", '2');
+                        localStorage.setItem("dianji", '1');
+                        window.location.href = 'html/qiyexiangqing/heimingdan.html?id=' + id
+                    } else if (tuanz == '项目信息') {
+                        console.log('2')
+                        localStorage.setItem("dianji", '2');
+                        localStorage.setItem("yemian", '2');
+                        window.location.href = 'html/shoucang/xiangmuxiangqing.html?id=' + id
+                    } else if (tuanz == '合同备案') {
+                        console.log('3')
+                        localStorage.setItem("dianji", '2');
+                        localStorage.setItem("yemian", '2');
+                        window.location.href = 'html/shoucang/hetongbeian.html?id=' + id
+                    } else if (tuanz == '施工图审查') {
+                        console.log('4')
+                        localStorage.setItem("dianji", '2');
+                        localStorage.setItem("yemian", '2');
+                        window.location.href = 'html/shoucang/shegongtushencha.html?id=' + id
+                    } else if (tuanz == '竣工验收备案') {
+                        console.log('3')
+                        localStorage.setItem("dianji", '2');
+                        localStorage.setItem("yemian", '2');
+                        window.location.href = 'html/shoucang/jungongyanshou.html?id=' + id
+                    } else if (tuanz == '施工许可') {
+                        console.log('4')
+                        localStorage.setItem("dianji", '2');
+                        localStorage.setItem("yemian", '2');
+                        window.location.href = 'html/shoucang/shigongxuke.html?id=' + id
+                    } else if (tuanz == '个人信息') {//renyuan
+                        console.log('4')
+                        localStorage.setItem("dianji", '3');
+                        localStorage.setItem("yemian", '2');
+                        window.location.href = 'html/gerenshooucang/gerenxiangqing.html?id=' + id
+                    } else if (tuanz == '个人证书') {
+                        console.log('4')
+                        localStorage.setItem("dianji", '3');
+                        localStorage.setItem("yemian", '2');
+                        window.location.href = 'html/gerenshooucang/zhiyezhuce.html?id=' + id
+                    } else if (tuanz == '个人黑名单') {
+                        console.log('4')
+                        localStorage.setItem("dianji", '3');
+                        localStorage.setItem("yemian", '2');
+                        window.location.href = 'html/gerenshooucang/heimingdanjilu.html?id=' + id
+                    } else if (tuanz == '个人不良行为') {
+                        console.log('4')
+                        localStorage.setItem("dianji", '3');
+                        localStorage.setItem("yemian", '2');
+                        window.location.href = 'html/gerenshooucang/gerenbuliangxinxi.html?id=' + id
+                    } else if (tuanz == '个人变更记录') {
+                        console.log('4')
+                        localStorage.setItem("dianji", '3');
+                        localStorage.setItem("yemian", '2');
+                        window.location.href = 'html/gerenshooucang/gerenbiangeng.html?id=' + id
+                    }
+                },
+                guanzhusss: function () {
+                    var than = this;
+                    this.$http.get('../index.php/index/stow', {
+                        params: {
+                            act: 'app',
+                            type: 'qyxx',
+                        }
+                    })
+                        .then(function (res) {
+                            console.log(res)
+                            than.guanzhus = res.data.content.data
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }
+            }
+        })
+    }
+    function shareResult(channel_id) {
+        var content = channel_id;
+        var userID = content;
+        document.getElementById('textarea').innerHTML = userID;
+    }
+
+    function Mclose() {
+        localStorage.setItem("yemian", '1');
+        var widthLIN1 = localStorage.getItem("key1");
+        if (widthLIN1 == "2") {
+            window.webkit.messageHandlers.Mclose.postMessage("123");
+        } else {
+            window.control.mClose();
+        }
+    }
+
+    function Mback() {
+        var widthLIN1 = localStorage.getItem("key1");
+        localStorage.setItem("yemian", '1');
+        if (widthLIN1 == "2") {
+            window.webkit.messageHandlers.Mclose.postMessage("123");
+        } else {
+            window.control.mClose();
+        }
+    }
+    function panjueshuanniu() {
+        window.location.href = "html/sousuo/panjueshu.html";
+    }
+    function xiangmuanniu() {
+        window.location.href = "html/sousuo/xiangmuchaxun.html";
+    }
+    function renyuananniu() {
+        window.location.href = "html/sousuo/renyuanchaxun.html";
+    }
+    function panjueshuanniu() {
+        window.location.href = "html/sousuo/zonghechaxun.html";
+    }
+    function zizhianniu() {
+        window.location.href = "html/sousuo/qiyezizhichaxun.html";
+    }
+</script>
+
+</html>

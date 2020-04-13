@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>我的投递</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport"
+		content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../../css/wodetoudi/wodetoudi.css">
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script src="../../js/bootstrap.js"></script>
+	<script src="../../js/vue.js"></script>
+	<script src="../../js/vue.min.js"></script>
+	<script src="../../js/axios.js"></script>
+	<script src="../../js/vue-resource.js"></script>
+	<script src="../../js/jsencrypt.js"></script>
+    <script src="../../js/hsjidh.js"></script>
+    <script src="../../js/axiosjsqing.js"></script>
+    <script src="../../js/jgifdj.js"></script>
+</head>
+<body>
+<div id="wodetoudi">
+	<div class="til">
+		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 til_point" @click="fanhuiF"><img src="../../img/left_point.png"></div>
+		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 til_text">我的投递</div>
+	</div>
+	
+	<div class="nav">
+		<div class="nav_text" @click="nav_qiehuan('quanbu')">
+			<div :class="xianshi == 'quanbu' ? 'nav_text1 nav_text_xz' :'nav_text1 '">我的投递</div> 
+			<div :class="xianshi == 'quanbu' ? 'line' :''"></div>
+		</div>
+		<div class="nav_text" @click="nav_qiehuan('beichakan')">
+			<div  :class="xianshi == 'beichakan' ? 'nav_text1 nav_text_xz' :'nav_text1 '">
+				<span class="spn1">被查看 <span class="spn2">5</span></span>
+			</div> 
+			<div :class="xianshi == 'beichakan' ? 'line' :''"></div>
+		</div>
+		<div class="nav_text" @click="nav_qiehuan('yaomianshi')">
+			<div  :class="xianshi == 'yaomianshi' ? 'nav_text1 nav_text_xz' :'nav_text1 '">
+				<span class="spn1">邀面试 <span class="spn2">5</span></span>
+			</div> 
+			<div :class="xianshi == 'yaomianshi' ? 'line' :''"></div>
+		</div>
+		<div class="nav_text" @click="nav_qiehuan('buheshi')">
+			<div  :class="xianshi == 'buheshi' ? 'nav_text1 nav_text_xz' :'nav_text1 '">
+				<span class="spn1">不合适 <span class="spn2">5</span></span>
+			</div> 
+			<div :class="xianshi == 'buheshi' ? 'line' :''"></div>
+		</div>
+	</div>
+	<div class="bodys">
+		<div class="chakan"  v-if="xianshi == 'yaomianshi'">
+			<div @click="body_qiehuan('1')" :class="body_xianshi == '1' ? 'chakan_qingkuang chakan_xz':'chakan_qingkuang'">全部</div>
+			<div  :class="body_xianshi == '2' ? 'chakan_qingkuang chakan_xz':'chakan_qingkuang'" @click="body_qiehuan('2')">待确认</div>
+			<div  :class="body_xianshi == '3' ? 'chakan_qingkuang chakan_xz':'chakan_qingkuang'" @click="body_qiehuan('3')">已接受</div>
+			<div  :class="body_xianshi == '4' ? 'chakan_qingkuang chakan_xz':'chakan_qingkuang'" @click="body_qiehuan('4')">已拒绝</div>
+		</div>
+		<div  v-for="(as,index) in user" style="padding-bottom: 10px;">
+			<div>
+				<div class="zhiwei1">
+				<div class="zw_name">
+					<div class="zhiwei_name">{{as.name}}</div>
+					<div class="zhiwei_money">{{as.xinzi}}</div>
+				</div>
+				<div class="zw_yaoqiu">
+					<div class="zhiwei_yaoqiu">
+						<span>{{as.address}}</span>
+						<span v-if="as.jingyan != undefined">|</span>
+						<span v-if="as.jingyan != undefined">{{as.jingyan}}</span>
+						<span v-if="as.zhuceqk != undefined">|</span>
+						<span v-if="as.zhuceqk != undefined">{{as.zhuceqk}}</span>
+						<span>|</span>
+						<span>{{as.xueli}}</span>
+						<span>|</span>
+						<span>{{as.zhuangtai}}</span>
+					</div>
+					<div class="zhiwei_time">{{as.time}}</div>
+				</div>
+				<div class="gongsi">
+					<div class="gongsi_img"><img src="../../img/buheshi.png"></div>
+					<div class="gongsi_text">
+						<div class="gongsi_name">{{as.company_name}} <span>{{as.nature}}</span></div>
+						<div class="gongsi_zp">
+							<div class="zhaopin_ren">
+								<span>{{as.zhuguan_name}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div> 
+			<div class="zongjie" @click="huifu"  v-if="xianshi == 'yaomianshi'" style="padding-bottom: 5px;">
+				<span>张三，你好!看到你的简历适合我们公司的招聘条件，通知你</span>
+				<span>2019-11-12 08:30来公司参加面试。</span>
+				<span>联系人：张三</span>
+				<span>联系电话：123456789</span>
+				<span>面试地址：河北省石家庄市桥西区石邑大厦</span>
+			</div>
+		</div>
+	</div>
+	<div class="huifu_tan1" @click="xiaoshi" style="z-index: ">
+	<div class="huifu_tan2">
+		<div class="jieshou"><span>接受</span></div>
+		<div class="jujue jieshou"><span>拒绝</span></div>
+		<div class="quxiao jieshou"><span>取消</span></div>
+	</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+window.onload = function() {
+	var a = localStorage.getItem("xianshi");	
+	 new Vue({
+			el: '#wodetoudi',
+			data: {
+			  xianshi:a,
+			  body_xianshi:'1',
+			  type:'0',
+			  user:''
+			},
+			mounted: function () {
+				this.huoqushuju();
+			},
+			methods: {
+				huoqushuju: function () {
+                    fjdf();
+                	var than = this;
+                	if(than.xianshi == 'quanbu'){
+                		var dataa = {
+                			mid:'3299',  //用户id
+                			status:'1'  //1已投递2被查看3邀面试4不合适
+                		}
+                	}else if(than.xianshi == 'beichakan'){
+                		var dataa = {
+                			mid:'3299',  //用户id
+                			status:'2',  //1已投递2被查看3邀面试4不合适
+                		}
+                	}else if(than.xianshi == 'yaomianshi'){
+                		if(than.body_xianshi == '1'){
+	                		than.type = '0';
+	                	}else if(than.body_xianshi == '2'){
+	                		than.type = '1';
+	                	}else if(than.body_xianshi == '3'){
+	                		than.type = '2';
+	                	}else if(than.body_xianshi == '4'){
+	                		than.type = '3';
+	                	}
+                		var dataa = {
+                			mid:'3299',  //用户id
+                			status:'3',  //1已投递2被查看3邀面试4不合适
+                            type:than.type,  //1已投递2被查看3邀面试4不合适
+                		}
+                	}else if(than.xianshi == 'buheshi'){
+                		var dataa = {
+                			mid:'3299',  //用户id
+                			status:'4',  //1已投递2被查看3邀面试4不合适
+                		}
+                	}
+                    this.$http.post('../../../../index.php/api/wode/my_delivery', dataa,{
+                        headers:{
+                            'Cookies':ashjd
+                        }
+                    })
+                        .then(function (res) {
+                            console.log(res.data.data);
+                            console.log(res.data.data[1].record);
+                            than.user = res.data.data;
+                            
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+                },
+				nav_qiehuan:function(a){
+					var than = this;
+					than.xianshi = a;
+					localStorage.setItem("xianshi",a);
+					this.huoqushuju();
+				},
+				body_qiehuan:function(b){
+					var than = this;
+					than.body_xianshi = b;
+					this.huoqushuju();
+				},
+				huifu:function(){
+					$('.huifu_tan1').css({'display':'block'})
+					$('.huifu_tan2').css({'display':'block'})
+				},
+				xiaoshi:function(){
+					$('.huifu_tan1').css({'display':'none'})
+					$('.huifu_tan2').css({'display':'none'})
+				},
+				fanhuiF:function(){
+					window.history.go(-1);
+				}
+			}
+		})
+}
+</script>
+</html>

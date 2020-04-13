@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>找工作</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport"
+		content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/zhaogongzuo.css">
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<script src="js/swiper.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/vue-resource.js"></script>
+	<style type="text/css">
+		.zhiwei_xinxi1 {
+			width: 90%;
+			margin: auto;
+			overflow: hidden;
+			padding-top: 7px;
+			padding-bottom: 7px;
+		}
+
+		.ceshi1 span {
+			display: block;
+			padding: 0px 3px;
+			border-right: 1px solid #000;
+			float: left;
+			font-size: 14px;
+		}
+
+		.ceshi21 {
+			border: 0px !important;
+		}
+
+		.gongsi_imgs img {
+			width: 20px;
+			height: 20px;
+		}
+
+		.gongsi_imgs {
+			float: left;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- 顶部 -->
+	<div id="zhaogongzuo" style="width: 100%;height: 100%;overflow:hidden;">
+		<div class="top">
+			<div class="dizhi" @click="xuanzediqu">
+				<div class="dizhi_text" style="text-align: center;">{{shi}}</div>
+				<div class="dizhi_img"><img src="img/ditu.png"></div>
+			</div>
+			<div class="sousuo" @click="sousuoF">
+				<input type="text" name="" class="top_inp" placeholder="搜索职位" disabled>
+			</div>
+		</div>
+		<div class="gz_bodys">
+			<div class="bodys_nav">
+				<p @click="tuijian" :class="type == 1 ? 'bodys_nav_p tuijian bodys_nav_p_xz':'bodys_nav_p tuijian'">推荐
+				</p>
+				<p style="margin-left:5%;" @click="zuixin"
+					:class="type == 2 ? 'bodys_nav_p tuijian bodys_nav_p_xz':'bodys_nav_p tuijian'">最新</p>
+				<div class="gaoji" style="display: none">
+					<p class="gaoji_dizhi">桥西区</p>
+					<p class="gaoji_shaixuan">高级筛选</p>
+				</div>
+			</div>
+			<div class="bodys_nr">
+				<!-- <div class="zhiwei1" v-for="(users,index) in user" style="height: 22%;padding-bottom: 15px;">
+			<div class="zhiwei tuiujian_zhiwei">
+				<div class="zhiwei_name">
+					<div class="zhiwei_name1">{{users.name}}</div>
+					<div class="zhiwei_money">{{users.salary}}</div>
+				</div>
+				<div class="zhiwei_xinxi1">
+					<div style="float: left;font-size: 1.2rem;width: 75%;">
+						<span>{{users.place}}</span>
+						<span>|</span>
+						<span>{{users.experience}}</span>
+						<span>|</span>
+						<span>{{users.education}}</span>
+						<span>|</span>
+						<span>{{users.type}}</span>
+					</div>
+					<div style="float: right;font-size: 1.3rem">{{users.time}}</div>
+				</div>
+				<div class="gongsi">
+					<div class="gongsi_img"><img :src="'http://192.168.2.100'+users.face"></div>
+					<div class="gongsi_xinxi">
+						<p class="gongsi_name">{{users.company_name}}<span>{{users.financing}}</span></p>
+						<p class="gongsi_zhaopin">
+							<span>{{users.uname}}</span>
+							<span>|</span>
+							<span>{{users.position}}</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div> -->
+
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 zhengti" style="margin-top: 10px;background: #fff;"
+					v-for="(users,index) in user" >
+					<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9" style="line-height: 30px;">
+						<span style="font-size:16px;font-weight: bold;">{{users.name}}</span>
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ceshi1" style="line-height: 16px;">
+							<span>{{users.place}}</span>
+							<span>{{users.experience}}</span>
+							<span>{{users.education}}</span>
+							<span class="ceshi21">{{users.type}}</span>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="line-height: 30px;margin-top: 8px;">
+							
+							<div>
+								<span style="display: block;line-height: 20px;font-size: 16px;">{{users.company_name}}
+									<span style="padding: 1px 2px 1px 2px;background: red;color: #fff;border-radius: 5px;font-size: 12px;">{{users.financing}}</span></span>
+								<span style="display: block;line-height: 20px;">
+									<div class="gongsi_imgs col-xs-1 col-sm-1 col-md-1 col-lg-1"><img :src="'http://192.168.2.100'+users.face"></div>
+									{{users.uname}}
+									<span>{{users.position}}</span></span>
+							</div>
+
+						</div>
+					</div>
+					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+						{{users.salary}}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 底部 -->
+		<div class="bot" style="background-color: #fff;" id="bot">
+			<div class="bot1" @click="index">
+				<div class="bot1_img">
+					<img src="img/shouye1.png">
+				</div>
+				<div class="bot1_text index">首页</div>
+			</div>
+			<div class="bot1" @click="zhaogongzuo">
+				<div class="bot1_img">
+					<img src="img/zhaogongzuo2.png">
+				</div>
+				<div class="bot1_text yanse zhaogongzuo">找工作</div>
+			</div>
+			<div class="bot1" @click="zhaorencai">
+				<div class="bot1_img">
+					<img src="img/zhaorencai1.png">
+				</div>
+				<div class="bot1_text zhaorencai">招人才</div>
+			</div>
+			<div class="bot1" @click="wode">
+				<div class="bot1_img">
+					<img src="img/wode1.png">
+				</div>
+				<div class="bot1_text wode">我的</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="js/zhaogongzuo.js"></script>
+
+</html>

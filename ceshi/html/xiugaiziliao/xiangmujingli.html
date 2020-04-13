@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>项目经历</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/jibenxinxi.css">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../../js/bootstrap.js"></script>
+    <script src="../../js/vue.js"></script>
+    <script src="../../js/vue.min.js"></script>
+    <script src="../../js/axios.js"></script>
+    <script src="../../js/vue-resource.js"></script>
+    <script src="../../js/vconsole.min.js"></script>
+    <script src="../../js/minganci.js"></script>
+    <script src="../../js/jsencrypt.js"></script>
+    <script src="../../js/hsjidh.js"></script>
+    <script src="../../js/axiosjsqing.js"></script>
+    <script src="../../js/jgifdj.js"></script>
+</head>
+<style>
+    html,
+    body {
+        height: 100%;
+    }
+
+    textarea {
+        width: 100%;
+        height: 20vh;
+        resize: none;
+        border: 0px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        outline: none;
+        padding: 5px;
+        
+    }
+
+    .pingjia {
+        width: 100%;
+        padding: 15px;
+    }
+    .leibiao {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 0px 15px;
+        width: 94%;
+        margin-left: 3%;
+        margin-top: 16px;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <nav class="navbar navbar-default" role="navigation" style="background:#fff;width: 100%;z-index: 100000;"
+            id="daohanglan">
+            <div class="container-fluid">
+                <div class="">
+                    <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
+                        style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left"
+                            style="color: rgb(0, 0, 0);" onclick="Mback()"></span></a>
+                    <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10"
+                        style="color: #000;text-align: center;font-size: 20px;font-weight: blod;">项目经历</a>
+                    <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
+                        style="color: #000;float: right;text-align: right;"><span
+                            style="color: rgb(0, 0, 0);margin-left: -15px;font-size:14px;"></span></a>
+                </div>
+            </div>
+        </nav>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 leibiao">
+            <span class="leibiao_left">项目名称</span>
+            <span class="leibiao_rigth"><input type="text" placeholder="请填写项目名称" v-model="school"></span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 leibiao" >
+            <span class="leibiao_left">开始时间</span>
+            <span class="leibiao_rigth"><input type="date" style="text-align: right !important; " v-model="statime"></span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 leibiao">
+            <span class="leibiao_left">期望薪资</span>
+            <span class="leibiao_rigth"><input type="date" style="text-align: right !important; " v-model="endtime"></span>
+        </div>
+        <div class="pingjia">
+            <textarea name="" id="" placeholder="项目描述" v-model="xiangmumiaoshu"></textarea>
+        </div>
+        <div class="pingjia">
+            <textarea name="" id="" placeholder="个人职责" v-model="gerenzhice"></textarea>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <button @click="xiugai">123</button>
+        </div>
+    </div>
+</body>
+<script>
+    window.onload = function () {
+        new Vue({
+            el: '#app',
+            data: {
+                users: "",
+                school:"",
+                statime:"",
+                endtime:"",
+                xiangmumiaoshu:"",
+                gerenzhice:"",
+            },
+            mounted: function () {
+                this.huoquxiangmu();
+            },
+            methods: {
+                huoquxiangmu:function(){
+                    fjdf();
+                    var than = this;
+                    this.$http.post('../../../../index.php/api/wode/obtain_objects_experience', {
+                        id: "7",
+                        aid: "37",
+                        types: "0",
+                    },{
+                        headers:{
+                            'Cookies':ashjd
+                        }
+                    })
+                        .then(function (res) {
+                            console.log(res)
+                            than.school = res.data.data.name;
+                            than.statime = res.data.data.start_time;
+                            than.endtime = res.data.data.end_time;
+                            than.xiangmumiaoshu = res.data.data.text;
+                            than.gerenzhice = res.data.data.duty;
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+                },
+                xiugai: function (e, id) {
+                    fjdf();
+                    var than = this;
+                    var timeDate = than.statime;
+                    var timeDates = than.endtime;
+                    var date = new Date();
+                    var year = date.getFullYear();
+                    var month = date.getMonth() + 1;
+                    var currentdate = year + '-' + month
+                    var statime1 = new Date(currentdate).getTime() / 1000//系统时间
+                    var statime = new Date(timeDate).getTime() / 1000//选择时间
+                    var endtime = new Date(timeDates).getTime() / 1000//结束时间
+                    this.$http.post('../../../../index.php/api/wode/add_objects_experience', {
+                        id:"",
+                        aid:"37",
+                        types:"0",
+                        name:than.school,
+                        start_time: statime,
+                        end_time: endtime,
+                        text:than.xiangmumiaoshu,
+                        duty:than.gerenzhice,
+                    },{
+                        headers:{
+                            'Cookies':ashjd
+                        }
+                    })
+                        .then(function (res) {
+                            console.log(res)
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+                },
+            }
+        })
+    }
+</script>
+
+</html>

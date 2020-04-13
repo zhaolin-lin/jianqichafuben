@@ -1,0 +1,202 @@
+html,
+body {
+    margin: 0;
+    width: 100%;
+    background:#f2f2f2;
+}
+.navbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 0px;
+    border: 1px solid transparent;
+}
+.form-control {
+    width: 80%;
+}
+.form-control{
+    border: 0px solid #000;
+    border-right: 1px solid #d4d4d4;
+}
+.input-group-addon{
+    border: 0px solid #000;
+}
+input{
+    outline: none;
+}
+.header {
+    height: 25px;
+    line-height: 25px;
+    text-align: left;
+    position: relative;
+}
+.shengc{
+    width: 96%;
+    margin-left: 1%;
+    background: #f4f4f4;
+    height:130px;
+}
+        .gengduo{
+            float: right;
+        }
+        .quanbu{
+           background: #f4f4f4; 
+
+           width: 100%;
+        }
+        .renyuan{
+            width: 100%;
+
+            background: #f4f4f4;
+            float: left;
+        }
+        .renyuan1{
+            width: 48%;
+            float: left;
+            background: #fff;
+            padding: 7px;
+            border-radius: 10px;
+            margin-left: 2%;
+        }
+        .renyua2{
+            width: 42px;
+            height: 42px;
+        }
+        .mingzi{
+            display: inline-block;
+            margin-left: 10px;
+            line-height: 42px;
+        }
+        .renyua3{
+            width: 13px;
+            height: 13px;
+            margin-top: -21px;
+        }
+        .mingzi1{
+            width: 60%;
+            float: left;
+            display:-webkit-box;
+            -webkit-line-clamp:1;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            -webkit-box-orient:vertical;
+            word-break:break-all;
+            line-height: 42px;
+            margin-left: 10px;
+        }
+        .mingzi2{
+            width: 90%;
+            float: left;
+            display:-webkit-box;
+            -webkit-line-clamp:1;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            -webkit-box-orient:vertical;
+            word-break:break-all;
+            line-height: 42px;
+            margin-left: 10px;
+        }
+        .xiesi{
+            color: #a7a7a7;
+            font-size: 12px;
+            float: left;
+        }
+        .huoqu{
+            color: #000;
+            font-size: 12px;
+            width: 55%;
+            float: left;
+            display:-webkit-box;
+            -webkit-line-clamp:1;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            -webkit-box-orient:vertical;
+            word-break:break-all;
+        }
+        .shengc1{
+            width: 96%;
+            margin-left: 1%;
+            background: #f4f4f4;
+        }
+        .renyua4{
+            width: 65px;
+            height: 65px;
+            float: left;
+            border-radius: 12px;
+        }
+        .gongsi{
+            width: 96%;
+            float: left;
+            background: #fff;
+            padding: 7px;
+            border-radius: 10px;
+            margin-left: 3%;
+            margin-top: 10px;
+        }
+        .xingxi{
+            line-height: 27px;
+            font-size: 12px;
+        }
+        .xingxi span{
+            padding-left: 6px;
+        }
+        .xingxi span div{
+            display: inline-block;
+        }
+        .xingxi img{
+            padding-left: 3px;
+        }
+        .renyua2_1{
+            width: 42px;
+            height: 42px;
+            float: left;
+        }
+        .touxiang{
+            width: 42px;
+            height: 42px;
+            float: left;
+            border-radius: 42px;
+            background: #000;
+            text-align: center;
+            line-height: 42px;
+            color: #fff
+        }
+        .shengc_1{
+            width: 96%;
+            margin-left: 1%;
+            background: #f4f4f4;
+            height:130px;
+        }
+        .gsdi{
+            display:-webkit-box;
+            -webkit-line-clamp:1;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            -webkit-box-orient:vertical;
+            word-break:break-all;
+            width: 100%;
+            font-size: 12px;
+        }
+        .sousuojieguo a{
+            padding: 15px 0px 15px 0px;
+        }
+        .jiazaizhong{
+            text-align: center;
+            position: absolute;
+            top:-17px;
+            width: 100%;
+            background: #fff;
+            height: 100%;
+            z-index: 20000000000;
+            display: block;
+        }
+        [v-cloak] {
+            display: none !important;
+        }
+        .nones{
+            background:#fff;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+        }
+        .nones img{align-items: center;}
