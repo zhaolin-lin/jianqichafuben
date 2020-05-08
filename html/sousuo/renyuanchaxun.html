@@ -14,18 +14,56 @@
 <script src="../../js/bootstrap.js"></script>
 <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
 <script src="../../js/axios.js"></script>
+<style>
+	.mask{
+		width: 100%;
+		height: 100vh;
+		display: none;
+		background-color: rgba(0, 0, 0, 0.2);
+		position: absolute;
+		top: 39px;
+		left: 0;
+		z-index: 99999;
+	}
+	.navDown{
+		width: 100%;
+		height: 250px;
+		background-color: #fff;
+		position: absolute;
+		top: 39px;
+		left: 0;
+		z-index: 100000;
+		display: none;
+	}
+	.navDownL{
+		width: 50%;
+		height: 100%;
+		float: left;
+		overflow: scroll;
+	}
+	.navDownR{
+		width: 50%;
+		height: 100%;
+		float: right;
+		overflow: scroll;
+	}
+	.navDownL ul,.navDownR ul{width: 100%;height: 100%;margin: 0;padding: 0;}
+	.navDownL ul li,.navDownR ul li{width: 100%;text-align: center;font-size: 14px;
+	}
+</style>
 </head>
 
 
 <body style="background:#fff;height:100%;">
 <div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px"> </div>
-<nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+<nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;top: 0;;" id="daohanglan">
 		<div class="container-fluid">
-				<div class=""> <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a> <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10" style="color: #fff;text-align: center;">人员查询</a> <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;float: right;text-align: right;" ><span class="glyphicon glyphicon-remove" style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a> </div>
+				<div class="" style="display: flex;justify-content: space-between;align-items: center;"> 
+					<a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a> <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10" style="color: #fff;text-align: center;">人员查询</a> <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;float: right;text-align: right;" ><span class="glyphicon glyphicon-remove" style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a> </div>
 		</div>
 </nav>
 <!-- 内容开始 -->
-<div style="background: #fff;position: absolute;" id="app" v-cloak>
+<div style="background: #fff;position: absolute; width: 100%;" id="app" v-cloak>
 	<div style="width: 100%;overflow: hidden;">
 		<div style="line-height: 50px;width: 23%;float: left;margin-left: 20px">地区选择：</div>
 		<div style="line-height: 30px;width: 30%;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center; " @click="shengObj">{{sheng}}</div>
@@ -47,50 +85,92 @@
 		</div>
 	</div> -->
 	<!-- //////////////////////////////////////////////////////////////////////////// -->
-	<div style="width: 100%;height: 25px;overflow: hidden;">
+	<!-- 2020-4-14样式修改注释 -->
+	<!-- <div style="width: 100%;height: 25px;overflow: hidden;">
 		<div style="line-height: 25px;width: 23%;float: left;margin-left: 20px">人员类别：</div>
 	</div>
 	<div style="width: 100%;height: 50px;overflow: hidden;">
 		<div style="line-height: 30px;width: 30%;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 8px" @click='rydalei'> {{rydalein}}</div>
 		<div style="display: none" id="qiyetid" ref="nativeplace2"></div>
 		<div style="line-height: 30px;width: 30%;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 10px"  @click='ryzhengshu'>{{ryzhengshus}}</div>
-	</div>
-	<div style="height: 50px;overflow: hidden;" class="col-xs-12">
-		<div style="line-height: 50px;float: left;margin-left: 20px;" class="col-xs-3">人员名称：</div>
-		<div style="line-height: 30px;float: left;margin-top: 10px;" class="col-xs-8">
-			<input type="text" name="" placeholder="输入人员名称" style="border-radius: 10px;border:1px solid #C2C2C2" class="col-xs-12" v-model='str'>
+	</div> -->
+	<div style="width: 100%; height: 50px;overflow: hidden;display: flex;justify-content: center;align-items: center;">
+		<!-- <div style="line-height: 50px;float: left;margin-left: 20px;" class="col-xs-3">人员名称：</div> -->
+		<div style="width: 91%; line-height: 37px;">
+			<input type="text" name="" placeholder="输入人员名称" style="width: 100%;background: rgb(242, 242, 242);border-radius: 10px;text-align: center;border: none;outline: none;" v-model='str'>
 		</div>
 	</div>
-	<div style="height: 50px;overflow: hidden;" class="col-xs-12">
+	<!-- <div style="height: 50px;overflow: hidden;" class="col-xs-12">
 		<div style="line-height: 50px;float: left;margin-left: 4px;" class="col-xs-6">注册号（执业印章号）：</div>
 		<div style="line-height: 30px;float: left;margin-top: 10px;margin-left: -47px;" class="col-xs-6">
 			<input type="text" name="" placeholder="输入注册号" style="border-radius: 10px;border:1px solid #C2C2C2" class="col-xs-12" v-model='zhiyestr'>
 		</div>
-	</div>
+	</div> -->
 	<div style="width: 100%;overflow: hidden;text-align: center;">
-		<button style="margin: 20px 0 20px 0;background: #FD9700;border-radius: 10px;width: 30%;height: 40px;border:1px solid #FD9700;outline:none;color: #fff" @click="sendGetByObj">开始查询</button>
+		<button style="margin: 10px 0;background: #FD9700;border-radius: 10px;width: 30%;height: 40px;border:1px solid #FD9700;outline:none;color: #fff" @click="sendGetByObj">开始查询</button>
 	</div>
-	<div class="header" style="background: #f2f2f2">
+	<div style="height: 40px;display: flex;align-items: center;justify-content: center;border-bottom: 1px solid #cacaca;border-top: 1px solid #cacaca;padding: 0px;background: #fff;z-index:1000;position: relative;"
+				class="col-xs-12" id="xuanxiang">
+			<div class="" style="width: 50%;text-align: center;padding: 0px;" @click="getRegisterKind()">
+				<span style="font-size: 16px;font-weight: bold;">注册类别</span>
+				<span class="glyphicon glyphicon-chevron-down" style="color: rgb(0, 0, 0);"></span>
+			</div>
+			<div class="" style="width: 50%;text-align: center;padding: 0px;" @click="getRegisterObj()">
+				<span style="font-size: 16px;font-weight: bold;">注册专业</span>
+				<span class="glyphicon glyphicon-chevron-down" style="color: rgb(0, 0, 0);"></span>
+			</div>
+			<div id="mask" class="mask" @click="closeBox()" @touchmove.prevent></div>
+			<!-- 注册类别 -->
+			<div class="navDown" id="navDown_lb">
+				<div class="navDownL">
+					<ul>
+						<li v-for="item in registerKind" :aid="item.key" @click="getRegisterList(item.key)">{{item.name}}</li>
+					</ul>
+				</div>
+				<div class="navDownR">
+					<ul>
+						<li v-for="item in registerList" :aid="item.key" @click="getRegisterClick(item.key)">{{item.name}}</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 注册专业 -->
+			<div class="navDown" id="navDown_zy">
+				<div class="navDownL">
+					<ul>
+						<li v-for="item in registerObj" :aid="item.id" @click="getRegObjClick(item.id)">{{item.typename}}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	<!-- <div class="header" style="background: #f2f2f2">
 		<div style="font-size:10px;color:#737780">总共找到<span v-if="shuliang.length == '0'">0</span><span v-else>{{yeshu}}</span>条相关信息</div>
-	</div>
+	</div> -->
     <!-- <div class="jiazaizhong" id="jiazaizhong">
         <img src="../../image/jiazai.gif" width="30px;">
     </div> -->
     <div style="background:#fff;height: 100%;text-align: center;padding-top: 20px" v-if="xianshuu == '0'" > 
         <img src="../../image/jiazai.gif" width="30px;">
-    </div>
-	<div style="background:#f2f2f2;height: 100%" v-else> 
+	</div>
+	
+	<div style="background:#f2f2f2;width:100%;height: 100%; padding-top:1px;" class="quanbu111" v-else>
     	<div class="nones" v-if="shuliang.length == '0'">
             <img src="../../image/undraw_signal_searching_bhpc.png" style="width: 50%;margin-left: 25%;">
         </div>
-		<div v-for="user in users" @click="tiaozhuan1(user.aid)" :id="user.aid" v-else>
-			<ul id="J_List2">
-				<li style="background:#fff;padding-bottom:15px;margin-top:5px">
+		<div style="display: flex;justify-content: space-around;flex-wrap: wrap;padding: 0 3px" v-else>
+			<ul id="J_List2" v-for="user in users" @click="tiaozhuan1(user.aid)" :aid="user.aid" style="width: 49%;margin:0;">
+				<li style="background:#fff;padding-bottom:5px;margin-top:5px;padding-left:5px;border-radius:10px;">
 					<div :id="'xiangmu'+ user.aid" style="display: none">{{user.name}}</div>
-					<div style="margin-left:15px;padding-bottom:5px;padding-top:10px;" v-html="user.name">{{user.name}}&nbsp;&nbsp;&nbsp;<span v-if="user.sex === '0'">性别：男</span><span v-else>性别：女</span></div>
-					<div style="width:90%;height:30px;line-height:30px;margin-left:15px"> 证件号码：<span>{{ user.cardname }}</span> </div>
-					<div style="width:90%;height:30px;line-height:30px;margin-left:15px"> 工程师类别：<span>{{ user.lx }}</span> </div>
-					<div style="width:90%;height:30px;line-height:30px;margin-left:15px"> 企业名称：<span>{{ user.companyid }}</span> </div>
+					<div style="padding-bottom:5px;padding-top:10px;line-height:39px;">
+						<div style="width:40px;height:40px;border-radius: 50%;overflow:hidden;float:left;;margin-right:10px">
+							<img :src="user.image" alt="" style="width:100%;height:100%;">
+						</div>
+						<div style="line-height:40px;font-weight:bold;" v-html="user.name">{{user.name}}</div>
+						<!-- <span v-if="user.sex === '0'">性别：男</span>
+						<span v-else>性别：女</span> -->
+					</div>
+					<div style="padding-bottom:2px"><span style="color:#999">注册类别</span>：<span>{{ user.zclb}}</span> </div>
+					<div style="padding-bottom:2px"><span style="color:#999">注册专业</span>：<span>{{ user.zczy}}</span> </div>
+					<!-- <div style="height:30px;line-height:30px;"> 企业名称：<span>{{ user.companyid }}</span> </div> -->
 				</li>
 			</ul>
 		</div>

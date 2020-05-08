@@ -22,9 +22,9 @@
 	<div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
 	</div>
 	<nav class="navbar navbar-default" role="navigation"
-		style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+		style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000; top: 0;" id="daohanglan">
 		<div class="container-fluid">
-			<div class="">
+			<div class="" style="display: flex; justify-content: space-between;align-items: center;">
 				<a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
 					style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left"
 						style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
@@ -99,20 +99,38 @@
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="gongshangxinxi(this)" id="qiyexiangqingID">
-					<img src="../../image/shouyetu/gongshangxinxi.png">
-					<div class="mingcheng">工商信息</div>
+					<div v-if="users.is_gsxq==1">
+						<img src="../../image/cutpic/true/gsxx.png">
+						<div class="mingcheng">工商信息</div>
+					</div>
+					<div v-if="users.is_gsxq==0">
+						<img src="../../image/cutpic/true/gsxx.png">
+						<div class="mingcheng" style="color: #999;">工商信息</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="gudongxinxi(this)">
-					<img src="../../image/shouyetu/gudongxinxi.png">
-					<div class="mingcheng">股东信息</div>
+					<div v-if="users.is_czxx==1">
+						<img src="../../image/cutpic/true/gdxx.png">
+						<div class="mingcheng">股东信息</div>
+					</div>
+					<div v-if="users.is_czxx==0">
+						<img src="../../image/cutpic/false/gdxx.png">
+						<div class="mingcheng" style="color: #999;">股东信息</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="zhuyaorenyuan(this)">
-					<img src="../../image/shouyetu/zhuyaorenyuan.png">
-					<div class="mingcheng">主要人员</div>
+					<div v-if="users.is_zyry==1">
+						<img src="../../image/cutpic/true/zyry.png">
+						<div class="mingcheng">主要人员</div>
+					</div>
+					<div v-if="users.is_zyry==0">
+						<img src="../../image/cutpic/false/zyry.png">
+						<div class="mingcheng" style="color: #999;">主要人员</div>
+					</div>
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
@@ -120,13 +138,25 @@
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="biangengjilu(this)">
-					<img src="../../image/shouyetu/biangenjilu.png">
-					<div class="mingcheng">变更记录</div>
+					<div v-if="users.is_bgxx==1">
+						<img src="../../image/cutpic/true/bgjl.png">
+						<div class="mingcheng">变更记录</div>
+					</div>
+					<div v-if="users.is_bgxx==0">
+						<img src="../../image/cutpic/false/bgjl.png">
+						<div class="mingcheng" style="color: #999;">变更记录</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;">
-					<img src="../../image/shouyetu/qiyenianbao.png" onclick="qiyenianbao(this)">
-					<div class="mingcheng">企业年报</div>
+					<div v-if="users.is_qynb==1">
+						<img src="../../image/cutpic/true/qynb.png" onclick="qiyenianbao(this)">
+						<div class="mingcheng">企业年报</div>
+					</div>
+					<div v-if="users.is_qynb==0">
+						<img src="../../image/cutpic/false/qynb.png" onclick="qiyenianbao(this)">
+						<div class="mingcheng" style="color: #999;">企业年报</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -137,20 +167,38 @@
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="jinrixinzeng(this)">
-					<img src="../../image/shouyetu/jinrixinzeng.png">
-					<div class="mingcheng">今日新增</div>
+					<div v-if="users.is_jrxz==1">
+						<img src="../../image/cutpic/true/jrxz.png">
+						<div class="mingcheng">今日新增</div>
+					</div>
+					<div v-if="users.is_jrxz==0">
+						<img src="../../image/cutpic/false/jrxz.png">
+						<div class="mingcheng" style="color: #999;">今日新增</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="xinxizongliang(this)">
-					<img src="../../image/shouyetu/s1.png">
-					<div class="mingcheng">信息总量</div>
+					<div v-if="users.is_xxzl==1">
+						<img src="../../image/cutpic/true/xxzl.png">
+						<div class="mingcheng">信息总量</div>
+					</div>
+					<div v-if="users.is_xxzl==0">
+						<img src="../../image/cutpic/false/xxzl.png">
+						<div class="mingcheng" style="color: #999;">信息总量</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="buliangxinxi(this)">
-					<img src="../../image/shouyetu/s2.png">
-					<div class="mingcheng">不良信息</div>
+					<div v-if="users.is_blxw==1">
+						<img src="../../image/cutpic/true/blxx.png">
+						<div class="mingcheng">不良信息</div>
+					</div>
+					<div v-if="users.is_blxw==0">
+						<img src="../../image/cutpic/false/blxx.png">
+						<div class="mingcheng" style="color: #999;">不良信息</div>
+					</div>
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
@@ -158,20 +206,38 @@
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="minshian(this)">
-					<img src="../../image/shouyetu/s3.png">
-					<div class="mingcheng">民事案</div>
+					<div v-if="users.is_msan==1">
+						<img src="../../image/cutpic/true/msa.png">
+						<div class="mingcheng">民事案</div>
+					</div>
+					<div v-if="users.is_msan==0">
+						<img src="../../image/cutpic/false/msa.png">
+						<div class="mingcheng" style="color: #999;">民事案</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="peichangan(this)">
-					<img src="../../image/shouyetu/s4.png">
-					<div class="mingcheng">赔偿案</div>
+					<div v-if="users.is_pcan==1">
+						<img src="../../image/cutpic/true/pca.png">
+						<div class="mingcheng">赔偿案</div>
+					</div>
+					<div v-if="users.is_pcan==0">
+						<img src="../../image/cutpic/false/pca.png">
+						<div class="mingcheng" style="color: #999;">赔偿案</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="xingzhenan(this)">
-					<img src="../../image/shouyetu/s5.png">
-					<div class="mingcheng">行政案</div>
+					<div v-if="users.is_xzan==1">
+						<img src="../../image/cutpic/true/xza.png">
+						<div class="mingcheng">行政案</div>
+					</div>
+					<div v-if="users.is_xzan==0">
+						<img src="../../image/cutpic/false/xza.png">
+						<div class="mingcheng" style="color: #999;">行政案</div>
+					</div>
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
@@ -179,20 +245,38 @@
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="zhixingan(this)">
-					<img src="../../image/shouyetu/s6.png">
-					<div class="mingcheng">执行案</div>
+					<div v-if="users.is_zxan==1">
+						<img src="../../image/cutpic/true/zxa.png">
+						<div class="mingcheng">执行案</div>
+					</div>
+					<div v-if="users.is_zxan==0">
+						<img src="../../image/cutpic/false/zxa.png">
+						<div class="mingcheng" style="color: #999;">执行案</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="zhixingxinxi(this)">
-					<img src="../../image/shouyetu/s7.png">
-					<div class="mingcheng">执行信息</div>
+					<div v-if="users.is_zxxx==1">
+						<img src="../../image/cutpic/true/zxxx.png">
+						<div class="mingcheng">执行信息</div>
+					</div>
+					<div v-if="users.is_zxxx==0">
+						<img src="../../image/cutpic/false/zxxx.png">
+						<div class="mingcheng" style="color: #999;">执行信息</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="chouchajiancha(this)">
-					<img src="../../image/shouyetu/s8.png">
-					<div class="mingcheng">抽查检查结果信息</div>
+					<div v-if="users.is_ccjc==1">
+						<img src="../../image/cutpic/true/ccjc.png">
+						<div class="mingcheng">抽查检查结果信息</div>
+					</div>
+					<div v-if="users.is_ccjc==0">
+						<img src="../../image/cutpic/true/ccjc.png">
+						<div class="mingcheng" style="color: #999;">抽查检查结果信息</div>
+					</div>
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
@@ -200,21 +284,40 @@
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="shuangsuijichoucha(this)">
-					<img src="../../image/shouyetu/s9.png" style="margin-top: -11px; ">
-					<div class="mingcheng1">双随机抽查</div>
-					<div class="mingcheng2">检查结果信息</div>
+					<div v-if="users.is_ssjcc==1">
+						<img src="../../image/cutpic/true/ssjcc.png" style="margin-top: -11px; ">
+						<div class="mingcheng1">双随机抽查</div>
+						<div class="mingcheng2">检查结果信息</div>
+					</div>
+					<div v-if="users.is_ssjcc==0">
+						<img src="../../image/cutpic/false/ssjcc.png" style="margin-top: -11px; ">
+						<div class="mingcheng1" style="color: #999;">双随机抽查</div>
+						<div class="mingcheng2" style="color: #999;">检查结果信息</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="sifaxiezhu(this)">
-					<img src="../../image/shouyetu/s10.png">
-					<div class="mingcheng">司法协助信息</div>
+					<div v-if="users.is_sfxz==1">
+						<img src="../../image/cutpic/true/sfxz.png">
+						<div class="mingcheng">司法协助信息</div>
+					</div>
+					<div v-if="users.is_sfxz==0">
+						<img src="../../image/cutpic/false/sfxz.png">
+						<div class="mingcheng" style="color: #999;">司法协助信息</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="heimingdan(this)">
-					<img src="../../image/shouyetu/s11.png">
-					<div class="mingcheng">黑名单</div>
+					<div v-if="users.is_hmdjl==1">
+						<img src="../../image/cutpic/true/hmd.png">
+						<div class="mingcheng">黑名单</div>
+					</div>
+					<div v-if="users.is_hmdjl==0">
+						<img src="../../image/cutpic/false/hmd.png">
+						<div class="mingcheng" style="color: #999;">黑名单</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -225,20 +328,38 @@
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="zizhizhengshu(this)">
-					<img src="../../image/shouyetu/s12.png">
-					<div class="mingcheng">企业资质证书</div>
+					<div v-if="users.is_zzlx==1">
+						<img src="../../image/cutpic/true/qyzz.png">
+						<div class="mingcheng">企业资质证书</div>
+					</div>
+					<div v-if="users.is_zzlx==0">
+						<img src="../../image/cutpic/false/qyzz.png">
+						<div class="mingcheng" style="color: #999;">企业资质证书</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="shangbiao(this)">
-					<img src="../../image/shouyetu/s13.png">
-					<div class="mingcheng">商标</div>
+					<div v-if="users.is_sbzc==1">
+						<img src="../../image/cutpic/true/copy.png">
+						<div class="mingcheng">商标</div>
+					</div>
+					<div v-if="users.is_sbzc==0">
+						<img src="../../image/cutpic/false/copy.png">
+						<div class="mingcheng" style="color: #999;">商标</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="zhuanli(this)">
-					<img src="../../image/shouyetu/s14.png">
-					<div class="mingcheng">专利</div>
+					<div v-if="users.is_zl==1">
+						<img src="../../image/cutpic/true/zl.png">
+						<div class="mingcheng">专利</div>
+					</div>
+					<div v-if="users.is_zl==0">
+						<img src="../../image/cutpic/false/zl.png">
+						<div class="mingcheng" style="color: #999;">专利</div>
+					</div>
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
@@ -246,15 +367,28 @@
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="zhuzuoquan(this)">
-					<img src="../../image/shouyetu/s15.png">
-					<div class="mingcheng">著作权</div>
+					<div v-if="users.is_zzq==1">
+						<img src="../../image/cutpic/true/zzq.png">
+						<div class="mingcheng">著作权</div>
+					</div>
+					<div v-if="users.is_zzq==0">
+						<img src="../../image/cutpic/false/zzq.png">
+						<div class="mingcheng" style="color: #999;">著作权</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="zhishichanquan(this)">
-					<img src="../../image/shouyetu/s16.png" style="margin-top: -11px; ">
-					<div class="mingcheng1">知识产权</div>
-					<div class="mingcheng2">出质登记信息</div>
+					<div v-if="users.is_zxcq==1">
+						<img src="../../image/cutpic/true/zscq.png" style="margin-top: -11px; ">
+						<div class="mingcheng1">知识产权</div>
+						<div class="mingcheng2">出质登记信息</div>
+					</div>
+					<div v-if="users.is_zxcq==0">
+						<img src="../../image/cutpic/false/zscq.png" style="margin-top: -11px; ">
+						<div class="mingcheng1" style="color: #999;">知识产权</div>
+						<div class="mingcheng2" style="color: #999;">出质登记信息</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;">
@@ -268,20 +402,38 @@
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="zhaopin(this)">
-					<img src="../../image/shouyetu/s17.png">
-					<div class="mingcheng">招聘</div>
+					<div v-if="users.is_zp==1">
+						<img src="../../image/cutpic/true/zp.png">
+						<div class="mingcheng">招聘</div>
+					</div>
+					<div v-if="users.is_zp==0">
+						<img src="../../image/cutpic/false/zp.png">
+						<div class="mingcheng" style="color: #999;">招聘</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="zhucewangzhan(this)">
-					<img src="../../image/shouyetu/s18.png">
-					<div class="mingcheng">注册网站</div>
+					<div v-if="users.is_web==1">
+						<img src="../../image/cutpic/true/zcwz.png">
+						<div class="mingcheng">注册网站</div>
+					</div>
+					<div v-if="users.is_web==0">
+						<img src="../../image/cutpic/false/zcwz.png">
+						<div class="mingcheng" style="color: #999;">注册网站</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="chanpinxinxi(this)">
-					<img src="../../image/shouyetu/s19.png">
-					<div class="mingcheng">产品信息</div>
+					<div v-if="users.is_product==1">
+						<img src="../../image/cutpic/true/cpxx.png">
+						<div class="mingcheng">产品信息</div>
+					</div>
+					<div v-if="users.is_product==0">
+						<img src="../../image/cutpic/false/cpxx.png">
+						<div class="mingcheng" style="color: #999;">产品信息</div>
+					</div>
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
@@ -289,20 +441,38 @@
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="gongsijianjie(this)">
-					<img src="../../image/shouyetu/s20.png">
-					<div class="mingcheng">公司简介</div>
+					<div v-if="users.is_gsjj==1">
+						<img src="../../image/cutpic/true/gsjj.png">
+						<div class="mingcheng">公司简介</div>
+					</div>
+					<div v-if="users.is_gsjj==0">
+						<img src="../../image/cutpic/false/gsjj.png">
+						<div class="mingcheng" style="color: #999;">公司简介</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="zhaotoubiao(this)">
-					<img src="../../image/shouyetu/s21.png">
-					<div class="mingcheng">招投标</div>
+					<div v-if="users.is_ztb==1">
+						<img src="../../image/cutpic/true/ztb.png">
+						<div class="mingcheng">招投标</div>
+					</div>
+					<div v-if="users.is_ztb==0">
+						<img src="../../image/cutpic/false/ztb.png">
+						<div class="mingcheng" style="color: #999;">招投标</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="qiyeyuangong(this)">
-					<img src="../../image/shouyetu/s22.png">
-					<div class="mingcheng">企业员工</div>
+					<div v-if="users.is_zcry==1">
+						<img src="../../image/cutpic/true/qyyg.png">
+						<div class="mingcheng">企业员工</div>
+					</div>
+					<div v-if="users.is_zcry==0">
+						<img src="../../image/cutpic/false/qyyg.png">
+						<div class="mingcheng" style="color: #999;">企业员工</div>
+					</div>
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
@@ -310,14 +480,26 @@
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="gongchenxingmu(this)">
-					<img src="../../image/shouyetu/s23.png">
-					<div class="mingcheng">工程项目</div>
+					<div v-if="users.is_gcxm==1">
+						<img src="../../image/cutpic/true/gcxm.png">
+						<div class="mingcheng">工程项目</div>
+					</div>
+					<div v-if="users.is_gcxm==0">
+						<img src="../../image/cutpic/false/gcxm.png">
+						<div class="mingcheng" style="color: #999;">工程项目</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;"
 					onclick="weixin(this)">
-					<img src="../../image/shouyetu/s24.png">
-					<div class="mingcheng">微信公众号</div>
+					<div v-if="is_wx==1">
+						<img src="../../image/cutpic/true/wechart.png">
+						<div class="mingcheng">微信公众号</div>
+					</div>
+					<div v-if="is_wx==0">
+						<img src="../../image/cutpic/false/wechart.png">
+						<div class="mingcheng" style="color: #999;">微信公众号</div>
+					</div>
 				</div>
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tupian"
 					style="border-right: 1px solid #E6E6E6;height: 70px;line-height: 52px;position: relative;">

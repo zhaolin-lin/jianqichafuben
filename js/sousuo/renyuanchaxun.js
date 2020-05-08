@@ -1,4 +1,10 @@
+var search="";
+
 window.onload=function(){
+    var clientHeight = document.documentElement.clientHeight;   //获取可视区域的高度
+    var timer = null; //定义一个定时器
+    var isTop = true; //定义一个布尔值，用于判断是否到达顶部
+
     var lastname = localStorage.getItem("keyrenyuan");
 	var xuanzhong = "";
 	var shiid = "";
@@ -49,7 +55,15 @@ window.onload=function(){
             yeshu:"",
             pages:"",
             shuliang:"",
-            xianshuu:"0"
+            xianshuu:"0",
+            // 2020-4-15新增
+            isAbove:false,
+            isUnder:true,
+            registerKind:[],
+            registerList:[],
+            registerObj:[],
+            regKey:"",
+            regTypeId:""
         },
         mounted:function(){                                                                                
             this.sendGetByObj();
@@ -58,6 +72,118 @@ window.onload=function(){
             window.addEventListener('scroll', this.onScroll);
         },
         methods:{
+             // 关闭mask
+             closeBox:()=>{
+                this.isAbove=false;
+                this.isUnder=true;
+                console.log("this.isAbove:",this.isAbove,"this.isUnder:",this.isUnder)
+                $(".navDown").css("display","none");
+                $("#mask").css("display","none");
+            },
+            // 获取注册类别
+            getRegisterKind:function () {
+                $("#navDown_lb").css("display","block");
+                $("#navDown_zy").css("display","none");
+                $("#mask").css("display","block");
+                this.$http.get("../../../index.php/Index/rys/lx",{
+                    params:{
+
+                    }
+                })
+                .then(res=>{
+                    // console.log(res);
+                    this.registerKind = res.data.list;
+                })
+                .catch(function(error){
+                    console.log(error)
+                })
+            },
+            getRegisterList: function (key){
+                this.$http.get("../../../index.php/Index/rys/lx",{
+                    params:{
+
+                    }
+                })
+                .then(res=>{
+                    for(let i = 0;i<this.registerKind.length;i++){
+                        if(this.registerKind[i].key==key){
+                            this.registerList=res.data.list[i].next;
+                            console.log("for",this.registerList)
+                        }
+                    }
+                })
+                .catch(function(error){
+                    console.log(error)
+                })
+            },
+            getRegisterClick:function(key){
+                $(".navDown").css("display","none");
+                $("#mask").css("display","none");
+                this.regKey = key;
+                var than=this
+                this.$http.get("../../../index.php/Index/rys",{
+                    params:{
+                        act:"app",
+                        keyword:than.str,
+                        nativeplace:than.ultimatelyx,
+                        leixing:this.regKey,
+                        typeid:this.regTypeId
+                    }
+                })
+                .then(res=>{
+                    console.log(res.data.content.content);
+                    this.users = res.data.content.content.data;
+                    this.shuliang = res.data.content.content;
+                    this.yeshu = res.data.content.content.number;
+                    this.pages = res.data.content.content.pages;
+                    this.xianshuu = "1";
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            },
+            // 获取注册专业
+            getRegisterObj:function(){
+                $("#navDown_lb").css("display","none");
+                $("#navDown_zy").css("display","block");
+                $("#mask").css("display","block");
+                this.$http.get("../../../index.php/Index/rys/zy",{
+                    params:{}
+                })
+                .then(res=>{
+                    console.log(res.data.list[0]);
+                    this.registerObj = res.data.list[0];
+                })
+                .catch(function(error){
+                    console.log(error)
+                })
+            },
+            getRegObjClick: function(id){
+                $(".navDown").css("display","none");
+                $("#mask").css("display","none");
+                this.regTypeId = id;
+                var than = this;
+                this.$http.get("../../../index.php/Index/rys",{
+                    params:{
+                        act:"app",
+                        keyword:than.str,
+                        nativeplace:than.ultimatelyx,
+                        leixing:this.regKey,
+                        typeid:this.regTypeId
+                    }
+                })
+                .then(res=>{
+                    console.log(res.data.content.content);
+                    this.users = res.data.content.content.data;
+                    this.shuliang = res.data.content.content;
+                    this.yeshu = res.data.content.content.number;
+                    this.pages = res.data.content.content.pages;
+                    this.xianshuu = "1";
+                })
+                .catch(function(error){
+                    console.log(error);
+                })
+            },
             sendGetByObj:function(){
                 var than = this;
                 than.xianshuu = "0";
@@ -83,9 +209,32 @@ window.onload=function(){
                 });
             },
             onScroll:function(){
-                var innerHeight = document.querySelector('#app').clientHeight;
+                var innerHeight = document.querySelector('.quanbu111').clientHeight;
                 var outerHeight = document.documentElement.clientHeight;
                 var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+                if(scrollTop > 131){
+                    $('#xuanxiang').css('position' , 'fixed')
+                    $('#xuanxiang').css('top' , Number(dhlH) + 'px')
+                    $('#xuanxiang').css('left' , '0px')
+                }else{
+                    $('#xuanxiang').css('position' , '')
+                    $('#xuanxiang').css('top' , '')
+                    $('#xuanxiang').css('left' , '')
+                }
+                  //获取滚动条的滚动高度
+            
+        
+                  if(scrollTop >= outerHeight){  //如果滚动高度大于可视区域高度，则显示回到顶部按钮
+                    $('#return_top').css('display' , 'flex')
+                  }else{         //否则隐藏
+                    $('#return_top').css('display' , 'none')
+                  }
+          
+                  //主要用于判断当 点击回到顶部按钮后 滚动条在回滚过程中，若手动滚动滚动条，则清除定时器
+                  if(!isTop){     
+                      clearInterval(timer);
+                  }
+                  isTop = false;
                 if (innerHeight > (outerHeight + scrollTop)) {
                     jishu = "1"
                 }
@@ -106,9 +255,9 @@ window.onload=function(){
                             page:shuzi
                         },
                     })
-                    .then(function (response) {
-                        console.log(response.data.content);
-                        var users = response.data.content.content.data;
+                    .then(function (res) {
+                        console.log(res.data.content);
+                        var users = res.data.content.content.data;
                         qiyes = userss.concat(users)
                         than.users = qiyes;
                         than.pages = shuzi

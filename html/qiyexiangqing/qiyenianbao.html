@@ -92,9 +92,9 @@ input {
 <body style="background:#f2f2f2;height:100%;">
     <div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
     </div>
-    <nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
+    <nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;top: 0;" id="daohanglan">
         <div class="container-fluid">
-            <div class="">
+            <div class="" style="display: flex; justify-content: space-between;align-items: center;">
                 <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
                 <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10" style="color: #fff;text-align: center;">企业年报</a>
                 <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;float: right;text-align: right;"><span class="glyphicon glyphicon-remove" style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
@@ -103,7 +103,7 @@ input {
     </nav>
     <div>
         <!-- 正文开始 -->
-        <div id="app" v-cloak>
+        <div id="app" v-cloak >
             <div style="color:#000;width:100%;" v-if="users.length == '0'">
                 <img src="../../image/zanwushuju.png" v-if="jiazai == '1'" style="position: absolute; width: 60%;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-o-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
                 <img src="../../image/jiazai.gif" v-else style="position: absolute; width: 10%;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-o-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">

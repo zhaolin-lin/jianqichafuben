@@ -17,6 +17,43 @@
 	<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
 	<script src="../../js/axios.js"></script>
 	<script src="../../js/sousuo/qiyechaxun.js"></script>
+	<style>
+		.mask{
+			width: 100%;
+			height: 100vh;
+			display: none;
+			background-color: rgba(0, 0, 0, 0.2);
+			position: absolute;
+			top: 39px;
+			left: 0;
+			z-index: 99999;
+		}
+		.navDown{
+			width: 100%;
+			height: 250px;
+			background-color: #fff;
+			position: absolute;
+			top: 39px;
+			left: 0;
+			z-index: 100000;
+			display: none;
+		}
+		.navDownL{
+			width: 50%;
+			height: 100%;
+			float: left;
+			overflow: scroll;
+		}
+		.navDownR{
+			width: 50%;
+			height: 100%;
+			float: right;
+			overflow: scroll;
+		}
+		.navDownL ul,.navDownR ul{width: 100%;height: 100%;margin: 0;padding: 0;}
+		.navDownL ul li,.navDownR ul li{width: 100%;text-align: center;font-size: 14px;
+		}
+	</style>
 </head>
 
 <body style="background:#fff;height:100%;">
@@ -26,7 +63,7 @@
 		style="background:#fff;position: fixed;;width: 100%;z-index: 100000;border-bottom: 1px solid #f2f2f2;"
 		id="daohanglan">
 		<div class="container-fluid">
-			<div class="">
+			<div class="" style="display: flex; justify-content: space-between;align-items: center;">
 				<a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
 					style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left"
 						style="color: rgb(0, 0, 0);" onclick="Mback()"></span></a>
@@ -53,40 +90,77 @@
 			<div style="height: 50px;overflow: hidden;display: flex;align-items: center;justify-content: center;"
 				class="col-xs-12">
 				<button
-					style="margin: 20px 0 20px 0;background: #FE7800;border-radius: 10px;width: 30%;height: 40px;border:1px solid #FE7800;outline:none;color: #fff"
+					style="background: #FE7800;border-radius: 10px;width: 30%;height: 40px;border:1px solid #FE7800;outline:none;color: #fff"
 					@click='sendGetByObj'>开始查询</button>
 			</div>
-			<div style="height: 40px;overflow: hidden;display: flex;align-items: center;justify-content: center;border-bottom: 1px solid #cacaca;border-top: 1px solid #cacaca;padding: 0px;background: #fff;z-index:1000"
+			<div style="height: 40px;display: flex;align-items: center;justify-content: center;border-bottom: 1px solid #cacaca;border-top: 1px solid #cacaca;padding: 0px;background: #fff;z-index:1000;position: relative;"
 				class="col-xs-12" id="xuanxiang">
-				<div class="col-xs-4" style="text-align: center;padding: 0px;">
-					<span style="font-size: 16px;font-weight: bold;">选择地区</span><span
-						class="glyphicon glyphicon-chevron-up" style="color: rgb(0, 0, 0);"></span>
+				<div class="col-xs-4" style="text-align: center;padding: 0px;" @click="getLocations()">
+					<span style="font-size: 16px;font-weight: bold;">选择地区</span>
+					<span :class="{glyphicon:true, 'glyphicon-chevron-down':isUnder,'glyphicon-chevron-up':isAbove}" style="color: rgb(0, 0, 0);"></span>
 				</div>
-				<div class="col-xs-4" style="text-align: center;padding: 0px;">
-					<span style="font-size: 16px;font-weight: bold;">企业类型</span><span
-						class="glyphicon glyphicon-chevron-up" style="color: rgb(0, 0, 0);"></span>
+				<div class="col-xs-4" style="text-align: center;padding: 0px;" @click="getCompanyKind()">
+					<span style="font-size: 16px;font-weight: bold;">企业类型</span>
+					<span :class="{glyphicon:true, 'glyphicon-chevron-down':isUnder,'glyphicon-chevron-up':isAbove}" style="color: rgb(0, 0, 0);"></span>
 				</div>
-				<div class="col-xs-4" style="text-align: center;padding: 0px;">
-					<span style="font-size: 16px;font-weight: bold;">资质类别</span><span
-						class="glyphicon glyphicon-chevron-up" style="color: rgb(0, 0, 0);"></span>
+				<div class="col-xs-4" style="text-align: center;padding: 0px;" @click="getAptitudeKind()">
+					<span style="font-size: 16px;font-weight: bold;">资质类别</span>
+					<span :class="{glyphicon:true, 'glyphicon-chevron-down':isUnder,'glyphicon-chevron-up':isAbove}" style="color: rgb(0, 0, 0);"></span>
+				</div>
+				<div id="mask" class="mask" @click="closeBox()" @touchmove.prevent></div>
+				<!-- 地区 -->
+				<div class="navDown" id="navDown_dq">
+					<div class="navDownL">
+						<ul>
+							<li v-for="item in province" :aid="item.id" @click="getCountry(item.id,item.name)">{{item.name}}</li>
+						</ul>
+					</div>
+					<div class="navDownR">
+						<ul>
+							<li v-for="item in country" :aid="item.id" @click="getClick(item.id)">{{item.name}}</li>
+						</ul>
+					</div>
+				</div>
+				<!-- 企业类型 -->
+				<div class="navDown" id="navDown_qy">
+					<div class="navDownL">
+						<ul>
+							<li v-for="item in companyKind" :aid="item.id" @click="getCompanyClick(item.id)">{{item.typename}}</li>
+						</ul>
+					</div>
+				</div>
+				<!-- 资质类别 -->
+				<div class="navDown" id="navDown_zz">
+					<div class="navDownL">
+						<ul>
+							<li v-for="item in aptitudeKind" :aid="item.key" @click="getAptitudeKey(item.key)">{{item.name}}</li>
+						</ul>
+					</div>
+					<div class="navDownR">
+						<ul>
+							<li v-for="item in aptitudeList" :aid="item.key" @click="getAptitudeClick(item.id)">{{item.name}}</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div style="position: relative; z-index: 1000;background: #000;">
+		<!-- <div style="position: relative; z-index: 1000;background: #000;">
 			123
-		</div>
+		</div> -->
 		<div style="overflow: auto;background: #f2f2f2;">
-			<div class="jiazaizhong" id="jiazaizhong">
+			<!-- <div class="jiazaizhong" id="jiazaizhong" style="display:none">
 				<img src="../../image/jiazai.gif" width="30px;">
-			</div>
+			</div> -->
 			<div class="nones" v-if="users == undefined">
 				<img src="../../image/undraw_signal_searching_bhpc.png" style="width: 80%;margin-left: 10%;">
 			</div>
 			<div style="background:#f0f0f0" class="quanbu111" v-else>
 				<div v-for="user in users" style="background: #fff;margin-bottom:10px;height: 155px;padding-top: 10px;padding-bottom: 10px;">
-					<div class="col-xs-12" style="padding: 0 15px;"  @click="Company(user.aid)">
-						<span style="display: inline-block;width: 50px; line-height: 50px;height: 50px;background: #000;border-radius: 5px;">123</span>
-						<span style="display: inline-block;height: 50px;line-height: 50px;margin-left: 10px;font-weight: bold;"  v-html="user.qymc" > {{user.qymc}}</span>
+					<div class="col-xs-12" style="padding: 0 15px;display: flex;align-items: center;"  @click="Company(user.aid)">
+						<span style="display: inline-block;width: 50px; line-height: 50px;height: 50px;border-radius: 5px;">
+							<img :src="user.image" alt="" >
+						</span>
+						<span style="width: 80%;display: inline-block;height: 50px;line-height: 25px;margin-left: 10px;font-weight: bold;word-wrap:break-word;"  v-html="user.qymc" > {{user.qymc}}</span>
 					</div>
 					<div class="col-xs-12" style="padding: 0px; line-height: 30px;">
 						<div class="col-xs-4" style="text-align: center;padding: 0px;color: #ABAAAA;">
@@ -104,10 +178,10 @@
 							{{user.qyfr}}
 						</div>
 						<div class="col-xs-4" style="text-align: center;padding: 0px;color: #000;">
-							{{user.qyfr}}<!-- 无接口数据 -->
+							{{user.zzzb}}
 						</div>
 						<div class="col-xs-4" style="text-align: center;padding: 0px;color: #000;">
-							{{user.qyfr}}<!-- 无接口数据 -->
+							{{user.clrq}}
 						</div>
 					</div>
 					<div class="col-xs-12" style="padding: 0px; line-height: 30px;">

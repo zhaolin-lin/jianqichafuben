@@ -6,7 +6,7 @@ window.onload = function () {
     var isTop = true; //定义一个布尔值，用于判断是否到达顶部
 
     var lastname = localStorage.getItem("key1123");
-    console.log(lastname)
+    // console.log(lastname)
     var jishu = '0';
     var xuanzhong = "";
     var shiid = "";
@@ -16,6 +16,7 @@ window.onload = function () {
     document.getElementById('daohanglan').style.top = widthLIN + 'px';
     var dhlH = document.getElementById('daohanglan').offsetHeight;
     document.getElementById('app').style.top = Number(widthLIN) + Number(dhlH) + 'px';
+    var search=""
     var name, value;
     var str = location.href;
     var num = str.indexOf("?")
@@ -56,18 +57,213 @@ window.onload = function () {
             zzlx: "选择资质类别",
             zzlxid: "",
             zzleixings: "",
-            zzlxs: "选择资质类别"
+            zzlxs: "选择资质类别",
+            // 2020-4-15新增
+            isAbove:false,
+            isUnder:true,
+            province:[],
+            country:[],
+            companyKind:[],
+            aptitudeKind:[],
+            aptitudeList:[],
+            getProId:"",
+            getCouId:"",
+            getComName:"",
+            aptitudeKey:"",
         }, 
         mounted: function () {
             this.sendGetByObj();
+            console.log("this.isAbove:",this.isAbove,"this.isUnder:",this.isUnder)
         },
         created: function () {
             window.addEventListener('scroll', this.onScroll);
         },
         methods: {
+            // 关闭mask
+            closeBox:()=>{
+                this.isAbove=false;
+                this.isUnder=true;
+                console.log("this.isAbove:",this.isAbove,"this.isUnder:",this.isUnder)
+                $(".navDown").css("display","none");
+                $("#mask").css("display","none");
+            },
+            // 下拉菜单获取地区
+            getLocations:function () {
+                var than = this;
+                $("#navDown_dq").css("display","block");
+                $("#navDown_qy").css("display","none");
+                $("#navDown_zz").css("display","none");
+                $("#mask").css("display","block");
+                this.isAbove=true;
+                this.isUnder=false;
+                this.$http.post('../../../index.php/index/qy/dq',{
+                    params:{
+                        act:"app",
+                        xian:this.xian
+                    }
+                })
+                .then(res=>{
+                    console.log(res.data.list,than.getProId)
+                    than.province=res.data.list;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            getCountry: function (pid,pname) {
+                
+                var than = this;
+                than.getProId = pname;
+                // console.log("province",than.getProId)
+                this.$http.get('../../../index.php/index/qy/dq',{
+                    params:{
+                        act:"app",
+                        xian:pid
+                    }
+                })
+                .then(res=>{
+                    // console.log(res,res.data.list)
+                    than.country=res.data.list;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            getClick: function (cid) {
+                $(".navDown").css("display","none");
+                $("#mask").css("display","none");
+                var than =this;
+                than.getCouId = cid
+                console.log("country",than.getCouId,than.getProId)
+                this.$http.get('../../../index.php/index/qy',{
+                    params:{
+                        act:"app",
+                        keyword:than.getProId,
+                        nativeplace:than.getCouId,
+                    }
+                })
+                .then(res=>{
+                    // console.log(res.data.content.content.data)
+                    than.users=res.data.content.content.data;
+                    than.page = res.data.content.content.pages;
+                    than.number = res.data.content.content.number;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+
+            // 获取企业类型
+            getCompanyKind:function () {
+                $("#navDown_dq").css("display","none");
+                $("#navDown_qy").css("display","block");                
+                $("#navDown_zz").css("display","none");
+                $("#mask").css("display","block");
+                this.$http.get("../../../index.php/index/qy/canshu",{
+                    params:{
+                        act:"app",
+                        action:"cslx"
+                    }
+                })
+                .then(res=>{
+                    console.log(res);
+                    this.companyKind = res.data.typeid
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            getCompanyClick:function (tid){
+                $(".navDown").css("display","none");
+                $("#mask").css("display","none");
+                var than = this
+                this.getComName = tid
+                console.log(this.getProId,this.getCouId,this.getComName)
+                this.$http.get('../../../index.php/index/qy',{
+                    params:{
+                        act:"app",
+                        keyword:this.getProId,
+                        nativeplace:this.getCouId,
+                        tid:this.getComName,
+                    }
+                })
+                .then(res=>{
+                    // console.log(res.data.content.content.data)
+                    than.users=res.data.content.content.data;
+                    than.page = res.data.content.content.pages;
+                    than.number = res.data.content.content.number;
+                })   
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            // 获取资质类别
+            getAptitudeKind: function () {
+                $("#navDown_dq").css("display","none");
+                $("#navDown_qy").css("display","none");                
+                $("#navDown_zz").css("display","block");
+                $("#mask").css("display","block");
+                this.$http.get('../../../index.php/index/qy/canshu',{
+                    params:{
+                        act:"app",
+                        action:"zzlb"
+                    }
+                })
+                .then(res=>{
+                    console.log("11",res.data.list.list)
+                    this.aptitudeKind=res.data.list.list
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+            },
+            getAptitudeKey:function(key){
+                console.log(key)
+                this.aptitudeKey = key
+                this.$http.get('../../../index.php/index/qy/canshu',{
+                    params:{
+                        act:"app",
+                        action:"zzlb"
+                    }
+                })
+                .then(res=>{
+                    // console.log("11",res.data.list.list)
+                    for(let i=0;i<this.aptitudeKind.length;i++){
+                        if(this.aptitudeKind[i].key==key){
+                            this.aptitudeList=res.data.list.list[i].next
+                            console.log("for",this.aptitudeList)
+                        }
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+            },
+            getAptitudeClick:function (){
+                $(".navDown").css("display","none");
+                $("#mask").css("display","none");
+                var than = this;
+                this.$http.get('../../../index.php/index/qy',{
+                    params:{
+                        act:"app",
+                        keyword:this.getProId,
+                        nativeplace:this.getCouId,
+                        zzlb:this.aptitudeKey,
+                        tid:this.getComName,
+                    }
+                })
+                .then(res=>{
+                    // console.log(res.data.content.content.data)
+                    than.users=res.data.content.content.data;
+                    than.page = res.data.content.content.pages;
+                    than.number = res.data.content.content.number;
+                })   
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
             sendGetByObj: function () {
-                 $("#inputi").blur(); 
-                document.getElementById('jiazaizhong').style.display = 'block';
+                 $("#input").blur(); 
                 var than = this;
                 this.$http.get('../../../index.php/index/qy', {
                     params: {
@@ -79,11 +275,10 @@ window.onload = function () {
                     },
                 })
                     .then(function (res) {
-                        //console.log(res.data.content);
+                        console.log(res.data.content.content);
                         than.users = res.data.content.content.data;
                         than.page = res.data.content.content.pages;
                         than.number = res.data.content.content.number;
-                        document.getElementById('jiazaizhong').style.display = 'none';
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -158,7 +353,7 @@ window.onload = function () {
                         }
                     })
                         .then(function (res) {
-                            console.log(res.data.content);
+                            // console.log(res.data.content);
                             var users = res.data.content.content.data;
                             qiyes = qiye1.concat(users)
                             than.users = qiyes;

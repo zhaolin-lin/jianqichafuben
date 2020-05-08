@@ -178,13 +178,13 @@
         <div class="container-fluid">
             <div class="">
                 <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
-                    style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left"
+                    style="color: #fff;text-align: right;padding:15px 0px;"><span class="glyphicon glyphicon-chevron-left"
                         style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
                 <a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10"
-                    style="color: #fff;text-align: center;">企业员工</a>
+                    style="color: #fff;text-align: center;padding:15px 0px;">企业员工</a>
                 <a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1"
-                    style="color: #fff;float: right;text-align: right;"><span class="glyphicon glyphicon-remove"
-                        style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
+                    style="color: #fff;float: right;text-align: left;padding:15px 0px;"><span class="glyphicon glyphicon-remove"
+                        style="color: rgb(255, 255, 255)" onclick="Mclose()"></span></a>
             </div>
         </div>
     </nav>
@@ -210,10 +210,10 @@
                         <th style="text-align: center;border: 1px solid #fff">注册专业</th>
                     </tr>
                     <tr v-for="(user,index) in users" :class="index%2 == '0'? 'class1':'class2' ">
-                        <th style="text-align: center;border: 1px solid #fff">{{ user.cname }}</th>
-                        <th style="text-align: center;border: 1px solid #fff">{{ user.cardid }}</th>
+                        <th style="text-align: center;border: 1px solid #fff">{{ user.name }}</th>
+                        <th style="text-align: center;border: 1px solid #fff">{{ user.cardname }}</th>
                         <th style="text-align: center;border: 1px solid #fff">{{ user.lx }}</th>
-                        <th style="text-align: center;border: 1px solid #fff">{{ user.zch }}</th>
+                        <th style="text-align: center;border: 1px solid #fff">{{ user.zyyzh }}</th>
                         <th style="text-align: center;border: 1px solid #fff">{{ user.zczy }}</th>
                     </tr>
                 </table>

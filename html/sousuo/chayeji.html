@@ -16,13 +16,50 @@
 	<script src="../../js/axios.js"></script>
 	<script src="../../js/sousuo/qiyechaxun.js"></script>
 	<script src="../../js/vconsole.min.js"></script>
+	<style>
+		.mask{
+			width: 100%;
+			height: 100vh;
+			display: none;
+			background-color: rgba(0, 0, 0, 0.2);
+			position: absolute;
+			top: 39px;
+			left: 0;
+			z-index: 99999;
+		}
+		.navDown{
+			width: 100%;
+			height: 250px;
+			background-color: #fff;
+			position: absolute;
+			top: 39px;
+			left: 0;
+			z-index: 100000;
+			display: none;
+		}
+		.navDownL{
+			width: 50%;
+			height: 100%;
+			float: left;
+			overflow: scroll;
+		}
+		.navDownR{
+			width: 50%;
+			height: 100%;
+			float: right;
+			overflow: scroll;
+		}
+		.navDownL ul,.navDownR ul{width: 100%;height: 100%;margin: 0;padding: 0;}
+		.navDownL ul li,.navDownR ul li{width: 100%;text-align: center;font-size: 14px;
+		}
+	</style>
 </head>
 <body style="background:#fff;height:100%;">
 <div id="widthLI" style="background: #FD9700;position: fixed;width: 100%;z-index: 100000;top:0px">
 	</div>
 <nav class="navbar navbar-default" role="navigation" style="background:#FD9700;position: fixed;;width: 100%;z-index: 100000;" id="daohanglan">
 	<div class="container-fluid">
-		<div class="">
+		<div class="" style="display: flex;justify-content: space-between;align-items: center;">
 			<a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;text-align: center;"><span class="glyphicon glyphicon-chevron-left" style="color: rgb(255, 255, 255);" onclick="Mback()"></span></a>
 			<a class="navbar-brand col-xs-10 col-sm-10 col-md-10 col-lg-10" style="color: #fff;text-align: center;">业绩查询</a>
 			<a class="navbar-brand col-xs-1 col-sm-1 col-md-1 col-lg-1" style="color: #fff;float: right;text-align: right;" ><span class="glyphicon glyphicon-remove" style="color: rgb(255, 255, 255);margin-left: -15px" onclick="Mclose()"></span></a>
@@ -33,24 +70,73 @@
 <!-- 内容开始 -->
 
 <div style="background: #fff;position: absolute;top:50px;width: 100%" id="app" v-cloak>
-	<div style="width: 100%;">
+	<!-- <div style="width: 100%;">
 		<div style="line-height: 50px;width: 23%;float: left;margin-left: 20px">地区选择：</div>
 		 <div style="line-height: 30px;width: 30%;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 10px" @click='shengObj'>{{sheng}}
 		</div>  
 		<div style="line-height: 30px;width: 30%;background: #f2f2f2;border: 1px solid #f2f2f2;border-radius: 5px;float: left;height: 30px;margin-top: 10px;text-align: center;margin-left: 10px;" @click='shiObj'>{{shi}}
 		</div>  
-	</div>
+	</div> -->
 
-	<div style="height: 50px;overflow: hidden;" class="col-xs-12">
-		<div style="line-height: 50px;float: left;margin-left: 20px;" class="col-xs-3">企业名称：</div>
-		<div style="line-height: 30px;float: left;margin-top: 10px;" class="col-xs-8"><input type="serch" name="" placeholder="输入企业名称" style="border-radius: 10px;border:1px solid #C2C2C2" class="col-xs-12"  v-model='str' id="inputi" @keyup.enter="sendGetByObj"></div>  
+	<div style="height: 50px;overflow: hidden;display:flex;justify-content: center;align-items: center;" class="">
+		<!-- <div style="line-height: 50px;float: left;margin-left: 20px;" class="col-xs-3">企业名称：</div> -->
+		<div style="width: 91%;line-height: 37px;float: left;margin-top: 10px;" class=""><input type="serch" name="" placeholder="输入企业名称" style="width :100%;border-radius: 10px;text-align:center;background:rgb(242, 242, 242);border:none;outline:none" class=""  v-model='str' id="inputi" @keyup.enter="sendGetByObj"></div>  
 	</div>
 	<div style="width: 100%;overflow: hidden;text-align: center;">
 		<button style="margin: 20px 0 20px 0;background: #FD9700;border-radius: 10px;width: 30%;height: 40px;border:1px solid #FD9700;outline:none;color: #fff" @click = 'sendGetByObj'>开始查询</button>  
 	</div>
-	<div class="header" style="background: #f2f2f2">
+	<div style="height: 40px;display: flex;align-items: center;justify-content: center;border-bottom: 1px solid #cacaca;border-top: 1px solid #cacaca;padding: 0px;background: #fff;z-index:1000;position: relative;"
+				class="col-xs-12" id="xuanxiang">
+			<div class="col-xs-4" style="text-align: center;padding: 0px;" @click="getLocations()">
+				<span style="font-size: 16px;font-weight: bold;">选择地区</span>
+				<span class="glyphicon glyphicon-chevron-down" style="color: rgb(0, 0, 0);"></span>
+			</div>
+			<div class="col-xs-4" style="text-align: center;padding: 0px;" @click="getCompanyKind()">
+				<span style="font-size: 16px;font-weight: bold;">企业类型</span>
+				<span class="glyphicon glyphicon-chevron-down" style="color: rgb(0, 0, 0);"></span>
+			</div>
+			<div class="col-xs-4" style="text-align: center;padding: 0px;" @click="getAptitudeKind()">
+				<span style="font-size: 16px;font-weight: bold;">资质类别</span>
+				<span class="glyphicon glyphicon-chevron-down" style="color: rgb(0, 0, 0);"></span>
+			</div>
+			<div id="mask" class="mask" @click="closeBox()" @touchmove.prevent></div>
+			<div class="navDown" id="navDown_dq">
+				<div class="navDownL">
+					<ul>
+						<li v-for="item in province" :aid="item.id" @click="getCountry(item.id,item.name)">{{item.name}}</li>
+					</ul>
+				</div>
+				<div class="navDownR">
+					<ul>
+						<li v-for="item in country" :aid="item.id" @click="getClick(item.id)">{{item.name}}</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 企业类型 -->
+			<div class="navDown" id="navDown_qy">
+				<div class="navDownL">
+					<ul>
+						<li v-for="item in companyKind" :aid="item.id" @click="getCompanyClick(item.id)">{{item.typename}}</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 资质类别 -->
+			<div class="navDown" id="navDown_zz">
+				<div class="navDownL">
+					<ul>
+						<li v-for="item in aptitudeKind" :aid="item.key" @click="getAptitudeKey(item.key)">{{item.name}}</li>
+					</ul>
+				</div>
+				<div class="navDownR">
+					<ul>
+						<li v-for="item in aptitudeList" :aid="item.key" @click="getAptitudeClick(item.id)">{{item.name}}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	<!-- <div class="header" style="background: #f2f2f2">
 		<div style="font-size:10px;color:#737780">总共找到<span v-if="users == undefined">0</span><span v-else>{{number}}</span>条相关信息</div>
-</div>
+	</div> -->
 <!-- 企业自动生成开始 -->
 	<div class="jiazaizhong" id="jiazaizhong">
 		<img src="../../image/jiazai.gif" width="30px;">
@@ -58,9 +144,14 @@
 	<div class="nones" v-if="users == undefined">
 		<img src="../../image/undraw_signal_searching_bhpc.png" style="width: 80%;margin-left: 10%;">
 	</div>
-	<div style="background:#f0f0f0" class="quanbu111" v-else>
+	<div style="background:#f0f0f0;margin-top:40px" class="quanbu111" v-else>
 		<div v-for="(user,index) in users" style="background: #fff;margin-top: 10px;" @click="Company(user.aid)">
-			<div style="margin-left:15px;padding-bottom:10px;padding-top:15px;" >{{user.qymc}}   <span style="float: right;padding-right: 15px;">业绩<span style="color:red">{{user.xiangmu}}</span>项</span></div>
+			<div style="padding: 15px 15px 0;display: flex;align-items: center;" >
+				<span style="display: inline-block;width: 50px; line-height: 50px;height: 50px;border-radius: 5px;">
+					<img :src="user.image" alt="">
+				</span>
+				<span v-html="user.qymc" style="width: 80%;display: inline-block;height: 50px;line-height: 25px;margin-left: 10px;font-weight: bold;word-wrap:break-word;">{{user.qymc}}</span>	
+			</div>
 				<!-- <div style="width:90%;height:30px;line-height:30px;margin-left:15px">
 					<div style="float:left"><img src="../../image/zizhi.png" alt="" style="float:left;width:18px;margin-top: 6px;">
 					<div style="float:left" @click="zizhi(user.aid)">资质<span style="color:red">{{user.zizhi}}</span>项</div></div>
@@ -73,7 +164,10 @@
 						<div style="float:left" @click="zhucerenyuan(user.aid)">注册人员<span style="color:red">{{user.rynum}}</span>人</div>
 					</div>
 				</div> -->
-				<div style="font-size:14px;padding:10px 15px 20px 15px">{{user.xm.title}}</span></div>
+				<div style="font-size:14px;padding:10px 15px 30px 15px">
+					<span v-if="user.xm != ''">{{user.xm.title}}</span>
+					<span style="float: right;">业绩<span style="color:red">{{user.xiangmu}}</span>项</span>
+				</div>
 			</div>
 		</div>
 <div>
